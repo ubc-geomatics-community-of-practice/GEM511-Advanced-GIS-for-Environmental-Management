@@ -1,0 +1,76 @@
+```{r echo=FALSE}
+yml_content <- yaml::read_yaml("chapterauthors.yml")
+author <- yml_content[["geographically-weighted-regression"]][["author"]]
+```
+# Lab Title {#geographically-weighted-regression}
+
+Written by
+```{r results='asis', echo=FALSE}
+cat(author)
+```
+
+## Lab Overview {.unnumbered}
+
+In this lab, you will be exploring one of the newer techniques of spatial analysis: geographically weighted regression (GWR). GWR is the spatial extension of aspatial regression analysis and much more. Traditional regression analysis assumes that global statistics adequately describe local relationships that might exist in the data. For example, consider looking at the relationship between housing prices and the floor space, lot size, etc., of houses in the city of Vancouver. While we could develop a 'global' model that adequately describes the relationship between those variables, knowing what you do about housing prices in the city of Vancouver (e.g., that a house of similar dimensions, age, lot size, etc., in the east side of Vancouver will sell for hundreds of thousands of dollars less than an identical house in the west side of Vancouver), the utility of such a model when looking at neighborhood-level housing issues would be very doubtful. Nonetheless, for decades such models, such as hedonic models, have been normalized in real estate research.
+
+Similarly, consider studying the relationship between rates of crime or diseases to environmental conditions, local conditions can be much more important than any global relationship that might be discovered via a traditional aspatial statistical approach. Using polygon or point data, GWR allows us to explore the local relationships amongst a set of variables and examine the results spatially using ArcGIS. It should be noted that in R you can find more sophisticated approaches to GWR than what is provided by ArcGIS.
+
+In this lab, we will explore the relationship between green space and a small set of demographic variables in Vancouver. The variables were collected from [https://censusmapper.ca/#12/49.2560/-123.1178](www.censusmapper.ca). Census Mapper offers services that allow for easier access to certain Statistics Canada data and census variables. (Note: To download data from the website, you will need to register for an account. For this lab, we have already downloaded the relevant data for you.) 
+
+------------------------------------------------------------------------
+
+## Learning Objectives {.unnumbered}
+
+-   Lorem ipsum
+-   Lorem ipsum 
+-   Lorem ipsum 
+
+------------------------------------------------------------------------
+
+## Deliverables {.unnumbered}
+
+-   Lorem ipsum
+-   Lorem ipsum
+-   Lorem ipsum
+
+------------------------------------------------------------------------
+
+## Data {.unnumbered}
+
+Lorem ipsum
+
+------------------------------------------------------------------------
+
+## Task 1: Lorem ipsum {.unnumbered}
+
+Lorem ipsum
+
+**Step 1:** Lorem ipsum.
+
+**Step 2:** Lorem ipsum.
+
+**Step 3:** Lorem ipsum.
+
+__HINT: Lorem ipsum.__
+
+##### Q1. LOREM IPSUM? {.unnumbered}
+
+##### Q2. LOREM IPSUM? {.unnumbered}
+
+------------------------------------------------------------------------
+
+## Task 2: Lorem ipsum {.unnumbered}
+
+Lorem ipsum
+
+**Step 1:** Lorem ipsum.
+
+**Step 2:** Lorem ipsum.
+
+**Step 3:** Lorem ipsum.
+
+__HINT: Lorem ipsum.__
+
+##### Q3. LOREM IPSUM? {.unnumbered}
+
+##### Q4. LOREM IPSUM? {.unnumbered}

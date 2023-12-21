@@ -1,0 +1,84 @@
+```{r echo=FALSE}
+yml_content <- yaml::read_yaml("chapterauthors.yml")
+author <- yml_content[["terrain-spatial-interpolation"]][["author"]]
+```
+# Lab Title {#terrain-spatial-interpolation}
+
+Written by
+```{r results='asis', echo=FALSE}
+cat(author)
+```
+
+## Lab Overview {.unnumbered}
+
+The aim of this lab is to use LiDAR data from the University of British Columbia Malcolm Knapp Research Forest (MKRF) to create Digital Terrain Model (DTM) using a variety of spatial interpolation techniques. We will then investigate how these methods compare to one another, and explore their strengths and weaknesses. Additionally, we will explore point cloud manipulation using the Point Data Abstraction Library (PDAL) and 3D visualization of scenes in ArcGIS Pro.
+
+------------------------------------------------------------------------
+
+## Learning Objectives {.unnumbered}
+
+- Interpret metadata for a LiDAR acquisition
+- Manipulate a LiDAR point cloud with a variety of different tools
+- Extract a LiDAR point cloud for an Area of Interest (AOI)
+- Create a raster Digital Terrain Model (DTM) from a LiDAR point cloud
+- Observe and distinguish the differences between terrain modelling approaches
+
+------------------------------------------------------------------------
+
+## Deliverables {.unnumbered}
+
+<input type="checkbox" unchecked> Something (X points)</input>
+
+<input type="checkbox" unchecked> Something (X points)</input>
+
+------------------------------------------------------------------------
+
+## Data {.unnumbered}
+
+All data for this lab are accessible via the UBC PostgreSQL server and the public MGEM Data Store. Instructions for connecting to the server and data store are given in the tasks below and prior labs.
+
+------------------------------------------------------------------------
+
+## Task 1: Mosiac LiDAR and clip to an area of interest with PDAL {.unnumbered}
+
+Navigate to the MGEM Data Store and find the PDF that documents the LiDAR acquisition for UBC's Maclolm Knapp Research Forest (MKRF). Take note of the vertical and horizontal datums.
+
+**Step 1:** Pick any of the LAZ files from the data store and download it to a folder on your computer for this lab. Open Windows command prompt and run the command `pdal info [FILE NAME]`.
+
+------------------------------------------------------------------------
+
+## Task 2: Visualize LiDAR data in QGIS {.unnumbered}
+
+Lorem ipsum
+
+**Step 1:** Lorem ipsum.
+
+------------------------------------------------------------------------
+
+## Task 3: Visualize LiDAR data in ArcGIS Pro {.unnumbered}
+
+Lorem ipsum
+
+**Step 1:** Lorem ipsum.
+
+------------------------------------------------------------------------
+
+## Task 4: Apply spatial interpolation algorithms {.unnumbered}
+
+Lorem ipsum
+
+**Step 1:** Lorem ipsum.
+
+------------------------------------------------------------------------
+
+## Task 5: Visualize terrain surfaces in ArcGIS Pro scene {.unnumbered}
+
+Lorem ipsum
+
+**Step 1:** Lorem ipsum.
+
+Overview
+1. Collect las/laz
+2. Mosaic and clip to area of interest
+3. Compute binned raster (binmode=true) and IDW (binmode=false)
+4. Interpret and visualize

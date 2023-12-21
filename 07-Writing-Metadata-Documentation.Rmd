@@ -1,8 +1,8 @@
 ```{r echo=FALSE}
 yml_content <- yaml::read_yaml("chapterauthors.yml")
-author <- yml_content[["lab1shortname"]][["author"]]
+author <- yml_content[["writing-metadata-documentation"]][["author"]]
 ```
-# Lab Title {#lab-short-name}
+# Lab Title {#writing-metadata-documentation}
 
 Written by
 ```{r results='asis', echo=FALSE}

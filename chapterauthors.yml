@@ -1,14 +1,14 @@
-lab1shortname:
+terrain-spatial-interpolation:
   author: Paul Pickell
-lab2shortname:
+network-analysis:
   author: Paul Pickell
-lab3shortname:
+hydrology-analysis:
+  author: Hana Travers-Smith
+machine-learning:
+  author: Claire Armour
+geographically-weighted-regression:
   author: Paul Pickell
-lab4shortname:
+web-mapping:
   author: Paul Pickell
-lab5shortname:
-  author: Paul Pickell
-lab6shortname:
-  author: Paul Pickell
-lab7shortname:
+writing-metadata-documentation:
   author: Paul Pickell
