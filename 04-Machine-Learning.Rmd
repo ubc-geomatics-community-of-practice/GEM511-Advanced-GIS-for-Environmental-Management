@@ -3,7 +3,7 @@ yml_content <- yaml::read_yaml("chapterauthors.yml")
 author <- yml_content[["machine-learning"]][["author"]]
 ```
 
-# Lab Title {#machine-learning}
+# Machine Learning with Geospatial Data {#machine-learning}
 
 Written by
 
@@ -15,7 +15,7 @@ cat(author)
 
 In this lab, we will be using simple machine learning tools in ArcGIS Pro to predict two variables related to fuel in a post-burn scenario. In Task 1, you will check for spatial autocorrelation in our data and select a subset of input variables which will be most useful in predicting the outcome variables. In Task 2, you will create three different sample datasets using three types of sampling. In Task 3, you will be using a Random Forest classifier to create prediction surfaces for the two variables.
 
-Our area of interest is a large rectangular area in southern British Columbia containing the burn boundary from the 2017 Elephant Hill wildfire. The fire began on July 6th, 2017 and burned 191,865 ha in the south-central Interior region of BC, just northeast of Cache Creek (BC Gov News, 2020). It was the largest fire by area in the record-breaking 2017 BC wildfire season and was likely started by smoking materials (matches, cigarettes, etc.) (CBC News, 2020).
+Our area of interest is a large rectangular area in southern British Columbia containing the burn boundary from the 2017 Elephant Hill wildfire. The fire began on July 6th, 2017 and burned 191,865 ha in the south-central Interior region of BC, just northeast of Cache Creek. It was the largest fire by area in the record-breaking 2017 BC wildfire season and was likely started by smoking materials (matches, cigarettes, etc.).
 
 ```{r 01-elephant-hill-fire, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-elephant-hill-fire.png")
