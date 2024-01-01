@@ -35,7 +35,7 @@ Our area of interest is a large rectangular area in southern British Columbia co
 
 ------------------------------------------------------------------------
 
-## Deliverables {.unnumbered}
+## Deliverables {#lab4-deliverables .unnumbered}
 
 <input type="checkbox" unchecked> Answers to the questions posed throughout the lab (X points)</input> <input type="checkbox" unchecked> A PDF map of ONE of the FUEL_TYPE rasters and ONE of the CROWN_CLOS rasters, complete with all the necessary elements (labels, scale, compass, legend, etc.). These should be a full page each and separate files from your report. Be sure to specify in a caption or title what sampling design / parameter settings you are displaying in each.</input> <input type="checkbox" unchecked> A PDF report discussing the following points (max 5 pages, not including figures):</input>
 
@@ -259,3 +259,11 @@ When you are finished you should have 10 output rasters, 3 output confusion matr
 **Step 5:** View all of your new rasters in your map and inspect the results. Symbolize them in a logical manner.
 
 Your output rasters for FUEL_TYPE may be numbers, even though the variable was a string! If your fuel type prediction rasters show numbers, do the following: on each of your sample feature classes, open the attribute table and summarize the unique values in the FUEL_TYPE field using the same method as Task 2 Step 2. The OID in the summary table and the value in your corresponding output raster refer to the same fuel type, e.g., 0 is C-2, 1 is C-3, etc, as seen to the left. Change the labels for the legend in raster Symbology to the fuel type instead of the number when you make the map.
+
+------------------------------------------------------------------------
+
+## Summary {.unnumbered}
+
+Here
+
+Return to the **[Deliverables](#lab4-deliverables)** section to check off everything you need to submit for credit in the course management system

@@ -9,13 +9,13 @@ Written by
 cat(author)
 ```
 
-## Lab Overview {-}
+## Lab Overview {.unnumbered}
 
 Lorem ipsum
 
 ------------------------------------------------------------------------
 
-## Learning Objectives {-}
+## Learning Objectives {.unnumbered}
 
 -   Lorem ipsum
 
@@ -25,7 +25,7 @@ Lorem ipsum
 
 ------------------------------------------------------------------------
 
-## Competencies in This Lab {-}
+## Deliverables {#lab3-deliverables .unnumbered}
 
 -   Lorem ipsum
 
@@ -35,23 +35,13 @@ Lorem ipsum
 
 ------------------------------------------------------------------------
 
-## Deliverables {-}
-
--   Lorem ipsum
-
--   Lorem ipsum
-
--   Lorem ipsum
-
-------------------------------------------------------------------------
-
-## Data {-}
+## Data {.unnumbered}
 
 Lorem ipsum
 
 ------------------------------------------------------------------------
 
-## Task 1: Lorem ipsum {-}
+## Task 1: Lorem ipsum {.unnumbered}
 
 Lorem ipsum
 
@@ -63,13 +53,13 @@ Lorem ipsum
 
 __HINT: Lorem ipsum.__
 
-##### Q1. LOREM IPSUM? {-}
+##### Q1. LOREM IPSUM? {.unnumbered}
 
-##### Q2. LOREM IPSUM? {-}
+##### Q2. LOREM IPSUM? {.unnumbered}
 
 ------------------------------------------------------------------------
 
-## Task 2: Lorem ipsum {-}
+## Task 2: Lorem ipsum {.unnumbered}
 
 Lorem ipsum
 
@@ -81,6 +71,14 @@ Lorem ipsum
 
 __HINT: Lorem ipsum.__
 
-##### Q3. LOREM IPSUM? {-}
+##### Q3. LOREM IPSUM? {.unnumbered}
 
-##### Q4. LOREM IPSUM? {-}
+##### Q4. LOREM IPSUM? {.unnumbered}
+
+------------------------------------------------------------------------
+
+## Summary {.unnumbered}
+
+Here
+
+Return to the **[Deliverables](#lab3-deliverables)** section to check off everything you need to submit for credit in the course management system.

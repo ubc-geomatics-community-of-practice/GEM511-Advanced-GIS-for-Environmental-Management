@@ -25,7 +25,7 @@ The aim of this lab is to use LiDAR data from the University of British Columbia
 
 ------------------------------------------------------------------------
 
-## Deliverables {.unnumbered}
+## Deliverables {#lab1-deliverables .unnumbered}
 
 <input type="checkbox" unchecked> Something (X points)</input>
 
@@ -82,3 +82,11 @@ Overview
 2. Mosaic and clip to area of interest
 3. Compute binned raster (binmode=true) and IDW (binmode=false)
 4. Interpret and visualize
+
+------------------------------------------------------------------------
+
+## Summary {.unnumbered}
+
+Here
+
+Return to the **[Deliverables](#lab1-deliverables)** section to check off everything you need to submit for credit in the course management system.
