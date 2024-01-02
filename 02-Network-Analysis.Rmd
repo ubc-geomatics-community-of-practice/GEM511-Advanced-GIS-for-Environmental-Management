@@ -25,16 +25,6 @@ Lorem ipsum
 
 ------------------------------------------------------------------------
 
-## Competencies in This Lab {.unnumbered}
-
--   Lorem ipsum
-
--   Lorem ipsum
-
--   Lorem ipsum
-
-------------------------------------------------------------------------
-
 ## Deliverables {lab2-deliverables .unnumbered}
 
 -   Lorem ipsum

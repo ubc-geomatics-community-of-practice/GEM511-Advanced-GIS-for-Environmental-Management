@@ -26,11 +26,8 @@ Our area of interest is a large rectangular area in southern British Columbia co
 ## Learning Objectives {.unnumbered}
 
 -   Compare and contrast sampling designs on machine learning predictions
-
 -   Train, test, and predict a continuous variable (crown closure) using the random forest algorithm
-
 -   Train, test, and predict a categorical variable (fuel type) using the random forest algorithm
-
 -   Evaluate models by interpreting model statistics like R2, AIC, VIF, and confusion matrices
 
 ------------------------------------------------------------------------
@@ -266,4 +263,4 @@ Your output rasters for FUEL_TYPE may be numbers, even though the variable was a
 
 Here
 
-Return to the **[Deliverables](#lab4-deliverables)** section to check off everything you need to submit for credit in the course management system
+Return to the [**Deliverables**](#lab4-deliverables) section to check off everything you need to submit for credit in the course management system
