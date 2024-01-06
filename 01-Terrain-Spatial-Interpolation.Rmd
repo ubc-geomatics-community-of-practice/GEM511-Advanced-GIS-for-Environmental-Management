@@ -53,13 +53,11 @@ The aim of this lab is to use LiDAR data from the University of British Columbia
 
 ## Data {.unnumbered}
 
-We will be working with LiDAR data collected over the UBC Malcolm Knapp Research Forest (MKRF) in Maple Ridge, British Columbia. These data are publicly available from the Master of Geomatics for Environmental Management (MGEM) Data Store.
-
-There are three files associated with this lab:  MKRF_Data_Specifications.pdf: A document describing the LiDAR data collection  MKRF_lidar.las: The LiDAR data file. LAS is the standard file type for LiDAR data  MKRF_Aerial_Photo.tif: An orthophoto of our study area, which was collected at the same time as the LiDAR data
+We will be working with LiDAR data collected over the UBC Malcolm Knapp Research Forest (MKRF) in Maple Ridge, British Columbia. These data are publicly available from the Master of Geomatics for Environmental Management (MGEM) Data Store and the instructions for accessing these data are given in the tasks below.
 
 ------------------------------------------------------------------------
 
-## Task 1: Preprocess and visualize LiDAR data in PDAL {.unnumbered}
+## Task 1: Preprocess LiDAR data in PDAL {.unnumbered}
 
 Point cloud data are large. For example, the point cloud collection that we will be working with contains 1,671,233,402 points! Typically, we should not interact with point cloud data in a desktop environment until we have to. Graphical user interfaces like QGIS and ArcGIS Pro introduce a large amount of computational overhead when working with point cloud data and these software are more suited for visualizing the data rather than processing them. Point cloud data are much more commonly hosted on remote servers nowadays, in cloud-optimized formats, and available for on-demand and query-ready streaming.
 
@@ -85,7 +83,9 @@ A nice feature about QGIS is that it supports the ability to read any openly-spe
 
 Now that we have spatial tile metadata, we can perform spatial intersection to find the right tiles. Our AOI is going to be the following longitude-latitude bounding box:
 
-Lower left (LL): -122.55275, 49.32325 Upper right (UR): -122.52506, 49.34135
+Lower left (LL): -122.55275, 49.32325
+
+Upper right (UR): -122.52506, 49.34135
 
 **Step 4:** Open a notepad text editor and convert this bounding box into a geojson polygon feature with the following syntax:
 
@@ -116,13 +116,15 @@ Replace with the correct longitude/latitude values. Note that this creates a squ
 
 **Step 6:** Add all of the downloaded tiles to your QGIS map canvas. The default symbology is the classification attribute, but only ground returns have been classified for the research forest.
 
-However, the tiles are all still stored in separate files and some portions are outside our AOI. So next, we are going to filter, merge, and crop the point cloud, but we are going to do this outside of QGIS because it will be faster and more reliable. We are going to use the Point Data Abstraction Library (PDAL) command line utility to perform this processing. You can (and should) read more about the extensive PDAL functionality here: <https://pdal.io/> Note that many of the functions we are going to use with PDAL are available as tools through QGIS, but you have less control over the options and parameters with that method. Remember, we want to always work with the least amount of LiDAR data that our task requires.
+However, the tiles are all still stored in separate files and some portions are outside our AOI. So next, we are going to filter, merge, and crop the point cloud, but we are going to do this outside of QGIS because it will be faster and more reliable. We are going to use the Point Data Abstraction Library (PDAL) command line utility to perform this processing. You can read more about the extensive PDAL functionality here: <https://pdal.io/> Note that many of the functions we are going to use with PDAL are available as tools through QGIS, but you have less control over the options and parameters in QGIS.
+
+Remember, we want to always work with the least amount of LiDAR data that our task requires.
 
 **Step 7:** Open the OSGeo4W shell and navigate to your QGIS project folder where your LiDAR data are located. For example, `cd C:\users\paul\Documents\QGIS\mkrf_lidar`. Type the command `pdal --version` to make sure that PDAL was installed with your current version of QGIS. If a version number is returned in the console window, then continue to the next step, otherwise ask your instructor to help you install PDAL using the [OSGeo4W installer](https://trac.osgeo.org/osgeo4w).
 
 PDAL can run functions in two ways. First, as subcommands, much like you have used with GDAL in prior labs. For example, `pdal merge [filename1.laz] [filename2.las] output.copc.laz` will use the `merge` subcommand and the file names that follow to merge many different las/laz/copc files together into the named output. Subcommands are generally good for small or incidental tasks like converting a file format or re-projecting data, but if you want to apply a more complex workflow then you should use a pipeline.
 
-[Pipelines](https://pdal.io/en/2.6.0/pipeline.html#pipeline) are JSON-formatted files that give PDAL a set of instructions for reading, processing and writing point cloud data. With pipelines, you can define every step of the processing that you want and you can specify the finest level of detail at every stage. Below is an example of a pipeline that we are going to use, which is described in more detail below:
+[Pipelines](https://pdal.io/en/2.6.0/pipeline.html#pipeline) are JSON-formatted files that give PDAL a set of instructions for reading, processing and writing point cloud data. With pipelines, you can define every step of the processing that you want and you can specify the finest level of detail at every stage. Pipelines are executed linearly, so we read the instructions from top-down. Below is an example of a pipeline that we are going to use, which is described in more detail below:
 
 ```         
 {
@@ -191,7 +193,7 @@ This next filter stage [crops](https://pdal.io/en/2.6.0/stages/filters.crop.html
             },
 ```
 
-This next filter stage [merges](https://pdal.io/en/2.6.0/stages/filters.merge.html#filters-merge) all the ground returns in our AOI into a single stream, which is then passed to the last stage that writes it to an output file in laz format:
+This next filter stage [merges](https://pdal.io/en/2.6.0/stages/filters.merge.html#filters-merge) all the ground returns in our AOI into a single stream, which is then passed to the last stage that writes it to an output file in LAZ format:
 
 ```         
             {
@@ -200,13 +202,13 @@ This next filter stage [merges](https://pdal.io/en/2.6.0/stages/filters.merge.ht
             }
 ```
 
-**Step 8:** Copy of the contents of the pipeline to a text editor and save the file as "process-lidar.json" in your QGIS project folder.
+**Step 8:** Copy the contents of the pipeline to a text editor and save the file as "process-lidar.json" in your QGIS project folder.
 
 **Step 9:** Return to the OSGeo4W shell and run the pipeline using the following command: `pdal pipeline process-lidar.json`. It may take several minutes for this step to complete, but in the end you should have a file called "mkrf_aoi_lidar.laz" in your QGIS project folder. Drag it into QGIS and inspect it.
 
 ------------------------------------------------------------------------
 
-## Task 1: Visualize LiDAR data in QGIS {.unnumbered}
+## Task 2: Visualize LiDAR data in QGIS {.unnumbered}
 
 The default symbology of LiDAR data in QGIS will be the classification, but we only have ground returns in our file, so everything will appear brown. Try symbolizing some of the other attributes like Intensity, ReturnNumber, and ScanAngleRank.
 
@@ -230,11 +232,15 @@ Navigating 3D data can be challenging using a 2D input device like a mouse, so w
 
 ### Hold SHIFT: Orbit camera around fixed position {.unnumbered}
 
+If you want to pan around a fixed position, then hold the `SHIFT` key and drag your cursor. The point cloud will rotate in the opposite direction. As you can see from the animation below, dragging your cursor in a circular pattern rotates the point cloud around a stationary imaginary point. If you continuously drag your cursor to the right, you will rotate around the fixed point counter-clockwise.
+
 ```{r 01-qgis-shift, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-qgis-shift.gif")
 ```
 
 ### Hold CTRL: Maintain camera position and change camera angle {.unnumbered}
+
+If you want to pan your camera angle up, down, left or right, then hold the `CTRL` key and drag your cursor in the direction you want to look. This only changes the camera angle, not the camera elevation or position.
 
 ```{r 01-qgis-ctrl, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-qgis-ctrl.gif")
@@ -242,11 +248,15 @@ Navigating 3D data can be challenging using a 2D input device like a mouse, so w
 
 ### Hold ALT: Move camera position on the X-Y plane {.unnumbered}
 
+If you find yourself wanting to move around, then hold the `ALT` key and drag your cursor in the direction that you want to move the camera. Think of this as sliding along an X-Y plane that is fixed at the camera elevation and angle.
+
 ```{r 01-qgis-alt, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-qgis-alt.gif")
 ```
 
 ### Scroll: Move camera position to/from the cursor location {.unnumbered}
+
+If you want to move towards some feature, then simply point your cursor at it and scroll without clicking. This movement is akin to traversing a ray that connects your current camera position with a look direction angle (relative to X-Y-Z). Scrolling therefore changes the camera position and elevation. Scrolling down has the effect of "zooming in" while scrolling up has the effect of "zooming out". Be careful, though, because scrolling will always follow the current position of the cursor, so if you scroll down on one position and then move your cursor and scroll up, your camera position will not be where it started.
 
 ```{r 01-qgis-scroll, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-qgis-scroll.gif")
@@ -256,29 +266,77 @@ Navigating 3D data can be challenging using a 2D input device like a mouse, so w
 
 ------------------------------------------------------------------------
 
-## Task 2: Visualize LiDAR data in ArcGIS Pro {.unnumbered}
+## Task 3: Prepare LiDAR in ArcGIS Pro {.unnumbered}
 
-Lorem ipsum
+For this task, we will switch to ArcGIS Pro and practice manipulating the LiDAR point cloud to derive a terrain surface using different algorithms.
 
-**Step 1:** Lorem ipsum.
+**Step 1:** Open a new ArcGIS Pro map project and drag the "mkrf_aoi_lidar.laz" file into your map. (Note: QGIS natively works with LiDAR in COPC format, but ArcGIS Pro does not currently support reading this open format, so we must use the LAZ file.)
+
+**Step 2:** ArcGIS Pro has several tools that we can use to view and analyse LiDAR point clouds. In order to view the dataset, we need to import it as a LAS Dataset. Search for the "Create LAS dataset". Specify the "mkrf_aoi_lidar.laz" file as your input file. Make sure to name the output LAS Dataset and specify the correct coordinate system. Ensure that "Create PRJ for LAS files" is set to "All LAS Files". Toggle on "Compute Statistics" and run the tool.
+
+**Step 3:** We can now add our LAS Dataset to the map. Depending on the zoom extent, you may only see the red bounding box of the LAS Dataset file; this is not an error, you just need to zoom in to see the actual points. Alternatively, you can open the dataset in a "Local Scene", although due to the size of the point cloud this might cause some lag.
+
+**Step 4:** Another way to explore the dataset is to view the properties. Right-click the LAS Dataset (the .lasd) and open the "Properties". Here we can see some statistics of the point cloud, such as information regarding the Classification Codes and Return Number. You can get more detailed metadata from a Catalog view. From the top ribbon, select the View tab and then click "Catalog View". Navigate to where you saved the LAS Dataset (.lasd), right-click it, and open the "Properties" again. How many points are in the dataset? What is the average point spacing? Record these values.
+
+**Step 5:** Search for the "LAS Dataset to Raster" tool, and use your LAS Dataset as the input. Since we are interested in creating a terrain surface model, we want to use the "Binning" "Interpolation Type", and make sure that we use the "Minimum" (i.e., the lowest elevation) points in each "Cell Assignment" of the output raster. "Sampling Value" refers to the resolution of the raster that we are creating, in other words, the spacing of our raster samples. Set the "Sampling Value" to 30, name the output raster "MKRF_DTM" and run the tool.
+
+The tool above is the most straight-forward way to create a DEM from a LiDAR point cloud in ArcGIS Pro. It is also the least sophisticated and prone to error because it relies heavily on the presence of points. This is where spatial interpolation methods come in, but these analyses expect flat 2D points rather than a 3D point cloud; "flat" in the sense that the point is mapped on a horizontal datum only (X-Y) and the point elevation (Z) is stored as an attribute rather than a coordinate. This is a relatively minor technical detail, but an important one because you can spatially interpolate all other kinds of attributes that are not terrain.
+
+**Step 6:** Search for the "LAS to Multipoint" tool. Input your LAS Dataset (.lasd). You will notice that there is a box asking for the "Average Point Spacing". Enter the value that you recorded from the previous step. Set the correct coordinate system and then run the tool.
+
+**Step 7:** Search for the "Multipart to Singlepart" tool. The multipoint feature class from the previous step is the input then run the tool. Be patient as this might take a while!
+
+**Step 8:** Now we need to add the Z value as an attribute. Search for the "Add Z Information" tool and use the singlepart features as the input. The only option available should be "Spot Z" and make sure it is toggled then run the tool.
+
+We now have a 2D point feature class that we can use to test different spatial interpolation algorithms!
 
 ------------------------------------------------------------------------
 
-## Task 3: Apply spatial interpolation algorithms {.unnumbered}
+## Task 4: Apply and evaluate spatial interpolation algorithms in ArcGIS Pro {.unnumbered}
 
-Lorem ipsum
+Since we now have points representing height values, we can use the raster interpolation toolset to experiment with three different interpolation methods: Kriging, Inverse Distance Weighting (IDW), and Spline. You can read more about the tools we will be using from the [ArcGIS Pro documentation](https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/an-overview-of-the-interpolation-tools.htm).
 
-**Step 1:** Lorem ipsum.
+**Step 1:** Search for each of the interpolation tools listed above individually and explore their parameters. In order to make the comparison straightforward, make sure that the output raster is the same resolution as the DEM created in the last task (30m). Create three rasters for each interpolation method: Spline, IDW, and Kriging. Note, when creating the rasters, keep the default settings, except for Kriging. For this tool, change the number of points in the search radius to 6. This will increase the speed of the tool, although it will still take a while!
 
-------------------------------------------------------------------------
+Take some time to inspect each raster, and look at their similarities and differences (make sure that you are using a common symbology when comparing). We can compare the differences between our interpolated rasters with the binned DEM that we created in the last task.
 
-## Task 4: Visualize terrain surfaces in ArcGIS Pro scene {.unnumbered}
+**Step 2:** In order to compare the rasters, we will make a raster of the differences between the interpolated surface and the binned DEM. You will use the "Raster Calculator" tool to do this. Calculate the absolute value of the difference between each interpolated raster and the binned DEM. Name each differenced raster according to the interpolation method: "spline_diff", "krig_diff", and "idw_diff".
 
-Lorem ipsum
+Next, we are going to quantitatively evaluate the differences and calculate statistics over different zones to see if there are any patterns or relationships with other variables.
 
-**Step 1:** Lorem ipsum.
+**Step 3:** Use the "Reclassify" tool to reclassify the binned DEM into "high", "medium", and "low" areas. Refer to the following table for the value ranges:
 
-Overview 1. Collect las/laz 2. Mosaic and clip to area of interest 3. Compute binned raster (binmode=true) and IDW (binmode=false) 4. Interpret and visualize
+| Start     | End    | New    |
+|-----------|--------|--------|
+| 200       | 400    | 1      |
+| 400.00001 | 600    | 2      |
+| 600.00001 | 900    | 3      |
+| NODATA    | NODATA | NODATA |
+
+**Step 4:** Use the "Slope" tool to create a raster called "mkrf_slope" using degrees. Then, use the "Reclassify" tool to reclassify the degree slope values as follows:
+
+| Start    | End    | New    |
+|----------|--------|--------|
+| 0        | 15     | 1      |
+| 15.00001 | 30     | 2      |
+| 30.00001 | 90     | 3      |
+| NODATA   | NODATA | NODATA |
+
+We will use these reclassified areas as zones to calculate statistics about the difference between the interpolated surfaces and the binned DEM. For both zonations, higher values correspond to higher elevations and slopes.
+
+**Step 5:** Search for the "Zonal Statistics as Table" tool. The "Input Raster or Feature Zone Data" are the reclassified zone rasters you just made. "Zone Field" should be "Value". The "Input Value Raster" is the raster that we want to summarize over the zones, which are all of the difference rasters we calculated in the earlier step. Run this tool for both each combination of the two topography zonations and the three difference rasters for the different interpolation methods. You should finish with six tables:
+
+-   idw_diff_elev
+
+-   idw_diff_slope
+
+-   krig_diff_elev
+
+-   krig_diff_slope
+
+-   spline_diff_elev
+
+-   spline_diff_slope
 
 ------------------------------------------------------------------------
 
