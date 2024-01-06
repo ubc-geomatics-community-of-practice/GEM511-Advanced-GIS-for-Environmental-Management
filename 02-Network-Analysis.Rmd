@@ -100,14 +100,14 @@ Lab report with the following specification:
 
 ## Data {.unnumbered}
 
-The data for this lab are a Digital Elevation Model (DEM) of the Nahmint watershed region in British Columbia and is accessible via the UBC PostgreSQL server. Instructions for connecting to the server are given in the tasks below. We will be using data from the `salmon` database. To save time for this lab, the data have already been assembled and pre-processed for you, but below are some details about how that was achieved.
+All data for this lab are accessible via the UBC PostgreSQL server. Instructions for connecting to the server are given in prior labs. We will be using data from the `salmon` database. To save time for this lab, the data have already been assembled and pre-processed for you, but below are some details about how that was achieved.
 
 **vancouver_island_dem**
 
 This was the general process applied to create the DEM in case you want to reproduce it or apply the same method for another project:
 
 1.  Download all the tiles for Vancouver Island from the B.C. Government here
-2.  Mosaic the rasters together using the 'Mosaic to new raster' tool
+2.  Mosaic the rasters together using the "Mosaic to new raster" tool
 3.  Buffer a polygon shapefile of Vancouver Island by 25 m
 4.  Convert the result of step 3 to a raster with cell size 25 m and project to NAD 1983 BC Environment Albers. This is a mask that extends just beyond the shore of Vancouver Island to account for mapping errors.
 5.  Extract the DEM from step 2 by the mask in step 4 to produce a DEM for only Vancouver Island that excludes all other nearby islands:
@@ -118,13 +118,13 @@ This was the general process applied to create the DEM in case you want to repro
 
 **vancouver_island_dem_filled**
 
-The DEM above was filtered several times for sinks. Generally, you can use the 'Fill' tool to achieve this. However, Vancouver Island has many naturally-occurring geomorphic features that can cause real sinks (as opposed to random errors). In order to create a depressionless DEM, the DEM was iteratively put through the following process:
+The DEM above was filtered several times for sinks. Generally, you can use the "Fill" tool to achieve this. However, Vancouver Island has many naturally-occurring geomorphic features that can cause real sinks (as opposed to random errors). In order to create a depressionless DEM, the DEM was iteratively put through the following process:
 
 1.  Calculate flow direction
 2.  Calculate sinks
 3.  Calculate watersheds using the flow direction raster and the sinks raster as pour points
 4.  Calculate minimum elevation of the sinks using the "Zonal statistics" tool
-5.  Calculate maximum elevation of the watershed for the sink using the 'Zonal fill' tool
+5.  Calculate maximum elevation of the watershed for the sink using the "Zonal fill" tool
 6.  Subtract result of step 4 from result of step 5 for the sinks mapped in step 2. This is the depth of each sink.
 7.  Add the sink depth to the DEM to fill the sink
 8.  Repeat steps 1-7 several times until you remove all sinks or achieve a stopping criterion
@@ -143,21 +143,23 @@ Conservation units for Chinook, Chum, and Coho were acquired from Oceans and Fis
 
 ## Task 1: Create stream segments {.unnumbered}
 
-**Step 1:** Calculate the flow direction of the filled DEM, using the 'Flow Direction' tool. The flow direction tool determines which raster cells flow into other cells based on the elevation difference the immediate neighborhood. Keep the defaults of the tool. Ensure that 'Force all edge cells to flow outward' is toggled on and leave all other parameters with the default value.
+Before starting the lab, you will need to download all of the data from the `salmon` database on the UBC PostgreSQL server and save it to your ArcGIS Pro project folder. You should save all of your outputs from the tools in this lab directly into your ArcGIS Pro project geodatabase. The reasoning for this is because we will only be working in ArcGIS Pro for this lab and also because the ArcGIS Pro topology tools only work with data inside an ArcGIS Pro geodatabase.
+
+**Step 1:** Calculate the flow direction of the filled DEM, using the "Flow Direction" tool. The flow direction tool determines which raster cells flow into other cells based on the elevation difference the immediate neighborhood. Keep the defaults of the tool. Ensure that "Force all edge cells to flow outward" is toggled on and leave all other parameters with the default value.
 
 ```{r 02-flow-direction, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/02-flow-direction.png")
 ```
 
-**Step 2:** Use the output from the 'Flow Direction' tool as an input into the 'Flow Accumulation' tool. Again, use the defaults within the tool, but select integer as the output data type because the output of this tool is a count. This tool will create a raster that represents the number of pixels that will accumulate into any given pixel. The bigger rivers will be displayed in the output. Play around with the symbology to visualize the stream network. (Hint: try using classify and various methods within symbology).
+**Step 2:** Use the output from the "Flow Direction" tool as an input into the "Flow Accumulation" tool. Again, use the defaults within the tool, but select integer as the output data type because the output of this tool is a count. This tool will create a raster that represents the number of pixels that will accumulate into any given pixel. The bigger rivers will be displayed in the output. Play around with the symbology to visualize the stream network. (Hint: try using classify and various methods within symbology).
 
-**Step 3:** To define streams, you need to set a threshold for the flow accumulation. Open 'Con' and set the threshold or expression as any pixel that has a count of more than 1000. Therefore, any pixel that has a count of more than 1000 will be classified as a stream. For 'Input true raster or constant value', use value 1. For 'Input false raster or constant value', use value 0.
+**Step 3:** To define streams, you need to set a threshold for the flow accumulation. Open "Con" and set the threshold or expression as any pixel that has a count of more than 1000. Therefore, any pixel that has a count of more than 1000 will be classified as a stream. For "Input true raster or constant value", use value 1. For "Input false raster or constant value", use value 0.
 
-**Step 4:** Next, you will create a grid of stream links, which assigns unique values to each stream segment, so that the user can see how the streams are connected. Open the 'Stream Link' tool and use the output from the 'Con' tool and the flow direction raster here.
+**Step 4:** Next, you will create a grid of stream links, which assigns unique values to each stream segment, so that the user can see how the streams are connected. Open the "Stream Link" tool and use the output from the "Con" tool and the flow direction raster here.
 
-**Step 5:** You will also use the 'Stream Order' tool using the same inputs as in step 4 and the default parameters. The 'Stream Order' tool assigns a numeric order to segments of the raster, essentially classifying branches of the stream network.
+**Step 5:** You will also use the "Stream Order" tool using the same inputs as in step 4 and the default parameters. The "Stream Order" tool assigns a numeric order to segments of the raster, essentially classifying branches of the stream network.
 
-**Step 6:** You will also convert your raster into polylines using the stream links raster and flow direction raster as inputs for the 'Stream to Feature' tool. Toggle off 'Simplify polylines'.
+**Step 6:** You will also convert your raster into polylines using the stream links raster and flow direction raster as inputs for the "Stream to Feature" tool. Toggle off "Simplify polylines".
 
 Below is a useful flowchart of the process of creating a stream network from a DEM ([Source](https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/deriving-runoff-characteristics.htm))
 
@@ -171,7 +173,7 @@ Below is a useful flowchart of the process of creating a stream network from a D
 
 At this point, you have only created polyline features representing streams. Next will convert those segments to routes and apply topology for our streams, as well as incorporate dams into the network.
 
-**Step 1:** Convert your stream features into routes using the 'Create routes' tool. Set the Route ID field to 'arcid'. The coordinate Priority parameter can be set to any corner.
+**Step 1:** Convert your stream features into routes using the "Create routes" tool. Set the Route ID field to "arcid". The coordinate Priority parameter can be set to any corner.
 
 ```{r 02-create-routes, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/02-create-routes.png")
@@ -187,7 +189,7 @@ The dams are modelled as polylines. We need to identify where these dams interse
     knitr::include_graphics("images/02-example-dam.png")
 ```
 
-**Step 4:** Right-click the feature dataset and select 'New' and 'Topology'. This will open the Create Topology Wizard dialogue box.
+**Step 4:** Right-click the feature dataset and select "New" and "Topology". This will open the Create Topology Wizard dialogue box.
 
 **Step 5:** On the first page of the wizard, toggle on the dams and stream routes feature classes.
 
@@ -201,27 +203,27 @@ The dams are modelled as polylines. We need to identify where these dams interse
     knitr::include_graphics("images/02-create-topology-2.png")
 ```
 
-Once done, click 'Finish'.
+Once done, click "Finish".
 
-**Step 7:** Validate the topology by right-clicking the topology in the feature dataset and clicking 'Validate'.
+**Step 7:** Validate the topology by right-clicking the topology in the feature dataset and clicking "Validate".
 
 ```{r 02-topology-errors, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/02-topology-errors.png")
 ```
 
-**Step 8:** You can click and drag the topology into the map to view any errors. We expect there to be errors because we know that the dams should intersect with our stream routes. You should see red squares all over the island. In the Contents Pane, right-click the 'Point Errors' layer, select 'Data', and select 'Export Features'. Save the points to your feature dataset as 'stream_dam_junctions'.
+**Step 8:** You can click and drag the topology into the map to view any errors. We expect there to be errors because we know that the dams should intersect with our stream routes. You should see red squares all over the island. In the Contents Pane, right-click the "Point Errors" layer, select "Data", and select "Export Features". Save the points to your feature dataset as "stream_dam_junctions".
 
 At this point, take a moment to appreciate where we are in this problem. We have modelled streams as routes and we now know where dams intersect with those routes. Salmon are diadromous species, they swim from the saltwater ocean up the freshwater streams to spawn. Therefore, we need one more piece of information in order to model how salmon swim upstream. We need to know where the streams meet the ocean.
 
 **Step 9:** Take the Vancouver Island boundary polygon provided and perform a negative buffer, called a nibble. Use -25 meters for the buffer distance. We are doing a negative buffer because we want to ensure that this edge intersects with the streams that terminate at the ocean. Remember that the streams were generated by an imperfect and imprecise DEM, therefore this process will ensure that every stream that reaches the ocean will intersect this boundary.
 
-**Step 10:** Convert the nibbled Vancouver Island boundary to a polyline using the 'Polygon to line' tool. Be sure to toggle off 'Identify and store polygon neighboring information'. Save the result to your feature dataset.
+**Step 10:** Convert the nibbled Vancouver Island boundary to a polyline using the "Polygon to line" tool. Be sure to toggle off "Identify and store polygon neighboring information". Save the result to your feature dataset.
 
 Next, we will use the same topology process to identify where the island boundary intersects the stream routes.
 
-**Step 11:** Right-click the network topology and select 'Properties'. This will open the topology wizard dialogue again. On the left, select 'Feature Class' and toggle on the nibbled Vancouver island boundary that you created in step 10 and the stream routes. Toggle everything else off. On the left, select 'Rules'. Highlight the previous rule and click the 'Remove' button at the top. Then, add a rule so that the stream routes must not intersect with the nibbled island boundary. Refer to steps 5 and 6 above if you need clarification.
+**Step 11:** Right-click the network topology and select "Properties". This will open the topology wizard dialogue again. On the left, select "Feature Class" and toggle on the nibbled Vancouver island boundary that you created in step 10 and the stream routes. Toggle everything else off. On the left, select "Rules". Highlight the previous rule and click the "Remove" button at the top. Then, add a rule so that the stream routes must not intersect with the nibbled island boundary. Refer to steps 5 and 6 above if you need clarification.
 
-**Step 12:** Again, validate the topology, add the topology to the map view, and export the Point Errors to a point feature class in your feature dataset. Name it 'stream_ocean_junctions'. Refer to steps 7 and 8 if you need clarification.
+**Step 12:** Again, validate the topology, add the topology to the map view, and export the Point Errors to a point feature class in your feature dataset. Name it "stream_ocean_junctions". Refer to steps 7 and 8 if you need clarification.
 
 ```{r 02-ocean-stream-junctions, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/02-ocean-stream-junctions.png")
