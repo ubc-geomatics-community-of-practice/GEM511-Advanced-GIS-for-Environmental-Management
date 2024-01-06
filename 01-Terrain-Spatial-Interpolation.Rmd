@@ -2,26 +2,44 @@
 yml_content <- yaml::read_yaml("chapterauthors.yml")
 author <- yml_content[["terrain-spatial-interpolation"]][["author"]]
 ```
-# Lab Title {#terrain-spatial-interpolation}
+
+# Spatial interpolation and visualization of LiDAR {#terrain-spatial-interpolation}
 
 Written by
 ```{r results='asis', echo=FALSE}
 cat(author)
 ```
 
+```{css, echo=FALSE}
+.spoiler {
+  visibility: hidden;
+}
+
+.spoiler::before {
+  visibility: visible;
+  content: "Hover over this text to see the answer"
+}
+
+.spoiler:hover {
+  visibility: visible;
+}
+
+.spoiler:hover::before {
+  display: none;
+}
+```
+
 ## Lab Overview {.unnumbered}
 
-The aim of this lab is to use LiDAR data from the University of British Columbia Malcolm Knapp Research Forest (MKRF) to create Digital Terrain Model (DTM) using a variety of spatial interpolation techniques. We will then investigate how these methods compare to one another, and explore their strengths and weaknesses. Additionally, we will explore point cloud manipulation using the Point Data Abstraction Library (PDAL) and 3D visualization of scenes in ArcGIS Pro.
+The aim of this lab is to use LiDAR data from the University of British Columbia Malcolm Knapp Research Forest (MKRF) to create Digital Elevation Model (DEM) using a variety of spatial interpolation approaches. We will investigate how these methods compare to one another, and explore their strengths and weaknesses. Additionally, we will explore point cloud manipulation and visualization using both QGIS and ArcGIS Pro.
 
 ------------------------------------------------------------------------
 
 ## Learning Objectives {.unnumbered}
 
-- Interpret metadata for a LiDAR acquisition
-- Manipulate a LiDAR point cloud with a variety of different tools
-- Extract a LiDAR point cloud for an Area of Interest (AOI)
-- Create a raster Digital Terrain Model (DTM) from a LiDAR point cloud
-- Observe and distinguish the differences between terrain modelling approaches
+-   Interpret metadata for a LiDAR acquisition and point cloud
+-   Manipulate a LiDAR point cloud with a variety of different tools
+-   Generate and evaluate DEMs from a LiDAR point cloud using different terrain spatial interpolation approaches
 
 ------------------------------------------------------------------------
 
@@ -35,19 +53,210 @@ The aim of this lab is to use LiDAR data from the University of British Columbia
 
 ## Data {.unnumbered}
 
-All data for this lab are accessible via the UBC PostgreSQL server and the public MGEM Data Store. Instructions for connecting to the server and data store are given in the tasks below and prior labs.
+We will be working with LiDAR data collected over the UBC Malcolm Knapp Research Forest (MKRF) in Maple Ridge, British Columbia. These data are publicly available from the Master of Geomatics for Environmental Management (MGEM) Data Store.
+
+There are three files associated with this lab:  MKRF_Data_Specifications.pdf: A document describing the LiDAR data collection  MKRF_lidar.las: The LiDAR data file. LAS is the standard file type for LiDAR data  MKRF_Aerial_Photo.tif: An orthophoto of our study area, which was collected at the same time as the LiDAR data
 
 ------------------------------------------------------------------------
 
-## Task 1: Mosiac LiDAR and clip to an area of interest with PDAL {.unnumbered}
+## Task 1: Preprocess and visualize LiDAR data in PDAL {.unnumbered}
 
-Navigate to the MGEM Data Store and find the PDF that documents the LiDAR acquisition for UBC's Maclolm Knapp Research Forest (MKRF). Take note of the vertical and horizontal datums.
+Point cloud data are large. For example, the point cloud collection that we will be working with contains 1,671,233,402 points! Typically, we should not interact with point cloud data in a desktop environment until we have to. Graphical user interfaces like QGIS and ArcGIS Pro introduce a large amount of computational overhead when working with point cloud data and these software are more suited for visualizing the data rather than processing them. Point cloud data are much more commonly hosted on remote servers nowadays, in cloud-optimized formats, and available for on-demand and query-ready streaming.
 
-**Step 1:** Pick any of the LAZ files from the data store and download it to a folder on your computer for this lab. Open Windows command prompt and run the command `pdal info [FILE NAME]`.
+In this task, we will explore large LiDAR acquisitions that have been collected at the University of British Columbia (UBC) Malcolm Knapp Research Forest (MKRF). LiDAR collections are typically tiled to reduce the overhead with transacting with individual files. We are only going to process a handful of tiles, but we need to first grab the right tiles for our area of interest (AOI).
+
+**Step 1:** Navigate to the MGEM Data Store and inspect the UBC MKRF 2016 LiDAR collection: <https://206-12-122-94.cloud.computecanada.ca/UBC_MKRF_LiDAR_2016/>
+
+At the top, you will see some generic metadata for the collection. Below that, you will see a web map showing the tiles. If you click on one of the tiles, it gives the direct download universal resource locator (URL) and file size. If you scroll down, all the tiles are listed in a table along with a metadata file that provides some more specific information about each individual tile-file.
+
+**Step 2:** Click to open one of the metadata txt files in your browser. This is json-formatted metadata for the associated LiDAR tile. Scrolling through it you will find summary statistics over a number of different dimensions. What attributes describe these LiDAR data?
+
+[{X, Y, Z, Intensity, ReturnNumber, NumberOfReturns, ScanDirectionFlag, EdgeOfFlightLine, Classification, ScanAngleRank, UserData, PointSourceID, Red, Green, Blue, GpsTime, ScanChannel, ClassFlags}]{.spoiler}
+
+Suppose that we have some AOI within the research forest that we need to retrieve the LiDAR data from. How could we figure out which tiles we need without downloading all of them from the server? In most cases, you should have a polygon tile index available to assist you with this task. The tile index is another form of metadata, albeit spatial metadata.
+
+**Step 3:** Right-click on the **tile_index.geojson** file at the top of the file listing and select "Copy Link". Open QGIS and click the "Open Data Source Manager" button. On the left of the Data Source Manager dialogue, select "Vector", toggle on "Protocol: HTTP(S), cloud, etc", then paste the URL you copied into the "URI" field (uniform resource identifier). "Add" the layer to your map view then "Close" the dialogue and inspect the result.
+
+```{r 01-qgis-data-source-manager-tile-index, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/01-qgis-data-source-manager-tile-index.png")
+```
+
+A nice feature about QGIS is that it supports the ability to read any openly-specified geospatial file directly from a remote source. ArcGIS Pro only allows you to read some sources published on compatible remote databases (e.g., ArcGIS enterprise geodatabase or PostgreSQL) or from layers published on ArcGIS Online.
+
+Now that we have spatial tile metadata, we can perform spatial intersection to find the right tiles. Our AOI is going to be the following longitude-latitude bounding box:
+
+Lower left (LL): -122.55275, 49.32325 Upper right (UR): -122.52506, 49.34135
+
+**Step 4:** Open a notepad text editor and convert this bounding box into a geojson polygon feature with the following syntax:
+
+```         
+{
+  "type": "Polygon",
+  "coordinates": [
+    [
+      [LL_longitude, LL_latitude],
+      [UR_longitude, LL_latitude],
+      [UR_longitude, UR_latitude],
+      [LL_longitude, UR_latitude],
+      [LL_longitude, LL_latitude]
+    ]
+  ]
+}
+```
+
+Replace with the correct longitude/latitude values. Note that this creates a square polygon and the fifth coordinate is the same as the first, which topologically encloses the polygon. Save the geojson in your QGIS project folder as "mkrf_aoi.geojson" then open the file in QGIS. You should see that our AOI spans 16 total tiles.
+
+**Step 4:** Click the "Select by Location" tool and "Select features from" the **ubc_mkrf_lidar_2016_tile_index** layer by intersecting with the **mkrf_aoi** you just made. Now the intersecting tiles are selected. Turn off **mkrf_aoi** layer so that you can see the selection.
+
+```{r 01-qgis-intersect-aoi-tiles, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/01-qgis-intersect-aoi-tiles.png")
+```
+
+**Step 5:** Click the "Identify Features" tool and click on one of the selected tiles, which will highlight it in red and open the attributes for the polygon. Expand "ubc_mkrf_lidar_2016_tile_index", "url", "(Actions)", and "url". Click the hyperlinked URL to download the tile to your QGIS project folder. Repeat this step for all 16 tiles.
+
+**Step 6:** Add all of the downloaded tiles to your QGIS map canvas. The default symbology is the classification attribute, but only ground returns have been classified for the research forest.
+
+However, the tiles are all still stored in separate files and some portions are outside our AOI. So next, we are going to filter, merge, and crop the point cloud, but we are going to do this outside of QGIS because it will be faster and more reliable. We are going to use the Point Data Abstraction Library (PDAL) command line utility to perform this processing. You can (and should) read more about the extensive PDAL functionality here: <https://pdal.io/> Note that many of the functions we are going to use with PDAL are available as tools through QGIS, but you have less control over the options and parameters with that method. Remember, we want to always work with the least amount of LiDAR data that our task requires.
+
+**Step 7:** Open the OSGeo4W shell and navigate to your QGIS project folder where your LiDAR data are located. For example, `cd C:\users\paul\Documents\QGIS\mkrf_lidar`. Type the command `pdal --version` to make sure that PDAL was installed with your current version of QGIS. If a version number is returned in the console window, then continue to the next step, otherwise ask your instructor to help you install PDAL using the [OSGeo4W installer](https://trac.osgeo.org/osgeo4w).
+
+PDAL can run functions in two ways. First, as subcommands, much like you have used with GDAL in prior labs. For example, `pdal merge [filename1.laz] [filename2.las] output.copc.laz` will use the `merge` subcommand and the file names that follow to merge many different las/laz/copc files together into the named output. Subcommands are generally good for small or incidental tasks like converting a file format or re-projecting data, but if you want to apply a more complex workflow then you should use a pipeline.
+
+[Pipelines](https://pdal.io/en/2.6.0/pipeline.html#pipeline) are JSON-formatted files that give PDAL a set of instructions for reading, processing and writing point cloud data. With pipelines, you can define every step of the processing that you want and you can specify the finest level of detail at every stage. Below is an example of a pipeline that we are going to use, which is described in more detail below:
+
+```         
+{
+    "pipeline": 
+        [
+            "AQ11.copc.laz",
+            "AQ12.copc.laz",
+            "AQ13.copc.laz",
+            "AQ14.copc.laz",
+            "AR11.copc.laz",
+            "AR12.copc.laz",
+            "AR13.copc.laz",
+            "AR14.copc.laz",
+            "AS11.copc.laz",
+            "AS12.copc.laz",
+            "AS13.copc.laz",
+            "AS14.copc.laz",    
+            "AT11.copc.laz",
+            "AT12.copc.laz",
+            "AT13.copc.laz",
+            "AT14.copc.laz",
+            {
+                "type":"filters.range",
+                "limits":"Classification[2:2]"
+            },
+            {
+                "type":"filters.crop",
+                "bounds":"([-122.55275,-122.52506],[49.32325,49.34135])",
+                "a_srs":"EPSG:4326"
+            },
+            {
+                "type": "filters.merge"
+            },
+            {
+                "type":"writers.las",
+                "filename":"mkrf_aoi_lidar.laz"
+            }
+        ]
+}
+```
+
+This pipeline will take all of our input tiles and filter, crop, merge, and write them out to a new file called "mkrf_aoi_lidar.laz".
+
+```         
+            {
+                "type":"filters.range",
+                "limits":"Classification[2:2]"
+            },
+```
+
+This first stage applies a [filter](https://pdal.io/en/2.6.0/stages/filters.html) stage with a function called [range](https://pdal.io/en/2.6.0/stages/filters.range.html#filters-range). Basically, this filter is telling PDAL that we only want the points that are classified as ground returns `Classification[2:2]` where `2:2` indicates the range of values from 2 to 2, which is the ground return classification code. So only ground returns are passed to the next stage:
+
+```         
+            {
+                "type":"filters.crop",
+                "bounds":"([-122.55275,-122.52506],[49.32325,49.34135])",
+                "a_srs":"EPSG:4326"
+            },
+```
+
+This next filter stage [crops](https://pdal.io/en/2.6.0/stages/filters.crop.html#filters-crop) the ground returns from the previous stage using the bounds of our AOI. We need to specify the spatial reference system `a_srs` of these coordinates since the LiDAR data are in a projected coordinate system (EPSG:26910). So only ground returns that fall within our AOI are passed to the next stage:
+
+```         
+            {
+                "type": "filters.merge"
+            },
+```
+
+This next filter stage [merges](https://pdal.io/en/2.6.0/stages/filters.merge.html#filters-merge) all the ground returns in our AOI into a single stream, which is then passed to the last stage that writes it to an output file in laz format:
+
+```         
+            {
+                "type":"writers.las",
+                "filename":"mkrf_aoi_lidar.laz"
+            }
+```
+
+**Step 8:** Copy of the contents of the pipeline to a text editor and save the file as "process-lidar.json" in your QGIS project folder.
+
+**Step 9:** Return to the OSGeo4W shell and run the pipeline using the following command: `pdal pipeline process-lidar.json`. It may take several minutes for this step to complete, but in the end you should have a file called "mkrf_aoi_lidar.laz" in your QGIS project folder. Drag it into QGIS and inspect it.
 
 ------------------------------------------------------------------------
 
-## Task 2: Visualize LiDAR data in QGIS {.unnumbered}
+## Task 1: Visualize LiDAR data in QGIS {.unnumbered}
+
+The default symbology of LiDAR data in QGIS will be the classification, but we only have ground returns in our file, so everything will appear brown. Try symbolizing some of the other attributes like Intensity, ReturnNumber, and ScanAngleRank.
+
+**Step 1:** Right-click the **mkrf_aoi_lidar** layer, open "Properties", select "Symbology" from the left, and then select "Attribute by Ramp" from the very top drop-down menu. Then choose your attribute and apply your symbology parameters. Make some notes of your observations for these attributes that you can reference in your report.
+
+2D is a very boring way to visualize point cloud data, so let's create a 3D map view in QGIS.
+
+**Step 2:** From the top menu, select "View", then "3D map views", and click "New 3D Map View". A small window will appear. Click and drag it to the top of your map canvas to dock it and make it larger.
+
+```{r 01-qgis-dock-3d-map-view, out.width= "100%", echo = FALSE}
+    knitr::include_graphics("images/01-qgis-dock-3d-map-view.gif")
+```
+
+**Step 3:** From the 3D map view menu bar, click the tool icon and toggle on "Show Eye Dome Lighting". Then, holding the `SHIFT` key, left-click and drag your cursor from top-to-bottom then release both buttons. This will give you an oblique shaded 3D perspective of the terrain.
+
+```{r 01-qgis-shift-up-down, out.width= "100%", echo = FALSE}
+    knitr::include_graphics("images/01-qgis-shift-up-down.gif")
+```
+
+Navigating 3D data can be challenging using a 2D input device like a mouse, so we need to use different keyboard keys to control how we want to change our view:
+
+### Hold SHIFT: Orbit camera around fixed position {.unnumbered}
+
+```{r 01-qgis-shift, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/01-qgis-shift.gif")
+```
+
+### Hold CTRL: Maintain camera position and change camera angle {.unnumbered}
+
+```{r 01-qgis-ctrl, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/01-qgis-ctrl.gif")
+```
+
+### Hold ALT: Move camera position on the X-Y plane {.unnumbered}
+
+```{r 01-qgis-alt, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/01-qgis-alt.gif")
+```
+
+### Scroll: Move camera position to/from the cursor location {.unnumbered}
+
+```{r 01-qgis-scroll, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/01-qgis-scroll.gif")
+```
+
+**Step 4:** Practice navigating in 3D and observing the different attributes across the ground surface. Make some notes of your observations for your report. There is a button on the top of the 3D map view to save an image of any given view.
+
+------------------------------------------------------------------------
+
+## Task 2: Visualize LiDAR data in ArcGIS Pro {.unnumbered}
 
 Lorem ipsum
 
@@ -55,7 +264,7 @@ Lorem ipsum
 
 ------------------------------------------------------------------------
 
-## Task 3: Visualize LiDAR data in ArcGIS Pro {.unnumbered}
+## Task 3: Apply spatial interpolation algorithms {.unnumbered}
 
 Lorem ipsum
 
@@ -63,25 +272,13 @@ Lorem ipsum
 
 ------------------------------------------------------------------------
 
-## Task 4: Apply spatial interpolation algorithms {.unnumbered}
+## Task 4: Visualize terrain surfaces in ArcGIS Pro scene {.unnumbered}
 
 Lorem ipsum
 
 **Step 1:** Lorem ipsum.
 
-------------------------------------------------------------------------
-
-## Task 5: Visualize terrain surfaces in ArcGIS Pro scene {.unnumbered}
-
-Lorem ipsum
-
-**Step 1:** Lorem ipsum.
-
-Overview
-1. Collect las/laz
-2. Mosaic and clip to area of interest
-3. Compute binned raster (binmode=true) and IDW (binmode=false)
-4. Interpret and visualize
+Overview 1. Collect las/laz 2. Mosaic and clip to area of interest 3. Compute binned raster (binmode=true) and IDW (binmode=false) 4. Interpret and visualize
 
 ------------------------------------------------------------------------
 
@@ -89,4 +286,4 @@ Overview
 
 Here
 
-Return to the **[Deliverables](#lab1-deliverables)** section to check off everything you need to submit for credit in the course management system.
+Return to the [**Deliverables**](#lab1-deliverables) section to check off everything you need to submit for credit in the course management system.

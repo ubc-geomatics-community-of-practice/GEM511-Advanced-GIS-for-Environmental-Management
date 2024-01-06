@@ -17,7 +17,7 @@ In this lab, we will be using simple machine learning tools in ArcGIS Pro to pre
 
 Our area of interest is a large rectangular area in southern British Columbia containing the burn boundary from the 2017 Elephant Hill wildfire. The fire began on July 6th, 2017 and burned 191,865 ha in the south-central Interior region of BC, just northeast of Cache Creek. It was the largest fire by area in the record-breaking 2017 BC wildfire season and was likely started by smoking materials (matches, cigarettes, etc.).
 
-```{r 01-elephant-hill-fire, out.width= "75%", echo = FALSE}
+```{r 04-elephant-hill-fire, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-elephant-hill-fire.png")
 ```
 
@@ -138,7 +138,7 @@ Next, we are going to use Exploratory Regression to determine which of our raste
 
 **Step 5:** Open the "Exploratory Regression" tool and set the VRI feature class as your "Input Features". Select "CROWN_CLOS" as your "Dependent Variable". Remember that as part of the pre-processing, all raster data were extracted at the VRI points. Select the fields corresponding to the rasters in the VRI feature class as your "Candidate Explanatory Variables". Leave out the original Landsat bands. Save the "Output Report File" as "regression_results.txt". This will create a text file in your default folder with the results of the tool, which can also be viewed under "View Details". Leave the rest of the tool parameters as the default values and run the tool.
 
-```{r 01-exploratory-regression, out.width= "75%", echo = FALSE}
+```{r 04-exploratory-regression, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-exploratory-regression.png")
 ```
 
@@ -181,19 +181,19 @@ Double-check that your sub-samples have the correct number and fuel types in the
 
 **Step 7:** To make the fixed interval point (FIP) sampled dataset, we will create a regularly spaced grid from which to sample our points by creating a fishnet of polygons, converting those polygons into centroid points, and then sampling the closest VRI point to our fishnet points. Open the "Create Fishnet" tool and name your "Output Feature Class" "fishnet". Set your "Template Extent" to the VRI point feature class. The coordinates should match what you see in the screenshot below. Set the "Number of Rows" to 20 and the "Number of Columns" to 25. This divides the extent into 20x25 (500!) identical segments. Change the "Geometry" to "Polygon" and run the tool. Your output feature class should look like the grid below.
 
-```{r 01-elephant-hill-fishnet, out.width= "75%", echo = FALSE}
+```{r 04-elephant-hill-fishnet, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-elephant-hill-fishnet.png")
 ```
 
 **Step 8:** Open the "Feature to Point" tool and use your fishnet from the previous step as the input. The default of this tool when used with polygon geometry is to place a point at the center of each polygon. If you overlay your new point feature class onto your fishnet, it should look like the screenshot below.
 
-```{r 01-elephant-hill-fishnet-points, out.width= "75%", echo = FALSE}
+```{r 04-elephant-hill-fishnet-points, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-elephant-hill-fishnet-points.png")
 ```
 
 **Step 9:** We have a nice lattice of points across our study area, and we have a point feature class to sample from, but we need to put them together. Open the "Spatial Join" tool and set your fishnet points (not polygons!) as the "Target Features" and your VRI point feature class as the "Join Features". Set "Closest" as the "Match Option". This will find the closest VRI point to the fishnet and join it to the table. The "Join Operation" should be "Join one to one" and your "Search Radius" can be left blank. Name your "Output Feature Class" "FIP_sample" and run the tool.
 
-```{r 01-spatial-join, out.width= "75%", echo = FALSE}
+```{r 04-spatial-join, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-spatial-join.png")
 ```
 
