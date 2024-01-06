@@ -348,7 +348,7 @@ Open the "Watershed" tool and parameterize it as follows:
 -   Input raster or feature pour point data: **StreamLinks**
 -   Output raster: **Nahmint_watersheds**
 
-The output will be a new raster where the cell values correspond to each unique watershed catchment. You should have something like the following (don't worry if it is not exactly the same):
+The output will be a new raster where the cell values correspond to each unique watershed catchment. You should have something like the following (do not worry if it is not exactly the same):
 
 ```{r 03-map-layers, out.width= "75%", echo = FALSE}
   knitr::include_graphics("images/03-map-layers.JPG")

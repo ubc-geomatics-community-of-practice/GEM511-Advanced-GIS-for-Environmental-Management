@@ -72,7 +72,7 @@ Lab report with the following specification:
 
 -   Which spatial interpolation algorithm would you recommend the research forest use? Defend and justify your choice.
 
--   Reference to at least 3 peer review sources (can be the same sources as introduction)
+-   Reference to at least 3 peer review sources (can be the same sources as introduction).
 
 ------------------------------------------------------------------------
 

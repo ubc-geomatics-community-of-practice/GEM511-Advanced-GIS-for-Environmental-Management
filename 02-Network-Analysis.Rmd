@@ -2,7 +2,8 @@
 yml_content <- yaml::read_yaml("chapterauthors.yml")
 author <- yml_content[["network-analysis"]][["author"]]
 ```
-# Lab Title {#network-analysis}
+
+# Salmon Stream Network Analysis {#network-analysis}
 
 Written by
 ```{r results='asis', echo=FALSE}
@@ -11,7 +12,31 @@ cat(author)
 
 ## Lab Overview {.unnumbered}
 
-Lorem ipsum
+An important application of GIS for watershed management is characterizing the physical components of streams, rivers, and water bodies. In this lab, you will learn how to use the Hydrology, Network Analyst, and Linear Referencing toolsets in ArcGIS Pro to extract hydrologic information from a digital elevation model (DEM) in order to model a network of streams.
+
+In British Columbia, salmon are an important species for economic, cultural, and ecological reasons. Thus, there is extensive research and management efforts to better understand and sustainably manage salmon populations. There are five Pacific salmon species, Chinook, Coho, Chum, Pink, and Sockeye salmon. Salmon are diadromous species, spending their lifecycle in both freshwater and the ocean. We are particularly interested in habitat for salmon spawning. Salmon return to freshwater habitats to spawn and there are various requirements for salmon spawning that differ by species:
+
+-   Stream order
+
+-   Proximity to a lake
+
+-   Upwelling/downwelling
+
+-   Water quality
+
+-   Water depth
+
+-   Water velocity
+
+-   Substrate material
+
+-   Slope gradient
+
+-   Land cover
+
+For this lab, you will identify the preferred habitat for salmon spawning based on proxy measures and how it corresponds to our stream network that we have derived from the DEM. This lab will walk you through how to measure stream order and slope. For your final report, you will also be expected to analyze an additional habitat requirement for salmon spawning. (Note: if you use some information that is not on the aforementioned list, please describe how it is a habitat requirement for salmon spawning in your report.)
+
+In this lab, we will focus on Vancouver Island for a few reasons. First, islands make it possible to calculate flow accumulation exactly, which is important for creating a (nearly) topologically correct stream network. Second, Vancouver Island is large, which will enable us to look at natural sources of topological errors. Third, many species of Pacific salmon return to highly developed Vancouver Island to spawn and often come into conflict with human development.
 
 ------------------------------------------------------------------------
 
@@ -19,66 +44,381 @@ Lorem ipsum
 
 -   Lorem ipsum
 
--   Lorem ipsum 
+-   Lorem ipsum
 
--   Lorem ipsum 
+-   Lorem ipsum
 
 ------------------------------------------------------------------------
 
 ## Deliverables {lab2-deliverables .unnumbered}
 
--   Lorem ipsum
+Lab report with the following specification:
 
--   Lorem ipsum
+<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
 
--   Lorem ipsum
+<input type="checkbox" unchecked> Introduction should address the following questions and requirements (10 points):</input>
+
+-   Describe network analysis and network topology.
+
+-   What are some approaches to modelling reach within networks? Connectivity?
+
+-   Reference to at least 3 peer review sources.
+
+<input type="checkbox" unchecked> Methods should address the following requirements (10 points):</input>
+
+-   Brief study area description and study area map showing the salmon conservation unit that you have selected to focus on.
+
+-   Outline all primary steps included in the lab (no need to include exact ArcGIS Pro tool parameters).
+
+-   Justify the use of specific methodological choices indicated in the lab.
+
+<input type="checkbox" unchecked> Results should address the following questions and requirements (15 points):</input>
+
+-   Map showing the reach of your streams from the ocean with dams as barriers
+
+-   Zoom to Lake Cowichan. What is going on here? What could you do to automatically fix this for all large lakes?
+
+-   How well do the streams you created line up with the mapped streams in the ArcGIS basemap?
+
+<input type="checkbox" unchecked> Discussion should address the following questions and requirements (10 points):</input>
+
+-   Comment on both small and large scale observations that you made throughout the process. Small scale observations would be investigating the behavior/structure of individual routes, while large scale observations would be the overall differences between total salmon habitat and habitat that can actually be reached from the ocean. 
+
+-   Discuss any limitations to the analysis based on your observations and suggest how the modelling process might be improved further. Illustrate your findings with figures, maps, and tables as needed. You are only expected to comment on a single conservation unit, but you may also run the entire island if you feel ambitious.
+
+-   Consider how you might model the other salmon habitat requirements laid out at the beginning of the lab. Give brief examples for how you would model at least [three of the criteria]{.underline} that we [did not]{.underline} consider in the lab (i.e., do not discuss stream order, stream gradient). Assume that you have access to any typical data source (e.g., LiDAR, optical satellite, RADAR, land inventory, gauge stations, weather stations, etc).
+
+-   How would you expect the stream network to change if you used a raster with a cell size of 5 m or 100 m?
+
+-   How might additional topological errors and unidentified/unfilled sinks in the DEM impact your analysis?
+
+-   What are your final recommendations to the province for conservation of spawning salmon habitat in Vancouver Island streams?
+
+-   Reference to at least 3 peer review sources (can be the same sources as introduction).
 
 ------------------------------------------------------------------------
 
 ## Data {.unnumbered}
 
-Lorem ipsum
+The data for this lab are a Digital Elevation Model (DEM) of the Nahmint watershed region in British Columbia and is accessible via the UBC PostgreSQL server. Instructions for connecting to the server are given in the tasks below. We will be using data from the `salmon` database. To save time for this lab, the data have already been assembled and pre-processed for you, but below are some details about how that was achieved.
+
+**vancouver_island_dem**
+
+This was the general process applied to create the DEM in case you want to reproduce it or apply the same method for another project:
+
+1.  Download all the tiles for Vancouver Island from the B.C. Government here
+2.  Mosaic the rasters together using the 'Mosaic to new raster' tool
+3.  Buffer a polygon shapefile of Vancouver Island by 25 m
+4.  Convert the result of step 3 to a raster with cell size 25 m and project to NAD 1983 BC Environment Albers. This is a mask that extends just beyond the shore of Vancouver Island to account for mapping errors.
+5.  Extract the DEM from step 2 by the mask in step 4 to produce a DEM for only Vancouver Island that excludes all other nearby islands:
+
+```{r 02-vancouver-island-dem, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/02-vancouver-island-dem.png")
+```
+
+**vancouver_island_dem_filled**
+
+The DEM above was filtered several times for sinks. Generally, you can use the 'Fill' tool to achieve this. However, Vancouver Island has many naturally-occurring geomorphic features that can cause real sinks (as opposed to random errors). In order to create a depressionless DEM, the DEM was iteratively put through the following process:
+
+1.  Calculate flow direction
+2.  Calculate sinks
+3.  Calculate watersheds using the flow direction raster and the sinks raster as pour points
+4.  Calculate minimum elevation of the sinks using the "Zonal statistics" tool
+5.  Calculate maximum elevation of the watershed for the sink using the 'Zonal fill' tool
+6.  Subtract result of step 4 from result of step 5 for the sinks mapped in step 2. This is the depth of each sink.
+7.  Add the sink depth to the DEM to fill the sink
+8.  Repeat steps 1-7 several times until you remove all sinks or achieve a stopping criterion
+
+The original DEM contained >3,000 sinks. After iterating the above 12 times, there were fewer than 300 sinks. You can subtract the DEM from the filled DEM to observe where fill was added. Notice any patterns for where sinks are located on the island?
+
+**dams**
+
+The dams were acquired from the BC Government [here](https://catalogue.data.gov.bc.ca/dataset/bc-dams). These data were clipped to Vancouver Island and represent dam structures as polyline features.
+
+**Salmon conservation units (CU)**
+
+Conservation units for Chinook, Chum, and Coho were acquired from Oceans and Fisheries Canada [here](https://open.canada.ca/data/en/dataset/1ac00a39-4770-443d-8a6b-9656c06df6a3#wb-auto-6). These polygon areas were mapped considering ecology, life history, and molecular genetics ([Waples et al 2001](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1095-8649.2001.tb01376.x)).
 
 ------------------------------------------------------------------------
 
-## Task 1: Lorem ipsum {.unnumbered}
+## Task 1: Create stream segments {.unnumbered}
 
-Lorem ipsum
+**Step 1:** Calculate the flow direction of the filled DEM, using the 'Flow Direction' tool. The flow direction tool determines which raster cells flow into other cells based on the elevation difference the immediate neighborhood. Keep the defaults of the tool. Ensure that 'Force all edge cells to flow outward' is toggled on and leave all other parameters with the default value.
 
-**Step 1:** Lorem ipsum.
+```{r 02-flow-direction, out.width= "50%", echo = FALSE}
+    knitr::include_graphics("images/02-flow-direction.png")
+```
 
-**Step 2:** Lorem ipsum.
+**Step 2:** Use the output from the 'Flow Direction' tool as an input into the 'Flow Accumulation' tool. Again, use the defaults within the tool, but select integer as the output data type because the output of this tool is a count. This tool will create a raster that represents the number of pixels that will accumulate into any given pixel. The bigger rivers will be displayed in the output. Play around with the symbology to visualize the stream network. (Hint: try using classify and various methods within symbology).
 
-**Step 3:** Lorem ipsum.
+**Step 3:** To define streams, you need to set a threshold for the flow accumulation. Open 'Con' and set the threshold or expression as any pixel that has a count of more than 1000. Therefore, any pixel that has a count of more than 1000 will be classified as a stream. For 'Input true raster or constant value', use value 1. For 'Input false raster or constant value', use value 0.
 
-__HINT: Lorem ipsum.__
+**Step 4:** Next, you will create a grid of stream links, which assigns unique values to each stream segment, so that the user can see how the streams are connected. Open the 'Stream Link' tool and use the output from the 'Con' tool and the flow direction raster here.
 
-##### Q1. LOREM IPSUM? {.unnumbered}
+**Step 5:** You will also use the 'Stream Order' tool using the same inputs as in step 4 and the default parameters. The 'Stream Order' tool assigns a numeric order to segments of the raster, essentially classifying branches of the stream network.
 
-##### Q2. LOREM IPSUM? {.unnumbered}
+**Step 6:** You will also convert your raster into polylines using the stream links raster and flow direction raster as inputs for the 'Stream to Feature' tool. Toggle off 'Simplify polylines'.
+
+Below is a useful flowchart of the process of creating a stream network from a DEM ([Source](https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/deriving-runoff-characteristics.htm))
+
+```{r 02-flow-chart, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/02-flow-chart.png")
+```
 
 ------------------------------------------------------------------------
 
-## Task 2: Lorem ipsum {.unnumbered}
+## Task 2: Create routes and apply topology {.unnumbered}
 
-Lorem ipsum
+At this point, you have only created polyline features representing streams. Next will convert those segments to routes and apply topology for our streams, as well as incorporate dams into the network.
 
-**Step 1:** Lorem ipsum.
+**Step 1:** Convert your stream features into routes using the 'Create routes' tool. Set the Route ID field to 'arcid'. The coordinate Priority parameter can be set to any corner.
 
-**Step 2:** Lorem ipsum.
+```{r 02-create-routes, out.width= "50%", echo = FALSE}
+    knitr::include_graphics("images/02-create-routes.png")
+```
 
-**Step 3:** Lorem ipsum.
+**Step 2:** Create a new feature dataset in your geodatabase. Right-click your geodatabase in the Catalog pane and select New Feature Dataset. For the projection, use NAD 1983 BC Environment Albers.
 
-__HINT: Lorem ipsum.__
+**Step 3:** Import the stream routes and dams feature classes to the feature dataset within the Catalog view.
 
-##### Q3. LOREM IPSUM? {.unnumbered}
+The dams are modelled as polylines. We need to identify where these dams intersect the stream routes. We want to return a single point for that location so that we can properly model the dams in our network. We will use topology to achieve this.
 
-##### Q4. LOREM IPSUM? {.unnumbered}
+```{r 02-example-dam, out.width= "50%", echo = FALSE}
+    knitr::include_graphics("images/02-example-dam.png")
+```
+
+**Step 4:** Right-click the feature dataset and select 'New' and 'Topology'. This will open the Create Topology Wizard dialogue box.
+
+**Step 5:** On the first page of the wizard, toggle on the dams and stream routes feature classes.
+
+```{r 02-create-topology-1, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/02-create-topology-1.png")
+```
+
+**Step 6:** On the second page of the wizard, add a new rule so that the stream polylines must not intersect with the dam polylines.
+
+```{r 02-create-topology-2, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/02-create-topology-2.png")
+```
+
+Once done, click 'Finish'.
+
+**Step 7:** Validate the topology by right-clicking the topology in the feature dataset and clicking 'Validate'.
+
+```{r 02-topology-errors, out.width= "50%", echo = FALSE}
+    knitr::include_graphics("images/02-topology-errors.png")
+```
+
+**Step 8:** You can click and drag the topology into the map to view any errors. We expect there to be errors because we know that the dams should intersect with our stream routes. You should see red squares all over the island. In the Contents Pane, right-click the 'Point Errors' layer, select 'Data', and select 'Export Features'. Save the points to your feature dataset as 'stream_dam_junctions'.
+
+At this point, take a moment to appreciate where we are in this problem. We have modelled streams as routes and we now know where dams intersect with those routes. Salmon are diadromous species, they swim from the saltwater ocean up the freshwater streams to spawn. Therefore, we need one more piece of information in order to model how salmon swim upstream. We need to know where the streams meet the ocean.
+
+**Step 9:** Take the Vancouver Island boundary polygon provided and perform a negative buffer, called a nibble. Use -25 meters for the buffer distance. We are doing a negative buffer because we want to ensure that this edge intersects with the streams that terminate at the ocean. Remember that the streams were generated by an imperfect and imprecise DEM, therefore this process will ensure that every stream that reaches the ocean will intersect this boundary.
+
+**Step 10:** Convert the nibbled Vancouver Island boundary to a polyline using the 'Polygon to line' tool. Be sure to toggle off 'Identify and store polygon neighboring information'. Save the result to your feature dataset.
+
+Next, we will use the same topology process to identify where the island boundary intersects the stream routes.
+
+**Step 11:** Right-click the network topology and select 'Properties'. This will open the topology wizard dialogue again. On the left, select 'Feature Class' and toggle on the nibbled Vancouver island boundary that you created in step 10 and the stream routes. Toggle everything else off. On the left, select 'Rules'. Highlight the previous rule and click the 'Remove' button at the top. Then, add a rule so that the stream routes must not intersect with the nibbled island boundary. Refer to steps 5 and 6 above if you need clarification.
+
+**Step 12:** Again, validate the topology, add the topology to the map view, and export the Point Errors to a point feature class in your feature dataset. Name it 'stream_ocean_junctions'. Refer to steps 7 and 8 if you need clarification.
+
+```{r 02-ocean-stream-junctions, out.width= "100%", echo = FALSE}
+    knitr::include_graphics("images/02-ocean-stream-junctions.png")
+```
+
+------------------------------------------------------------------------
+
+## Task 3: Record stream attributes with linear referencing {.unnumbered}
+
+Now that we have stream routes, we can calculate some information that relate to salmon habitat. Water quality is important for salmon spawning habitat. Steeper gradients (slope) may be more susceptible to erosion that could be one proxy for lower water quality. In this task, you will practice extracting information about the streams and storing that information in the routes using linear referencing.
+
+**Important:** Some of these operations can be computationally intensive because we will be dealing with up to 10^5^ features for the entire island. The instructions that follow are demonstrated on the entire island network dataset. You can attempt to process the entire island, but ultimately [you need to clip your stream routes to one of the conservation units]{.underline} (CU) for any of the three species of salmon for your report.
+
+**Step 1:** Calculate the slope of the filled DEM using "Percent rise" as the output measurement and "Planar" as the Method.
+
+**Step 2:** Now use the "Extract by Mask" tool to extract the slope raster by the mask of the stream links raster you created back in Task 1. This will produce a raster with slope values only where our streams exist.
+
+**Step 3:** In British Columbia, stream gradients \< 20% are generally considered to be fish-bearing. Therefore, use the "Reclassify" tool to classify slopes < 20% to a value of 1 and all other slopes to a value of 0.
+
+**Step 4:** Use the "Stream to Feature" tool to convert the classified slope raster to line features. Parameterize this tool similar to the way you did in Task 1:
+
+-   Input stream raster is the classified slope raster you just made in step 3
+
+-   Input flow direction raster is the original flow direction raster you made in Task 1
+
+-   Name the output "stream_features_slope_classified"
+
+-   Uncheck "Simplify polygons"
+
+Now you have another feature class of streams that should spatially match your stream routes, but these new polylines contain the gradient information. Now we will overlay this information with the routes.
+
+**Step 5:** Use the "Locate Features Along Routes" tool to overlay the gradient information with the routes.
+
+```{r 02-locate-features-along-routes, out.width= "50%", echo = FALSE}
+    knitr::include_graphics("images/02-locate-features-along-routes.png")
+```
+
+This will produce a route event table that should look something like this:
+
+```{r 02-stream-routes-gradient, out.width= "50%", echo = FALSE}
+    knitr::include_graphics("images/02-stream-routes-gradient.png")
+```
+
+grid_code in the event table represents the classified stream gradient (0 is ≥20%, 1 is <20%). Note that you have more records in this table than you have routes, because many routes are being segmented based on the gradient. Thus, you see repeating route id"s (RID).
+
+Add a Short field to the event table called "GRADIENT" and calculate this field as !grid_code! to transfer the grid_code values to a more meaningful field name.
+
+**Step 6:** Repeat steps 4 and 5 above for the stream order raster that you generated in Task 1. Ensure that the stream_order raster is used as the "Input stream raster" and "Simplify polygons" is toggled off. In the end, you should have a second event table where the grid_code (values between 1 and 6) indicates the stream order for each route. Again, add a Short field to the event table called "SORDER" and calculate this field as !grid_code! to transfer the grid_code values to a more meaningful field name.
+
+------------------------------------------------------------------------
+
+## Task 4: Trace the network {.unnumbered}
+
+Now we can create a network that will allow us to trace the routes from the ocean to the dams.
+
+**Step 1:** Open the "Create Trace Network" tool:
+
+-   The Input Feature Dataset should point to your feature dataset in your geodatabase
+
+-   Trace Network Name can be named "stream_trace_network"
+
+-   Input Junctions should contain both the "stream_dams_junction" and "stream_ocean_junctions" that you created in steps 8 and 12 from Task 2
+
+-   Input Edges should contain the stream routes and set the Connectivity Policy to "Complex edge"
+
+```{r 02-create-trace-network, out.width= "50%", echo = FALSE}
+    knitr::include_graphics("images/02-create-trace-network.png")
+```
+
+**Step 2:** Run the "Enable Network Topology" tool on the trace network you just created.
+
+**Step 3:** Run the "Validate Network Topology" tool on the trace network you just created. You might receive a warning: \"A dirty area is not present within the specific extent.\" Ignore it.
+
+**Step 4:** Open the "Trace" tool. This tool traces a path along a network the meets specified criteria. It also supports modelling barriers, so that the tracing terminates when a barrier feature is reached. Here is how we will parameterize this tool:
+
+-   Input Trace Network is the trace network that you created earlier
+
+-   Trace Type is "Connected"
+
+-   Starting Points are the "stream_ocean_junctions" that you created earlier
+
+-   Barriers are the "stream_dam_junctions" that you created earlier
+
+-   Toggle on "Include Barrier Features"
+
+-   Toggle off "Validate Consistency"
+
+-   Toggle off "Ignore Barriers at Starting Points"
+
+-   Leave all Advanced Options as defaults
+
+```{r 02-trace, out.width= "50%", echo = FALSE}
+    knitr::include_graphics("images/02-trace.png")
+```
+
+**Step 5:** Once you have ran the "Trace" tool, you will see some of the routes selected on your map. Add a Short field to the route attribute table called "REACHED". Calculate this field with a value of "1" for the routes selected. Invert the selection and calculate the field again for the selected features with a value of "0". Finally, clear the selection and symbolize the routes based on the "REACHED" field. Congratulations! You have now modelled which route segments can be reached from the ocean before running into a dam. Your stream_routes should look something like this (blue = unimpeded streams, yellow = stream reaches that are impeded by a dam):
+
+```{r 02-traced-network, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/02-traced-network.png")
+```
+
+**Important:** If your map looks significantly different from above, like most of the streams are impeded, then try these fixes:
+
+-   Zoom in closely to the ocean and dam junctions to ensure they are overlapping with the stream routes.
+
+-   Apply a new topology rule that dam/ocean junctions must be coincident with the stream routes.
+
+-   If there are any errors from above, then use the "Snap" tool to force the ocean and dam junctions to. The input features are the features that you want to move (snap), in this case the ocean and dam junction points. The type should be set to "Edge" and usually a distance of 25-30 meters is sufficient, but check the output
+
+-   If you are still having trouble, try deleting the Trace Network from the feature dataset and rebuilding it ("Create Trace Network" + "Enable Network Topology" + "Validate Network Topology").
+
+-   If you are unable to delete the trace network, your geodatabase may be corrupt. Try creating a new geodatabase and import or re-create the important feature classes. Then, re-create the feature dataset and rebuild the trace network.
+
+------------------------------------------------------------------------
+
+## Task 5: Overlay and query the network {.unumbered}
+
+Now you will practice doing an overlay with your route event tables to transfer all the attributes into a common linear referencing system. This will allow you to then query the network for stream segments that meet some basic conditions for salmon habitat.
+
+**Step 1:** Parameterize the "Overlay Route Events" tool like below:
+
+-   Input Event Table is your classified gradient event table from Task 3
+
+-   Overlay Event Table is the stream order event table from Task 3
+
+-   From-Measure Field is FMEAS
+
+-   To-Measure Field is TMEAS for both input event tables and the output event table
+
+-   Type of Overlay is Intersect
+
+-   Name the Output Event Table "stream_route_overlay"
+
+-   Leave the Route Identifier Field empty for the output, but ensure it is set to RID for both the input tables
+
+```{r 02-overlay-route-events, out.width= "50%", echo = FALSE}
+    knitr::include_graphics("images/02-overlay-route-events.png")
+```
+
+This will produce a new output event table that contains the intersection of stream gradient and stream order along the routes. As well, this event table should contain which routes can be reached from the ocean before running into a dam. Keep in mind that this is just a table, not a feature class. This is known as *dynamic segmentation*. Next we will add one last field, visualize the everything and do a simple query.
+
+**Step 2:** Join the field "REACHED" from the original routes to the overlay event table you just created using the "Join Field" tool:
+
+```{r 02-join-field, out.width= "50%", echo = FALSE}
+    knitr::include_graphics("images/02-join-field.png")
+```
+
+You should now have a table that has all the fields we need: SORDER, GRADIENT, and REACHED. (Note that some fields have been hidden from view in the table below.)
+
+```{r 02-stream-route-overlay, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/02-stream-route-overlay.png")
+```
+
+**Step 3:** Use the "Make Route Event Layer" tool to convert the output event table to a feature class. Parameterize the tool as follows:
+
+-   Input route features will be the routes you originally created in Task 1
+
+-   Route identifier field is "arcid"
+
+-   Input event table is the "stream_route_overlay" table that you created from step 1
+
+-   From-measure field is "FMEAS"
+
+-   To-measure field is "TMEAS"
+
+-   Layer name or Table view is "stream_route_overlay_layer"
+
+**Step 4:** Query the event layer from step 2 for stream segments with the following requirements:
+
+-   [**Can**]{.underline} be reached from the ocean
+
+-   Is 1^st^ or 2^nd^ order stream
+
+-   Has a gradient not steeper than 20%
+
+Export the selected features to a new feature class called "accessible_salmon_habitat".
+
+**Step 5:** Repeat the query using the following requirements:
+
+-   [**Cannot**]{.underline} be reached from the ocean
+
+-   Is 1^st^ or 2^nd^ order stream
+
+-   Has a gradient not steeper than 20%
+
+Export the selected features to a new feature class called "inaccessible_salmon_habitat".
+
+If everything goes *swimmingly*, then the selected stream segments that meet the habitat criteria and can be reached from the ocean will look something like this:
+
+```{r 02-selected-streams, out.width= "100%", echo = FALSE}
+    knitr::include_graphics("images/02-selected-streams.png")
+```
 
 ------------------------------------------------------------------------
 
 ## Summary {.unnumbered}
 
-Here
+Would you have guessed that you could do all that analysis from a single DEM? That is the power of applying focal functions to the raster (flow direction, flow accumulation, slope) and deriving a network with topology. In this lab, we were principally concerned with events and attributes along the stream segments. Although we did not explicitly calculate connectivity measures, the connectivity of the network was implied through the modelling approach using flow direction from the filled DEM. If you attempted to perform this same analysis without the aid of a DEM, then you would need to take additional precautions to ensure that your polyline features have topological connectivity and valid junctions. Still, our approach using a DEM is prone to artifacts from the raster. Stream segments are limited to eight turning angles and the resolution of the DEM can impact stream attributes.
 
-Return to the **[Deliverables](#lab2-deliverables)** section to check off everything you need to submit for credit in the course management system.
+Return to the [**Deliverables**](#lab2-deliverables) section to check off everything you need to submit for credit in the course management system.

@@ -6,7 +6,6 @@ author <- yml_content[["machine-learning"]][["author"]]
 # Machine Learning with Geospatial Data {#machine-learning}
 
 Written by
-
 ```{r results='asis', echo=FALSE}
 cat(author)
 ```
