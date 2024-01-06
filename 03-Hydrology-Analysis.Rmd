@@ -6,7 +6,6 @@ author <- yml_content[["hydrology-analysis"]][["author"]]
 # Terrain Analaysis and Riparian Area Management {#hydrology-analysis}
 
 Written by
-
 ```{r results='asis', echo=FALSE}
 cat(author)
 ```
@@ -45,15 +44,57 @@ More information on the Nahmint valley and recent logging activities in the regi
 
 Lab report with the following specification:
 
-<input type="checkbox" unchecked> Introduction should include the following information (10 points):</input> - What is a Riparian Management Area? Why are they important and how are they defined in BC? - What remote sensing technology can be used to measure streams and riparian vegetation? - Potential advantages of using remote sensing in riparian management - Overall goal of the analysis - Reference to at least 3 peer review sources
+<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
 
-<input type="checkbox" unchecked> Methods should include the following (10 points):</input> - Brief study area description and study area map - Outline all primary steps included in the lab (no need to include exact ArcGIS tool parameters) - Justify the use of specific methodological choices indicated in the lab
+<input type="checkbox" unchecked> Introduction should address the following questions and requirements (10 points):</input>
 
-<input type="checkbox" unchecked> Results should include the following (15 points):</input> - Table of summary statistics of number of stream links, average stream length, width and gradient grouped by stream order? - How many streams have fish bearing potential? What is the total length of these streams? - How much forest area is retained within the Riparian Reserve and Management Zones? - Average area of watersheds and number of watersheds in study area - A map including the following spatial layers: - Watersheds, contour lines - Stream networks symbolized by stream class - Inset map showing example stream network and Riparian Management Areas
+-   What is a Riparian Management Area? Why are they important and how are they defined in BC?
 
-<input type="checkbox" unchecked> Discussion should include answers to the following (10 points):</input> - Accuracy of stream networks compared to basemaps - How did stream characteristics change across stream order? Is this what you expected? - Use the watershed map, contour lines and flow direction layers to assess how runoff from harvesting may impact stream networks. Do you think the mapped RMAs provide adequate protection to streams in this area? - Strengths and limitations of methods for determining RMAs & application for forest management - Reference to at least 3 peer review sources (can be the same sources as introduction)
+-   What remote sensing technology can be used to measure streams and riparian vegetation?
 
-<input type="checkbox" unchecked> 6 pages maximum (not including figures, tables and references)</input>
+-   Potential advantages of using remote sensing in riparian management.
+
+-   Overall goal of the analysis.
+
+-   Reference to at least 3 peer review sources.
+
+<input type="checkbox" unchecked> Methods should address the following requirements (10 points):</input>
+
+-   Brief study area description and study area map.
+
+-   Outline all primary steps included in the lab (no need to include exact ArcGIS Pro tool parameters).
+
+-   Justify the use of specific methodological choices indicated in the lab.
+
+<input type="checkbox" unchecked> Results should address the following questions and requirements (15 points):</input>
+
+-   Table of summary statistics of number of stream links, average stream length, width and gradient grouped by stream order?
+
+-   How many streams have fish bearing potential? What is the total length of these streams?
+
+-   How much forest area is retained within the Riparian Reserve and Management Zones?
+
+-   Average area of watersheds and number of watersheds in study area.
+
+-   A map including the following spatial layers:
+
+    -   Watersheds, contour lines
+
+    -   Stream networks symbolized by stream class
+
+    -   Inset map showing example stream network and Riparian Management Areas
+
+<input type="checkbox" unchecked> Discussion should address the following questions and requirements (10 points):</input>
+
+-   Accuracy of stream networks compared to basemaps.
+
+-   How did stream characteristics change across stream order? Is this what you expected?
+
+-   Use the watershed map, contour lines and flow direction layers to assess how runoff from harvesting may impact stream networks. Do you think the mapped RMAs provide adequate protection to streams in this area?
+
+-   Strengths and limitations of methods for determining RMAs and application for forest management.
+
+-   Reference to at least 3 peer review sources (can be the same sources as introduction).
 
 ------------------------------------------------------------------------
 
