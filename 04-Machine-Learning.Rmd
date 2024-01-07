@@ -17,7 +17,7 @@ In this lab, we will be using simple machine learning tools in ArcGIS Pro to pre
 Our area of interest is a large rectangular area in southern British Columbia containing the burn boundary from the 2017 Elephant Hill wildfire. The fire began on July 6th, 2017 and burned 191,865 ha in the south-central Interior region of BC, just northeast of Cache Creek. It was the largest fire by area in the record-breaking 2017 BC wildfire season and was likely started by smoking materials (matches, cigarettes, etc.).
 
 ```{r 04-elephant-hill-fire, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-elephant-hill-fire.png")
+    knitr::include_graphics("images/04-elephant-hill-fire.png")
 ```
 
 ------------------------------------------------------------------------
@@ -28,7 +28,7 @@ Our area of interest is a large rectangular area in southern British Columbia co
 
 -   Train, test, and predict a continuous variable (crown closure) and a categorical variable (fuel type) using the random forest algorithm
 
--   Evaluate models by interpreting model statistics like R^{2}, AIC, VIF, and confusion matrices
+-   Evaluate models by interpreting model statistics like R^2^, AIC, VIF, and confusion matrices
 
 ------------------------------------------------------------------------
 
@@ -67,9 +67,9 @@ Lab report with the following specification:
 
 -   What are the results of the spatial autocorrelation (SA) tool and what do they tell us? Why did we use the K Nearest Neighbours method for this dataset? 
 
--   What is the maximum R^{2} value out of all the equations in the results?
+-   What is the maximum R^2^ value out of all the equations in the results?
 
--   What variables did you choose to include in your model after running exploratory regression? Why did you choose this equation and/or set of variables? Use the statistical terms in the results (R^{2}, p-value, AIC, VIF, variable significance, etc.) to help you explain.
+-   What variables did you choose to include in your model after running exploratory regression? Why did you choose this equation and/or set of variables? Use the statistical terms in the results (R^2^, p-value, AIC, VIF, variable significance, etc.) to help you explain.
 
 -   Map of one of the FUEL_TYPE rasters and one of the CROWN_CLOS rasters. Be sure to specify in a caption or title what sampling design / parameter settings you are displaying in each.
 
@@ -83,7 +83,7 @@ Lab report with the following specification:
 
 ------------------------------------------------------------------------
 
-## Data {.unnumbered}
+## Data {#lab4-data .unnumbered}
 
 All data for this lab are accessible via the UBC PostgreSQL server. Instructions for connecting to the server are given in the tasks below. We will be using data from the `elephanthill` database.
 
@@ -175,10 +175,10 @@ Next, we are going to use Exploratory Regression to determine which of our raste
 **Step 5:** Open the "Exploratory Regression" tool and set the VRI feature class as your "Input Features". Select "CROWN_CLOS" as your "Dependent Variable". Remember that as part of the pre-processing, all raster data were extracted at the VRI points. Select the fields corresponding to the rasters in the VRI feature class as your "Candidate Explanatory Variables". Leave out the original Landsat bands. Save the "Output Report File" as "regression_results.txt". This will create a text file in your default folder with the results of the tool, which can also be viewed under "View Details". Leave the rest of the tool parameters as the default values and run the tool.
 
 ```{r 04-exploratory-regression, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-exploratory-regression.png")
+    knitr::include_graphics("images/04-exploratory-regression.png")
 ```
 
-**Step 6:** Select the equation you think will work best. Remember to look at all the different measures of model "goodness" (R^{2}, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
+**Step 6:** Select the equation you think will work best. Remember to look at all the different measures of model "goodness" (R^2^, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
 
 ------------------------------------------------------------------------
 
@@ -212,19 +212,19 @@ Double-check that your sub-samples have the correct number and fuel types in the
 **Step 7:** To make the fixed interval point (FIP) sampled dataset, we will create a regularly spaced grid from which to sample our points by creating a fishnet of polygons, converting those polygons into centroid points, and then sampling the closest VRI point to our fishnet points. Open the "Create Fishnet" tool and name your "Output Feature Class" "fishnet". Set your "Template Extent" to the VRI point feature class. The coordinates should match what you see in the screenshot below. Set the "Number of Rows" to 20 and the "Number of Columns" to 25. This divides the extent into 20x25 (500!) identical segments. Change the "Geometry" to "Polygon" and run the tool. Your output feature class should look like the grid below.
 
 ```{r 04-elephant-hill-fishnet, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-elephant-hill-fishnet.png")
+    knitr::include_graphics("images/04-elephant-hill-fishnet.png")
 ```
 
 **Step 8:** Open the "Feature to Point" tool and use your fishnet from the previous step as the input. The default of this tool when used with polygon geometry is to place a point at the center of each polygon. If you overlay your new point feature class onto your fishnet, it should look like the screenshot below.
 
 ```{r 04-elephant-hill-fishnet-points, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-elephant-hill-fishnet-points.png")
+    knitr::include_graphics("images/04-elephant-hill-fishnet-points.png")
 ```
 
 **Step 9:** We have a nice lattice of points across our study area, and we have a point feature class to sample from, but we need to put them together. Open the "Spatial Join" tool and set your fishnet points (not polygons!) as the "Target Features" and your VRI point feature class as the "Join Features". Set "Closest" as the "Match Option". This will find the closest VRI point to the fishnet and join it to the table. The "Join Operation" should be "Join one to one" and your "Search Radius" can be left blank. Name your "Output Feature Class" "FIP_sample" and run the tool.
 
 ```{r 04-spatial-join, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-spatial-join.png")
+    knitr::include_graphics("images/04-spatial-join.png")
 ```
 
 You now have three sampling sets to try your machine learning with!
@@ -248,7 +248,7 @@ Our last task will be using the "Forest-based Classification and Regression" too
 -   **Validation Options \> Training Data Excluded for Validation:** set to 30%
 -   **Validation Options \> Number of Runs for Validation:** set to 2
 
-Leave all other parameters as the default value or blank. Run the tool. You may get a warning about low numbers of certain fuel types -- ignore it (for now...). When the tool finishes, click "View Details" and copy/paste the info under "Messages" into a text file. This is where you can find the regression statistics (R^{2}, RMSE, etc) for the training and validation data for your report.
+Leave all other parameters as the default value or blank. Run the tool. You may get a warning about low numbers of certain fuel types -- ignore it (for now...). When the tool finishes, click "View Details" and copy/paste the info under "Messages" into a text file. This is where you can find the regression statistics (R^2^, RMSE, etc) for the training and validation data for your report.
 
 **Step 2:** Run the tool again, but this time use "stratified_sample" as your "Input Training Features". Change the name of your outputs accordingly, but keep everything else the same. When this is finished, run the tool a third time with "FIP_sample" as the input. Remember to keep your regression results in a text file. If you do forget, just go to "History" under the "Analysis" tab and hover over the tool.
 
@@ -291,6 +291,6 @@ Your output rasters for FUEL_TYPE may be numbers, even though the variable was a
 
 ## Summary {.unnumbered}
 
-Here
+There are many things to consider when undertaking machine learning with geospatial data. Although we only practiced with the random forest algorithm, many of these considerations are important for other methods as well. Machine learning algorithms work well for large datasets where you can randomly apportion testing, training and validation datasets. When applying these algorithms to spatial data, we often need to consider data density in the spatial and sometimes temporal domains. Interrogating spatial and temporal autocorrelation can help to identify the appropriate sampling strategy for your problem. As you learned in this lab, even the type of variable that you are predicting (continuous vs discrete) can require completely different methods for data handling, testing, and validation. Keep in mind that most of the data pre-processing was removed from the lab (see [Data](#lab4-data)) so that you could focus on the analysis, though these efforts remain some of the most time-consuming to ensure a successful analysis.
 
 Return to the [**Deliverables**](#lab4-deliverables) section to check off everything you need to submit for credit in the course management system

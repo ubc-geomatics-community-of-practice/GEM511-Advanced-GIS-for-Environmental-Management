@@ -52,7 +52,7 @@ In this lab, we will focus on Vancouver Island for a few reasons. First, islands
 
 ------------------------------------------------------------------------
 
-## Deliverables {lab2-deliverables .unnumbered}
+## Deliverables {#lab2-deliverables .unnumbered}
 
 Lab report with the following specification:
 

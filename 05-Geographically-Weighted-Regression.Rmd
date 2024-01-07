@@ -3,7 +3,7 @@ yml_content <- yaml::read_yaml("chapterauthors.yml")
 author <- yml_content[["geographically-weighted-regression"]][["author"]]
 ```
 
-# Lab Title {#geographically-weighted-regression}
+# Analyzing Green Equity Using Geographically Weighted Regression {#geographically-weighted-regression}
 
 Written by
 ```{r results='asis', echo=FALSE}
