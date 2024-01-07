@@ -104,7 +104,7 @@ The data for this lab are a Digital Elevation Model (DEM) of the Nahmint watersh
 
 ------------------------------------------------------------------------
 
-## Task 1: Prepare the DEM and Map Stream Networks
+## Task 1: Prepare the DEM and Map Stream Networks {.unnumbered}
 
 **Step 1:** The following steps should largely be review from the previous terrain modelling assignment! First, connect to the `nahmint` database on the UBC PostgreSQL server and import the **Nahmint_DEM** layer into your ArcGIS Pro project. We will do a few pre-processing steps before generating a stream network.
 
@@ -202,7 +202,7 @@ Zoom in and examine the output.
 
 ------------------------------------------------------------------------
 
-## Task 2: Extract Stream Characteristics
+## Task 2: Extract Stream Characteristics {.unnumbered}
 
 In this task we will calculate stream gradient and estimate width for each segment in the network. These metrics will be used to assign a stream class and define the width of the riparian management area.
 
@@ -288,7 +288,7 @@ If you get an "Invalid Field" error it is because the variable in the "Expressio
 
 ------------------------------------------------------------------------
 
-## Task 3: Mapping Watersheds and Riparian Management Areas
+## Task 3: Mapping Watersheds and Riparian Management Areas {.unnumbered}
 
 **Step 1:** Use the following table to assign a stream class (S1-S6) based on average channel width and fish bearing potential. The Reserve Zone defines the region around the stream where harvest is prohibited and the Management Zone defines the region where limited harvest is permitted. Note that not all stream classes may be present in the dataset.
 

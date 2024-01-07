@@ -341,7 +341,7 @@ Now we can create a network that will allow us to trace the routes from the ocea
 
 ------------------------------------------------------------------------
 
-## Task 5: Overlay and query the network {.unumbered}
+## Task 5: Overlay and query the network {.unnumbered}
 
 Now you will practice doing an overlay with your route event tables to transfer all the attributes into a common linear referencing system. This will allow you to then query the network for stream segments that meet some basic conditions for salmon habitat.
 
