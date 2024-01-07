@@ -335,19 +335,19 @@ We now have a 2D point feature class that we can use to test different spatial i
 
 ## Task 4: Apply and evaluate spatial interpolation algorithms in ArcGIS Pro {.unnumbered}
 
-Since we now have points representing height values, we can use the raster interpolation toolset to experiment with three different interpolation methods: Kriging, Inverse Distance Weighting (IDW), and Spline. You can read more about the tools we will be using from the [ArcGIS Pro documentation](https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/an-overview-of-the-interpolation-tools.htm).
+Since we now have points representing height values, we can use the raster interpolation toolset to experiment with three different interpolation methods: Natural Neighbor, Inverse Distance Weighting (IDW), and Spline. You can read more about the tools we will be using from the [ArcGIS Pro documentation](https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/an-overview-of-the-interpolation-tools.htm).
 
-Search for each of the interpolation tools listed above individually (for IDW, the tool is called "IDW") and explore their parameters. Note that we will be using the 2D Spatial Analyst tools, not the 3D Analyst Tools. In order to make the comparison straightforward, make sure that the output raster is the same resolution as the DEM created in the last task (30 m).
+Search for each of the interpolation tools listed above individually (for IDW, the tool is called "IDW") and explore their parameters. Natural Neighbor can be found with the "LAS to Raster" tool, change the "Interpolation Type" to "Triangulation", and "Cell Assignment" to "Natural Neighbor". Note that we will be using the 2D Spatial Analyst tools, not the 3D Analyst Tools.
 
-**Step 1:** Create three rasters for each interpolation method: Spline, IDW, and Kriging. We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want. Note, when creating the rasters, keep the default settings, except for Kriging. For this tool, change the number of points in the search radius to 6. These tools will take much more time to run compared with the binning algorithm, so be prepared to leave your computer running with reliable power supply. Kriging will especially take a long time, so you might consider skipping ahead to the next task and practice 3D visualization of the layers in ArcGIS Pro or go back to the last task and try it in QGIS.
+**Step 1:** Create three rasters for each interpolation method: Natural Neighbor, IDW, and Spline. We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want. For each tool, keep the default settings, but make sure that you generate the rasters at 1 m resolution or whatever resolution you decided to run. 
 
 Take some time to inspect each raster, and look at their similarities and differences (make sure that you are using a common symbology when comparing). We can compare the differences between our interpolated rasters with the binned DEM that we created in the last task.
 
-**Step 2:** In order to compare the rasters, we will make a raster of the differences between the interpolated surface and the binned DEM. You will use the "Raster Calculator" tool to do this. Calculate the absolute value of the difference between each interpolated raster and the binned DEM, **MKRF_DEM**. Name each difference raster according to the interpolation method: "spline_diff", "krig_diff", and "idw_diff". We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want.
+**Step 2:** In order to compare the rasters, we will make a raster of the differences between the interpolated surface and the binned DEM. You will use the "Raster Calculator" tool to do this. Subtract each interpolated surface from **MKRF_DEM**. Name each difference raster according to the interpolation method: "spline_diff", "nn_diff", and "idw_diff". We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want.
 
 Next, we are going to quantitatively evaluate the differences and calculate statistics over different zones to see if there are any patterns or relationships with other variables.
 
-**Step 3:** Use the "Reclassify" tool to reclassify the binned DEM into "high", "medium", and "low" areas. Use the range of elevation values that you recorded in the previous task from the LAS Dataset to decide the start and end ranges in the reclassification. Refer to the following table:
+**Step 3:** Use the "Reclassify" tool to reclassify the binned **MKRF_DEM** into "high", "medium", and "low" areas. Use the range of elevation values that you recorded in the previous task from the LAS Dataset to decide the start and end ranges in the reclassification. Refer to the following table:
 
 | Start     | End    | New    |
 |-----------|--------|--------|
@@ -373,20 +373,22 @@ We will use these reclassified areas as zones to calculate statistics about the 
 
 -   idw_diff_slope
 
--   krig_diff_elev
+-   nn_diff_elev
 
--   krig_diff_slope
+-   nn_diff_slope
 
 -   spline_diff_elev
 
 -   spline_diff_slope
 
-**Step 6:** Switch ArcGIS Pro to a Layout view. You may want to change the page orientation to landscape instead of portrait. To do so, go to "File" then "Page and Print Setup". In ArcGIS Pro, we can insert as many map frames as we want into our map layout. In our case, we will need 6 maps in our layout, as well as some free space for legends and text. There will be one interpolated surface and one difference raster for each of the three interpolation methods. Display each of these layers in their own map and place them appropriately in the layout. Each map should include only one raster, one of the following: DEMs using Spline, Kriging, and IDW, “spline_diff”, “krig_diff”, and “idw_diff”. Arrange the data frames by row and column so that the layout makes sense (that is, so each interpolation method is near one another.
+**Step 6:** Create a hillshade from each of the interpolated surfaces using the "Hillshade" tool. Leave the default settings, which will illuminate the surface for a sun inclination (elevation) of 45° from a declination of 315° (northwest); unrealistic for this latitude at any time of year, but the cartographic standard nonetheless. Inspect the hillshades and use them to make additional observations for your report.
 
-**Step 7:**  Add all of the tables from the previous step into one of the data frames. When you open these tables, you can add them to the map by clicking "Table Options" and selecting “Add Table to Layout”. You can also remove unimportant columns from the display by right clicking the column name in the attribute table and clicking "Turn Field Off". Place the tables in the layout view a way that makes sense (near their respective difference raster). Label what each of the values means
+**Step 7:** Switch ArcGIS Pro to a Layout view. You may want to change the page orientation to landscape instead of portrait. To do so, go to "File" then "Page and Print Setup". In ArcGIS Pro, we can insert as many map frames as we want into our map layout. In our case, we will need 6 maps in our layout, as well as some free space for legends and text. There will be one interpolated surface and one difference raster for each of the three interpolation methods. Display each of these layers in their own map and place them appropriately in the layout. Each map should include only one raster, one of the following: DEMs using Spline, Natural Neighbor, and IDW, “spline_diff”, “nn_diff”, and “idw_diff”. Arrange the data frames by row and column so that the layout makes sense (that is, so each interpolation method is near one another.
+
+**Step 8:**  Add all of the tables from the previous step into one of the data frames. When you open these tables, you can add them to the map by clicking "Table Options" and selecting “Add Table to Layout”. You can also remove unimportant columns from the display by right clicking the column name in the attribute table and clicking "Turn Field Off". Place the tables in the layout view a way that makes sense (near their respective difference raster). Label what each of the values means
 with a text box ("Insert" > "Text").
 
-**Step 8:** Change symbology for both the overall and difference layers. Use the same symbology for all of them.
+**Step 9:** Change symbology for both the overall and difference layers. Use the same symbology for all of them.
 
 Start with the elevations. Click on one of the layers representing the interpolated surfaces (Spline, for example) and select the the Symbology tab. Change the Primary symbology to "Classify". Set the number of classes to 7. You may change the color ramp to one that makes sense to you, but make sure that there is enough contrast between classes. Change the symbology of the other two interpolated surfaces to match the first one (i.e. make sure to match break classes). You can explore the "Apply Symbology from Layer" tool to do this quickly. 
 
@@ -394,11 +396,7 @@ Repeat the same process for the difference rasters. This time, use 8 classes and
 
 Add a legend for each symbology definition (Elevation and Difference) to the map layout by clicking on a data frame and selecting "Insert" > "Legend" from the top menu bar. Place them on the map layout in a way that makes sense (near the respective layers).
 
-Finally, put some text on the layout to communicate which data frame is which, and what each table represents. You can either label every data frame or label the columns and rows (“Interpolated Surface” and “Difference to DTM” as rows and “Spline”, “Kriging”, and “IDW” as columns). Make sure you communicate what each aspect of the map is effectively! Save the map document and export the map document to a PNG ("Share" > "Export Layout"). When you are all done, it should look something like this:
-
-```{r 01-arcgis-example-map, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-arcgis-example-map.png")
-```
+Finally, put some text on the layout to communicate which data frame is which, and what each table represents. You can either label every data frame or label the columns and rows (“Interpolated Surface” and “Difference to DEM” as rows and “Spline”, “Natural Neighbor”, and “IDW” as columns). Make sure you communicate what each aspect of the map is effectively! Save the map document and export the map document to a PNG ("Share" > "Export Layout").
 
 Note that the figure above uses slightly different data than this lab and should only be used as a reference to for the symbology and layout expectations, so your maps will look different.
 
@@ -420,17 +418,17 @@ By default, ArcGIS Pro uses its own "WorldElevation3D/Terrain3D" source for the 
 
 **Step 3:** Add the three interpolated DEM rasters to the scene and also the difference rasters. Toggle everything off in the scene. Drag the three DEM rasters under "Ground". Leave the three difference rasters under "2D Layers". 
 
-**Step 4:** For each difference raster, toggle it on and change the symbology to "Stretch", using a diverging "Color Scheme" and a "Minimum Maximum" "Stretch Type". Below in the "Statistics" tab, click "Dataset" and then select "Custom" from the drop-down menu. Modify the "Minimum" and "Maximum" values so that they are the same magnitude, but one is positive and the other is negative. You select the appropriate values based on the range of values that you observe in the difference raster. For example, if the range of difference values is -3 and 5, then you would set the "Minimum" to -5 and the "Maximum" to 5. 
+**Step 4:** For each difference raster, toggle it on and change the symbology to "Stretch", using a diverging "Color Scheme" and a "Minimum Maximum" "Stretch Type". Below in the "Statistics" tab, click "Dataset" and then select "Custom" from the drop-down menu. Modify the "Minimum" and "Maximum" values so that they are the same magnitude, but one is positive and the other is negative. You select the appropriate values based on the range of values that you observe in the difference raster and you will need to test different values to get your desired effect. For example, if the range of difference values is -10.51 and 21.32, then you might try setting the "Minimum" to -10 and the "Maximum" to 10. If you want the colors to be more apparent, then incrementally reduce the magnitude of your values: try -7, 7 next; then -5, 5; etc. until you reach your desired visualization. It it important to ensure that the midpoint is zero when using a diverging color scheme.
 
 **Step 5:** Toggle on each pair of DEM (under "Ground") and difference raster (under "2D Layers"). The ground source adds elevation to the difference raster that you symbolized, but does not impact or change the point cloud because it is inherently 3D data. Since we are using our own custom ground source, we can actually pan and observe a cross-section of the point cloud sitting on, above, or below the ground source and then observe local deviations between the point cloud and the derived DEM surface. 
 
-The white background might make it difficult to observe the differences. You can change the background color of the scene by left-clicking on "Scene" in the Contents Pane, open the "Properties", and then select the background color. We suggest using a light grey. There are other options for illumination that you can also modify in the "Properties", if you want. The image below shows an example of what the spline might look like without symbolizing the difference raster:
+The white background might make it difficult to observe the differences. You can change the background color of the scene by left-clicking on "Scene" in the Contents Pane, open the "Properties", and then select the background color. We suggest using a light grey. There are other options for illumination that you can also modify in the "Properties", if you want. The image below shows an example of what the IDW might look like:
 
-```{r 01-arcgis-scene-spline, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-arcgis-scene-spline.png")
+```{r 01-arcgis-idw-diff, out.width= "100%", echo = FALSE}
+    knitr::include_graphics("images/01-arcgis-idw-diff.png")
 ```
 
-Explore all of the DEM surfaces and export some examples that could help you interpret and illustrate your observations in your report. 
+Explore all of the DEM surfaces and export some examples that could help you interpret and illustrate your observations in your report.
 
 ------------------------------------------------------------------------
 
