@@ -42,11 +42,13 @@ In this lab, we will focus on Vancouver Island for a few reasons. First, islands
 
 ## Learning Objectives {.unnumbered}
 
--   Lorem ipsum
+-   Derive hydrology layers from a DEM
 
--   Lorem ipsum
+-   Model dams on streams as barriers by applying network topology
 
--   Lorem ipsum
+-   Evaluate a capability model of salmon habitat along stream segments using linear referencing
+
+-   Trace a stream network and calculate reachable upstream salmon habitat
 
 ------------------------------------------------------------------------
 
