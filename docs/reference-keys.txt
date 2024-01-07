@@ -1,10 +1,5 @@
 terrain-spatial-interpolation
 network-analysis
-task-5-overlay-and-query-the-network
 hydrology-analysis
-task-1-prepare-the-dem-and-map-stream-networks
-task-2-extract-stream-characteristics
-task-3-mapping-watersheds-and-riparian-management-areas
 machine-learning
 geographically-weighted-regression
-a-word-about-alt_geo_code
