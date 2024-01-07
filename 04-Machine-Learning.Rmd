@@ -25,20 +25,53 @@ Our area of interest is a large rectangular area in southern British Columbia co
 ## Learning Objectives {.unnumbered}
 
 -   Compare and contrast sampling designs on machine learning predictions
--   Train, test, and predict a continuous variable (crown closure) using the random forest algorithm
--   Train, test, and predict a categorical variable (fuel type) using the random forest algorithm
--   Evaluate models by interpreting model statistics like R2, AIC, VIF, and confusion matrices
+
+-   Train, test, and predict a continuous variable (crown closure) and a categorical variable (fuel type) using the random forest algorithm
+
+-   Evaluate models by interpreting model statistics like R^{2}, AIC, VIF, and confusion matrices
 
 ------------------------------------------------------------------------
 
 ## Deliverables {#lab4-deliverables .unnumbered}
 
-<input type="checkbox" unchecked> Answers to the questions posed throughout the lab (X points)</input> <input type="checkbox" unchecked> A PDF map of ONE of the FUEL_TYPE rasters and ONE of the CROWN_CLOS rasters, complete with all the necessary elements (labels, scale, compass, legend, etc.). These should be a full page each and separate files from your report. Be sure to specify in a caption or title what sampling design / parameter settings you are displaying in each.</input> <input type="checkbox" unchecked> A PDF report discussing the following points (max 5 pages, not including figures):</input>
+Lab report with the following specification:
 
--   What are the results of the spatial autocorrelation (SA) tool and what do they tell us? Why did we use the K Nearest Neighbours method for this dataset? Display the VRI dataset and observe the distribution of the points across the landscape. What is the main difference between this method and distance-based methods? Why is accounting for SA in your data important? If you were not limited by the tool inputs, how would you change your sampling design to account for SA?
--   What variables did you choose to include in your model after running exploratory regression? Why did you choose this equation and/or set of variables? Use the statistical terms in the results (R2, p-value, AIC, VIF, variable significance, etc.) to help you explain.
--   We are constrained by the ArcGIS Pro capabilities and can only use the Exploratory Regression tool with interval or ratio data, i.e., our crown closure variable, so we used the same explanatory variables for both analyses. If you were able to run Exploratory Regression with fuel type, do you think the results would be different? Why or why not?
+<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
+
+<input type="checkbox" unchecked> Introduction should address the following questions and requirements (10 points):</input>
+
+-   
+
+<input type="checkbox" unchecked> Methods should address the following requirements (10 points):</input>
+
+-   Brief study area description and study area map.
+
+-   How many fuel types are there in the VRI dataset? Which fuel type has the fewest number of points?
+
+-   What is the null hypothesis for the Spatial Autocorrelation tool? Why do we test CROWN_CLOS for spatial autocorrelation but not FUEL_TYPE?
+
+-   Outline all primary steps included in the lab (no need to include exact ArcGIS Pro tool parameters).
+
+-   Justify the use of specific methodological choices indicated in the lab.
+
 -   Why do we use "Closest" and not "Intersect" when doing the spatial join for the FIP data? Consider the geometry of the data. What are the benefits and drawbacks of using each sampling design, both in terms of statistical power and the limits of field data acquisition?
+
+
+<input type="checkbox" unchecked> Results should address the following questions and requirements (15 points):</input>
+
+-   What are the results of the spatial autocorrelation (SA) tool and what do they tell us? Why did we use the K Nearest Neighbours method for this dataset? 
+
+-   What is the maximum R^{2} value out of all the equations in the results?
+
+-   What variables did you choose to include in your model after running exploratory regression? Why did you choose this equation and/or set of variables? Use the statistical terms in the results (R^{2}, p-value, AIC, VIF, variable significance, etc.) to help you explain.
+
+-   Map of one of the FUEL_TYPE rasters and one of the CROWN_CLOS rasters. Be sure to specify in a caption or title what sampling design / parameter settings you are displaying in each.
+
+<input type="checkbox" unchecked> Discussion should address the following questions and requirements (10 points):</input>
+
+-   Display the VRI dataset and observe the distribution of the points across the landscape. What is the main difference between this method and distance-based methods? Why is accounting for spatial autocorrelation in your data important? If you were not limited by the tool inputs, how would you change your sampling design to account for spatial autocorrelation?
+
+-   We are constrained by the ArcGIS Pro capabilities and can only use the Exploratory Regression tool with interval or ratio data, i.e., our crown closure variable, so we used the same explanatory variables for both analyses. If you were able to run Exploratory Regression with fuel type, do you think the results would be different? Why or why not?
 
 ------------------------------------------------------------------------
 
@@ -127,10 +160,6 @@ The data have been processed ahead of time so that you may focus more on machine
 
 **Step 4:** Open the "Spatial Autocorrelation (Global Moran's I)" tool. Use the VRI feature class as the input and set the input field to "CROWN_CLOS". Change the "Conceptualization of Spatial Relationships" parameter to "K Nearest Neighbours" and set the "Number of Neighbors" to "20". Check the box that says "Generate Report". Leave the rest of the tool parameters with the default values and run the tool. Observe the results by viewing the generated report (found in your default folder/geodatabase) or by selecting "View Details".
 
-##### Q1. What is the null hypothesis used in this tool? (1 point) {.unnumbered}
-
-##### Q2. Why did we test CROWN_CLOS for SA but not FUEL_TYPE? (1 point) {.unnumbered}
-
 **HINT: Due to the constraint of completing this lab in ArcGIS Pro, we are unable adjust our sampling parameters to account for spatial autocorrelation. Fortunately, this is a learning exercise, so you will get to discuss this conundrum in your report!**
 
 Next, we are going to use Exploratory Regression to determine which of our rasters will be most effective in predicting our variables of interest.
@@ -141,9 +170,7 @@ Next, we are going to use Exploratory Regression to determine which of our raste
     knitr::include_graphics("images/01-exploratory-regression.png")
 ```
 
-##### Q3. What is the maximum R2 value out of all the equations in the results? (1 point)
-
-**Step 6:** Select the equation you think will work best. Remember to look at all the different measures of model "goodness" (R2, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
+**Step 6:** Select the equation you think will work best. Remember to look at all the different measures of model "goodness" (R^{2}, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
 
 ------------------------------------------------------------------------
 
@@ -161,10 +188,6 @@ As noted earlier, the VRI feature class is enormous, and it is an outlier regard
 -   Forest -- all fuel types starting with "M", "C", or "D".
 
 Open the attribute table for the VRI dataset, right-click on the "FUEL_TYPE" field, and select "Summarize". Set the "Field" to "FUEL_TYPE" and the "Statistic Type" to "Unique". Leave "Case Field" as is and select "OK". Inspect the output statistics table in your Contents Pane.
-
-##### Q4. How many fuel types are there? (1 point) {.unnumbered}
-
-##### Q5. Which fuel type has the fewest number of points? (1 point) {.unnumbered}
 
 **Step 3:** Using the "Select by Attribute" tool, select all the features in the VRI feature class that have a "FUEL_TYPE" of "N-fire". Right-click the feature class, select "Selection", then select "Make Layer from Selected Features".
 
@@ -217,7 +240,7 @@ Our last task will be using the "Forest-based Classification and Regression" too
 -   **Validation Options \> Training Data Excluded for Validation:** set to 30%
 -   **Validation Options \> Number of Runs for Validation:** set to 2
 
-Leave all other parameters as the default value or blank. Run the tool. You may get a warning about low numbers of certain fuel types -- ignore it (for now...). When the tool finishes, click "View Details" and copy/paste the info under "Messages" into a text file. This is where you can find the regression statistics (R2, RMSE, etc) for the training and validation data for your report.
+Leave all other parameters as the default value or blank. Run the tool. You may get a warning about low numbers of certain fuel types -- ignore it (for now...). When the tool finishes, click "View Details" and copy/paste the info under "Messages" into a text file. This is where you can find the regression statistics (R^{2}, RMSE, etc) for the training and validation data for your report.
 
 **Step 2:** Run the tool again, but this time use "stratified_sample" as your "Input Training Features". Change the name of your outputs accordingly, but keep everything else the same. When this is finished, run the tool a third time with "FIP_sample" as the input. Remember to keep your regression results in a text file. If you do forget, just go to "History" under the "Analysis" tab and hover over the tool.
 
