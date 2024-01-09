@@ -1,3 +1,4 @@
+
 ```{r echo=FALSE}
 yml_content <- yaml::read_yaml("chapterauthors.yml")
 author <- yml_content[["hydrology-analysis"]][["author"]]
@@ -12,31 +13,37 @@ cat(author)
 
 ## Lab Overview {.unnumbered}
 
-A Digital Elevation Model (DEM) is a digital representation of the Earth's terrain including mountains, valleys, rivers, and other topographic features. They are typically created using remote sensing technology, such as radar or LiDAR (Light Detection and Ranging), which capture elevation data points across the landscape. Typically, these elevation data points are organized into raster format, where each raster cell represents elevation within specific pixel. DEMs are used in a range of applications, including cartography, hydrology, geology, environmental analysis, and simulating water flow and erosion.
-
-In this lab you will use the Hydrology toolset in ArcGIS Pro to delineate stream networks in salmon spawning habitat in the Nahmint watershed, British Columbia. You will then extract stream characteristics, including stream gradient, order and length to determine a Riparian Management Area (RMA) around each stream segment.
-
-Riparian areas are found adjacent streams, lakes and wetlands. In many areas they contain highly productive and commercially valuable timber. However, vegetation in riparian zones also have important ecological functions by stabilizing stream banks, regulating water temperature, providing nutrient inputs and reducing runoff into water bodies. In BC, Riparian Management Areas (RMAs) are defined around sensitive streams and rivers that forbid or limit forest harvest activities within them. The width of these buffer zones depend on stream class, defined by channel width and fish-bearing potential. Thus, it is critical for forest managers to accurately map and measure stream networks.
-
-Airborne Laser Scanning (ALS) can be used to derive detailed maps of terrain and vegetation structure to aid in riparian forest management. Previous work has been done using ALS to map and extract stream characteristics over large areas and assign stream classes (Tompalski et al., 2017). You will use similar methods to classify streams and define RMAs over a small area in the Nahmint valley, BC.
-
-In this lab you will take on the role of a forest manager with the following task: Define reserve (no harvest) areas within a topographically complex riparian forest using "best management" practices. To do this you will use a Digital Elevation Model and high-resolution basemaps. The deliverable for this assignment will be a written report where you will assess the application of DEMs for forest management in riparian regions.
-
-More background information on riparian forest management can be found here: <https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook>
-
-Using ALS to determine Riparian Class: <https://www.sciencedirect.com/science/article/pii/S0034425717300469?via%3Dihub#ab0010>
-
-Remote sensing of riparian vegetation: <https://www.sciencedirect.com/science/article/abs/pii/S0301479720305843?via%3Dihub>
-
-More information on the Nahmint valley and recent logging activities in the region: <https://ancientforestalliance.org/our-work/old-growth-campaigns/nahmint-valley/>
+In this lab you will take on the role of a forest manager with the following task: Define reserve (no harvest) areas within a topographically complex riparian forest using current "best management" practices. To do this you will use a Digital Elevation Model and high-resolution basemaps. The deliverable for this assignment will be a written report where you will assess the application of DEMs for forest management in riparian regions.
 
 ------------------------------------------------------------------------
 
 ## Learning Objectives {.unnumbered}
 
--   Lorem ipsum
--   Lorem ipsum
--   Lorem ipsum
+-   Understand the hydrology toolbox in ArcGIS Pro
+-   Execute tasks using Python scripting
+-   Research current forest management practices in BC 
+
+------------------------------------------------------------------------
+
+## Lab Background {.unnumbered}
+
+Riparian areas are found adjacent streams, lakes and wetlands. In many areas they contain highly productive and commercially valuable timber. However, vegetation in riparian zones also has important ecological function by stabilizing stream banks, regulating water temperature, providing nutrient inputs and reducing runoff into water bodies. In BC, Riparian Management Areas (RMAs) are defined around sensitive streams and rivers that forbid or limit forest harvest activities within them. The width of these buffer zones depend on stream class, which are defined by channel width and fish-bearing potential. Thus, it is critical for forest managers to accurately map and measure stream networks.
+
+```{r 03-RMA, out.width= "75%", echo = FALSE}
+  knitr::include_graphics("images/03-RMA.PNG")
+```
+(Stackhouse et al., 2023)
+
+Airborne Laser Scanning (ALS) can be used to derive detailed maps of terrain and vegetation structure to aid in riparian forest management. Previous work has been done using ALS to map and extract stream characteristics over large areas and assign stream classes (Tompalski et al., 2017). You will use similar methods to classify streams and define RMAs over a small area in the Nahmint valley, BC.
+
+More background information on riparian forest management can be found here: <https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook>
+
+Using ALS to determine stream characteristics: <https://www.sciencedirect.com/science/article/pii/S0034425717300469?via%3Dihub#ab0010>
+
+Remote sensing of riparian vegetation: <https://www.sciencedirect.com/science/article/abs/pii/S0301479720305843?via%3Dihub>
+<https://www.sciencedirect.com/science/article/pii/S0048969723080890?via%3Dihub#s0010>
+
+More information on the Nahmint valley and recent logging activities in the region: <https://ancientforestalliance.org/our-work/old-growth-campaigns/nahmint-valley/>
 
 ------------------------------------------------------------------------
 
@@ -160,7 +167,7 @@ Once you have selected a threshold, open the "Reclassify (Spatial Analyst Tools)
 
 Use the threshold you have selected as the Start and End values. Set the cells representing streams to a "New value" of 1 and all other cells to `NODATA`. Save the new raster as "Stream_reclass". Include your threshold value in the report Methods section.
 
-```{r 03-reclassify, out.width= "75%", echo = FALSE}
+```{r 03-reclassify, out.width= "50%", echo = FALSE}
   knitr::include_graphics("images/03-reclassify.JPG")
 ```
 
@@ -218,7 +225,7 @@ Streams with a gradient \<20% are considered "fish bearing" in the absence of ot
 
 **Step 2:** Open the "Zonal Statistics" tool. This tool calculates summary statistics in one raster layer within "zones" or groups defined in another layer. This is a very useful tool for many applications! We will use the unique IDs from the **StreamLinks** layer as "zones" to calculate the range in elevation within each stream segment.
 
-```{r 03-zonal-statistics, out.width= "75%", echo = FALSE}
+```{r 03-zonal-statistics, out.width= "50%", echo = FALSE}
   knitr::include_graphics("images/03-zonal-statistics.jpg")
 ```
 
@@ -375,6 +382,6 @@ As your final deliverable create a map with the following elements:
 
 ## Summary {.unnumbered}
 
-Here
+The aim of this lab was to practice solving a real-world forest management problem using raster and vector data. You have hopefully gained a thorough understanding of the tools available for modeling hydrology in ArcGIS Pro. In addition, the high resolution basemaps in ArcGIS Pro can be a valuable source of high-resolution satellite imagery. Stand up, stretch and drink some water! 
 
 Return to the [**Deliverables**](#lab3-deliverables) section to check off everything you need to submit for credit in the course management system.
