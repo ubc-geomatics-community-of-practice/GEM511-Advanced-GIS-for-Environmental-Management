@@ -350,6 +350,9 @@ Paul Pickell</p>
 <p><strong>Step 8:</strong> Copy the contents of the pipeline to a text editor and save the file as “process-lidar.json” in your QGIS project folder. It should be in the same place as the .laz tiles you just downloaded. The output will also be written to this folder.</p>
 <p><img src="images/01-json.PNG" width="100%" /></p>
 <p><strong>Step 9:</strong> Return to the OSGeo4W shell and run the pipeline using the following command: <code>pdal pipeline process-lidar.json</code>. It may take several minutes for this step to complete, but in the end you should have a file called “mkrf_aoi_lidar.las” in your QGIS project folder. Drag it into QGIS and inspect it. The processed file should be ~90000KB when finished. If you get an error at this step make sure you have downloaded the correct tiles and the filenames match what is being loaded into the pipeline.</p>
+<p><strong>Step 10</strong>: Finally, we will create a thinned point cloud to compare different interpolation methods in Task 3. In the OSGeo4w shell run the following command:</p>
+<p><code>pdal translate mkrf_aoi_lidar.las.las thinned.las sample -—filters.sample.radius=5</code></p>
+<p>This will thin the point cloud by selecting a random point within a sphere with 5m radius. The output will be called “thinned.las” and will be written to the current working directory.</p>
 <hr />
 </div>
 <div id="task-2-visualize-lidar-data-in-qgis" class="section level2 unnumbered hasAnchor">
@@ -389,31 +392,26 @@ Paul Pickell</p>
 <div id="task-3-prepare-lidar-in-arcgis-pro" class="section level2 unnumbered hasAnchor">
 <h2>Task 3: Prepare LiDAR in ArcGIS Pro<a href="terrain-spatial-interpolation.html#task-3-prepare-lidar-in-arcgis-pro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For this task, we will switch to ArcGIS Pro and practice manipulating the LiDAR point cloud to derive a terrain surface using different algorithms. ArcGIS Pro has several tools that we can use to view and analyse LiDAR point clouds. In order to view the dataset, we need to import it as a LAS Dataset. Note that QGIS with open LAS or LAZ files and immediately convert them to COPC format (.copc.laz), but ArcGIS Pro does not currently support reading COPC, so we must use the LAS file. If you want to reproduce this lab with other LiDAR data in ArcGIS Pro, you can convert LAZ to LAS using the “Convert LAS” tool.</p>
-<p><strong>Step 1:</strong> Open a new ArcGIS Pro map project and Search for the “Create LAS Dataset” tool. Specify the “mkrf_aoi_lidar.las” file as your input file. Make sure to name the output LAS Dataset and specify the correct coordinate system. Ensure that “Create PRJ for LAS files” is set to “All LAS Files”. Toggle on “Compute Statistics” and run the tool. This will produce a LAS Dataset file (.lasd).</p>
-<p><strong>Step 2:</strong> We can now add our LAS Dataset to the map. Depending on the zoom extent, you may only see the red bounding box of the LAS Dataset file; this is not an error, you just need to zoom in to see the actual points. Alternatively, you can open the dataset in a Local Scene, although due to the size of the point cloud this might cause some lag.</p>
+<p><strong>Step 1:</strong> Open a new ArcGIS Pro map project and Search for the “Create LAS Dataset” tool. Specify the “mkrf_aoi_lidar.las” file as your input file. Make sure to name the output LAS Dataset and specify the correct coordinate system. Ensure that “Create PRJ for LAS files” is set to “All LAS Files”. Toggle on “Compute Statistics” and run the tool. This will produce a LAS Dataset file (.lasd). <strong>Repeat this step for the thinned las dataset.</strong></p>
+<p><strong>Step 2:</strong> We can now add our LAS Datasets to the map. Depending on the zoom extent, you may only see the red bounding box of the LAS Dataset file; this is not an error, you just need to zoom in to see the actual points. Alternatively, you can open the dataset in a Local Scene, although due to the size of the point cloud this might cause some lag. Compare the full and thinned point clouds.</p>
 <p><img src="images/01-arcgis-lasd.png" width="75%" /></p>
 <p><strong>Step 3:</strong> Another way to explore the dataset is to view the properties. Right-click the LAS Dataset and open the “Properties”. Here we can see some statistics of the point cloud, such as information regarding the Classification Codes and Return Number. You can get more detailed metadata from a Catalog view. From the top ribbon, select the View tab and then click “Catalog View”. Navigate to where you saved the LAS Dataset, right-click it, and open the “Properties” again.</p>
-<p>Record these values:</p>
+<p>Record and compare these values for the full and thinned datasets:</p>
 <ul>
 <li><p>How many points are in the dataset?</p></li>
 <li><p>What is the average point spacing?</p></li>
 <li><p>What is the range of elevation?</p></li>
 </ul>
-<p><strong>Step 4:</strong> Search for the “LAS Dataset to Raster” tool, and use your LAS Dataset as the input. Since we are interested in creating a terrain surface model, we want to use the “Binning” “Interpolation Type”, and make sure that we use the “Minimum” (i.e., the lowest “Elevation”) points in each “Cell Assignment” of the output raster. “Sampling Value” refers to the resolution of the raster that we are creating, in other words, the spacing of our raster cell samples. Set the “Sampling Value” to <strong>1</strong> (meters), name the output raster “MKRF_DEM” and run the tool.</p>
+<p><strong>Step 4:</strong> Search for the “LAS Dataset to Raster” tool, and use “mkrf_aoi_lidar.las” (not thinned) as the input. Since we are interested in creating a terrain surface model, we want to use the “Binning” “Interpolation Type”, and make sure that we use the “Minimum” (i.e., the lowest “Elevation”) points in each “Cell Assignment” of the output raster. “Sampling Value” refers to the resolution of the raster that we are creating, in other words, the spacing of our raster cell samples. Set the “Sampling Value” to <strong>1</strong> (meters), name the output raster “MKRF_DEM” and run the tool.</p>
 <p><img src="images/01-arcgis-lasd-to-raster.png" width="50%" /></p>
-<p>The tool above is the most straight-forward way to create a DEM from a LiDAR point cloud in ArcGIS Pro. In the following steps you will create a 2D point dataset using a random subset of the LiDAR point cloud. This will allow us to test and compare three interpolation methods by comparing the interpolated surfaces to the DEM fit using the entire liDAR point cloud.</p>
+<p>The tool above is the most straight-forward way to create a DEM from a LiDAR point cloud in ArcGIS Pro. Because this DEM was fit using all available lidar points we will consider it to be our “ground-truth” dataset.</p>
+<p>In the following steps you will create a 2D point dataset using the <strong>thinned LiDAR point cloud</strong>. We will use this to test and compare three interpolation methods in the next task.</p>
 <p>Note, for future reference you can use these methods to spatially interpolate all other kinds of attributes that are not terrain!</p>
-<p><strong>Step 5:</strong> Search for the “LAS to Multipoint” tool. Input your LAS Dataset. You will notice that there is a box asking for the “Average Point Spacing”. Enter the value that you recorded from Step 3. Set the correct coordinate system and then run the tool.</p>
+<p><strong>Step 5:</strong> Search for the “LAS to Multipoint” tool. Input your thinned LAS Dataset. You will notice that there is a box asking for the “Average Point Spacing”. Enter the value that you recorded from Step 3. Set the correct coordinate system and then run the tool.</p>
 <p><img src="images/01-arcgis-las-to-multipoint.png" width="50%" /></p>
-<p><strong>Step 6:</strong> Search for the “Multipart to Singlepart” tool. The multipoint feature class from the previous step is the input then run the tool.</p>
-<p>ArcGIS Pro will attempt to draw the symbols for every single point in the multipart and singlepart feature classes, so keep them toggled off.</p>
+<p><strong>Step 6:</strong> Search for the “Multipart to Singlepart” tool. The multipoint feature class from the previous step is the input then run the tool. ArcGIS Pro will attempt to draw the symbols for every single point in the multipart and singlepart feature classes, so keep them toggled off.</p>
 <p><strong>Step 7:</strong> Now we need to add the Z value as an attribute. Search for the “Add Z Information” tool and use the singlepart features as the input. The only option available should be “Spot Z” and make sure it is toggled then run the tool. This may take several minutes.</p>
-<p><strong>Step 8:</strong> We will take a random 70% subset of points from the new singlepoint feature class. First, open the attribute table and create a new numeric <strong>“Float”</strong> field called “random_nums”. We will use the “Calculate Field” tool to populate the field with random numbers.</p>
-<p>The screenshot shows how to set up the Calculate Field window using a Python expression in the Code Block. You will have more practice using this functionality in future labs! Note that because there are almost 3 million points these steps will take several minutes to complete. Use this opportunity to hydrate and stretch :)</p>
-<p><img src="images/01-random.png" width="75%" /></p>
-<p>Next, sort the table in Descending order and select ~30% of the rows to delete. As selecting exactly 30% of the rows is quite finicky, don’t worry about getting the exact right number but be sure to report how many features were removed and how many remained in the methods section of your report!</p>
-<p>We now have a 2D point feature class that we can use to test different spatial interpolation algorithms!</p>
-<p>It is important to save your project at this step so you don’t lose any outputs before continuing.</p>
+<p>We now have a 2D point feature class that we can use to compare different spatial interpolation algorithms!</p>
 <hr />
 </div>
 <div id="task-4-apply-and-evaluate-spatial-interpolation-algorithms-in-arcgis-pro" class="section level2 unnumbered hasAnchor">
@@ -444,7 +442,6 @@ Paul Pickell</p>
 </ul></li>
 <li>Summary statistics showing the mean and standard deviation across slope and elevation zones</li>
 <li>North arrow and appropriate labels for each map panel (no need for name, date and title as this figure will be embedded in your report)</li>
-<li>Figure caption</li>
 </ul>
 <p>Note that you can add standalone tables to your Map Layout by first clicking on the table in the Contents pane then Insert &gt; Table Frame. Click and drag to set the extent of the table on the map, (similar to how you add a Map Frame).</p>
 <hr />
