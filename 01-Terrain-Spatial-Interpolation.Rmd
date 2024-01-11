@@ -36,6 +36,8 @@ Lab report with the following specification:
 
 <input type="checkbox" unchecked> Introduction should address the following questions and requirements (10 points):</input>
 
+-   What is spatial interpolation? Why is it useful? 
+
 -   Describe the different spatial interpolation methods that were tested.
 
 -   What are the parameters of each corresponding tool in ArcGIS Pro and how do they impact the algorithm?
@@ -56,7 +58,7 @@ Lab report with the following specification:
 
 -   Table of summary statistics of the binned DEM.
 
--   A panel of maps that symbolize the DEMs produced and the difference rasters that were produced by the comparison to the binning approach.
+-   A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach.
 
 -   Tables that show zonal statistics of the difference rasters across elevation and slope ranges. Which zones has the largest differences?
 
@@ -94,9 +96,15 @@ At the top, you will see some generic metadata for the collection. Below that, y
 
 **Step 2:** Click to open one of the metadata txt files in your browser. This is json-formatted metadata for the associated LiDAR tile. Scrolling through it you will find summary statistics over a number of different dimensions. What attributes describe these LiDAR data?
 
+```{r 01-metadata, out.width= "50%", echo = FALSE}
+    knitr::include_graphics("images/01-metadata.PNG")
+```
+
 Suppose that we have some AOI within the research forest that we need to retrieve the LiDAR data from. How could we figure out which tiles we need without downloading all of them from the server? In most cases, you should have a polygon tile index available to assist you with this task. The tile index is another form of metadata, albeit spatial metadata.
 
-**Step 3:** Right-click on the **tile_index.geojson** file at the top of the file listing and select "Copy Link". Open QGIS and click the "Open Data Source Manager" button. On the left of the Data Source Manager dialogue, select "Vector", toggle on "Protocol: HTTP(S), cloud, etc", then paste the URL you copied into the "URI" field (uniform resource identifier). "Add" the layer to your map view then "Close" the dialogue and inspect the result.
+**Step 3:** Right-click on the **tile_index.geojson** file at the top of the file listing and select "Copy Link". Open QGIS and click the "Open Data Source Manager" button (Layer > Data Source Manager). 
+
+On the left of the Data Source Manager dialogue, select "Vector", toggle on "Protocol: HTTP(S), cloud, etc", then paste the URL you copied into the "URI" field (uniform resource identifier). "Add" the layer to your map view then "Close" the dialogue and inspect the result.
 
 ```{r 01-qgis-data-source-manager-tile-index, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-qgis-data-source-manager-tile-index.png")
@@ -110,7 +118,7 @@ Lower left (LL): -122.55275, 49.32325
 
 Upper right (UR): -122.52506, 49.34135
 
-**Step 4:** Open a notepad text editor and convert this bounding box into a geojson polygon feature with the following syntax:
+**Step 4:** Open a notepad text editor (**Notepad ++**) and convert this bounding box into a geojson polygon feature with the following syntax:
 
 ```         
 {
@@ -127,15 +135,22 @@ Upper right (UR): -122.52506, 49.34135
 }
 ```
 
-Replace with the correct longitude/latitude values. Note that this creates a square polygon and the fifth coordinate is the same as the first, which topologically encloses the polygon. Save the geojson in your QGIS project folder as "mkrf_aoi.geojson" then open the file in QGIS. You should see that our AOI spans 16 total tiles.
+Replace with the correct longitude/latitude values. Note that this creates a square polygon and the fifth coordinate is the same as the first, which topologically encloses the polygon. Save the geojson in your QGIS project folder as **"mkrf_aoi.geojson"** then open the file in QGIS. You should see that our AOI spans 16 total tiles.
 
 **Step 4:** Click the "Select by Location" tool and "Select features from" the **ubc_mkrf_lidar_2016_tile_index** layer by intersecting with the **mkrf_aoi** you just made. Now the intersecting tiles are selected. Turn off **mkrf_aoi** layer so that you can see the selection.
 
+```{r 01-selectbylocation, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/01-selectbylocation.png")
+```
 ```{r 01-qgis-intersect-aoi-tiles, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-qgis-intersect-aoi-tiles.png")
 ```
 
 **Step 5:** Click the "Identify Features" tool and click on one of the selected tiles, which will highlight it in red and open the attributes for the polygon. Expand "ubc_mkrf_lidar_2016_tile_index", "url", "(Actions)", and "url". Click the hyperlinked URL to download the tile to your QGIS project folder. Repeat this step for all 16 tiles.
+
+```{r 01-identifyfeatures, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/01-identifyfeatures.png")
+```
 
 **Step 6:** Add all of the downloaded tiles to your QGIS map canvas. The default symbology is the classification attribute, but only ground returns have been classified for the research forest.
 
@@ -223,15 +238,23 @@ This next filter stage [merges](https://pdal.io/en/2.6.0/stages/filters.merge.ht
             }
 ```
 
-**Step 8:** Copy the contents of the pipeline to a text editor and save the file as "process-lidar.json" in your QGIS project folder.
+**Step 8:** Copy the contents of the pipeline to a text editor and save the file as "process-lidar.json" in your QGIS project folder. It should be in the same place as the .laz tiles you just downloaded. The output will also be written to this folder. 
 
-**Step 9:** Return to the OSGeo4W shell and run the pipeline using the following command: `pdal pipeline process-lidar.json`. It may take several minutes for this step to complete, but in the end you should have a file called "mkrf_aoi_lidar.las" in your QGIS project folder. Drag it into QGIS and inspect it.
+```{r 01-json, out.width= "100%", echo = FALSE}
+    knitr::include_graphics("images/01-json.PNG")
+```
+
+**Step 9:** Return to the OSGeo4W shell and run the pipeline using the following command: `pdal pipeline process-lidar.json`. It may take several minutes for this step to complete, but in the end you should have a file called "mkrf_aoi_lidar.las" in your QGIS project folder. Drag it into QGIS and inspect it. The processed file should be ~90000KB when finished. If you get an error at this step make sure you have downloaded the correct tiles and the filenames match what is being loaded into the pipeline.  
 
 ------------------------------------------------------------------------
 
 ## Task 2: Visualize LiDAR data in QGIS {.unnumbered}
 
 The default symbology of LiDAR data in QGIS will be the classification, but we only have ground returns in our file, so everything will appear brown. Try symbolizing some of the other attributes like Intensity, ReturnNumber, and ScanAngleRank.
+
+```{r 01-ground, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/01-ground.PNG")
+```
 
 **Step 1:** Right-click the **mkrf_aoi_lidar** layer, open "Properties", select "Symbology" from the left, and then select "Attribute by Ramp" from the very top drop-down menu. Then choose your attribute and apply your symbology parameters. Make some notes of your observations for these attributes that you can reference in your report.
 
@@ -293,8 +316,6 @@ For this task, we will switch to ArcGIS Pro and practice manipulating the LiDAR 
 
 **Step 1:** Open a new ArcGIS Pro map project and Search for the "Create LAS Dataset" tool. Specify the "mkrf_aoi_lidar.las" file as your input file. Make sure to name the output LAS Dataset and specify the correct coordinate system. Ensure that "Create PRJ for LAS files" is set to "All LAS Files". Toggle on "Compute Statistics" and run the tool. This will produce a LAS Dataset file (.lasd). 
 
-Pay attention to future steps of the lab as some tools expect the .lasd file while others expect the .las file!
-
 **Step 2:** We can now add our LAS Dataset to the map. Depending on the zoom extent, you may only see the red bounding box of the LAS Dataset file; this is not an error, you just need to zoom in to see the actual points. Alternatively, you can open the dataset in a Local Scene, although due to the size of the point cloud this might cause some lag.
 
 ```{r 01-arcgis-lasd, out.width= "75%", echo = FALSE}
@@ -311,25 +332,42 @@ Record these values:
 
 - What is the range of elevation?
 
-**Step 4:** Search for the "LAS Dataset to Raster" tool, and use your LAS Dataset as the input. Since we are interested in creating a terrain surface model, we want to use the "Binning" "Interpolation Type", and make sure that we use the "Minimum" (i.e., the lowest "Elevation") points in each "Cell Assignment" of the output raster. "Sampling Value" refers to the resolution of the raster that we are creating, in other words, the spacing of our raster cell samples. Set the "Sampling Value" to 30 (meters), name the output raster "MKRF_DEM" and run the tool.
+**Step 4:** Search for the "LAS Dataset to Raster" tool, and use your LAS Dataset as the input. Since we are interested in creating a terrain surface model, we want to use the "Binning" "Interpolation Type", and make sure that we use the "Minimum" (i.e., the lowest "Elevation") points in each "Cell Assignment" of the output raster. "Sampling Value" refers to the resolution of the raster that we are creating, in other words, the spacing of our raster cell samples. Set the "Sampling Value" to **1** (meters), name the output raster "MKRF_DEM" and run the tool.
 
 ```{r 01-arcgis-lasd-to-raster, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/01-arcgis-lasd-to-raster.png")
 ```
 
-The tool above is the most straight-forward way to create a DEM from a LiDAR point cloud in ArcGIS Pro. It is also the least sophisticated and prone to error because it relies heavily on the presence of points. This is where spatial interpolation methods come in, but these analyses expect flat 2D points rather than a 3D point cloud; "flat" in the sense that the point is mapped on a horizontal datum only (X-Y) and the point elevation (Z) is stored as an attribute rather than a coordinate. This is a relatively minor technical detail, but an important one because you can spatially interpolate all other kinds of attributes that are not terrain.
+The tool above is the most straight-forward way to create a DEM from a LiDAR point cloud in ArcGIS Pro. In the following steps you will create a 2D point dataset using a random subset of the LiDAR point cloud. This will allow us to test and compare three interpolation methods by comparing the interpolated surfaces to the DEM fit using the entire liDAR point cloud. 
 
-**Step 5:** Search for the "LAS to Multipoint" tool. Input your LAS Dataset. You will notice that there is a box asking for the "Average Point Spacing". Enter the value that you recorded from the previous step. Set the correct coordinate system and then run the tool.
+Note, for future reference you can use these methods to spatially interpolate all other kinds of attributes that are not terrain!
+
+**Step 5:** Search for the "LAS to Multipoint" tool. Input your LAS Dataset. You will notice that there is a box asking for the "Average Point Spacing". Enter the value that you recorded from Step 3. Set the correct coordinate system and then run the tool.
 
 ```{r 01-arcgis-las-to-multipoint, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/01-arcgis-las-to-multipoint.png")
 ```
 
-**Step 6:** Search for the "Multipart to Singlepart" tool. The multipoint feature class from the previous step is the input then run the tool.
 
-**Step 7:** Now we need to add the Z value as an attribute. Search for the "Add Z Information" tool and use the singlepart features as the input. The only option available should be "Spot Z" and make sure it is toggled then run the tool.
+**Step 6:** Search for the "Multipart to Singlepart" tool. The multipoint feature class from the previous step is the input then run the tool.  
 
-We now have a 2D point feature class that we can use to test different spatial interpolation algorithms! ArcGIS Pro will attempt to draw the symbols for every single point in the multipart and singlepart feature classes, so keep them toggled off.
+ArcGIS Pro will attempt to draw the symbols for every single point in the multipart and singlepart feature classes, so keep them toggled off.
+
+**Step 7:** Now we need to add the Z value as an attribute. Search for the "Add Z Information" tool and use the singlepart features as the input. The only option available should be "Spot Z" and make sure it is toggled then run the tool. This may take several minutes.
+
+**Step 8:** We will take a random 70% subset of points from the new singlepoint feature class. First, open the attribute table and create a new numeric **"Float"** field called "random_nums". We will use the "Calculate Field" tool to populate the field with random numbers. 
+
+The screenshot shows how to set up the Calculate Field window using a Python expression in the Code Block. You will have more practice using this functionality in future labs! Note that because there are almost 3 million points these steps will take several minutes to complete. Use this opportunity to hydrate and stretch :) 
+
+```{r 01-random, out.width= "75%", echo = FALSE}
+    knitr::include_graphics("images/01-random.png")
+```
+
+Next, sort the table in Descending order and select ~30% of the rows to delete. As selecting exactly 30% of the rows is quite finicky, don't worry about getting the exact right number but be sure to report how many features were removed and how many remained in the methods section of your report!
+
+We now have a 2D point feature class that we can use to test different spatial interpolation algorithms! 
+
+It is important to save your project at this step so you don't lose any outputs before continuing. 
 
 ------------------------------------------------------------------------
 
@@ -337,9 +375,9 @@ We now have a 2D point feature class that we can use to test different spatial i
 
 Since we now have points representing height values, we can use the raster interpolation toolset to experiment with three different interpolation methods: Natural Neighbor, Inverse Distance Weighting (IDW), and Spline. You can read more about the tools we will be using from the [ArcGIS Pro documentation](https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/an-overview-of-the-interpolation-tools.htm).
 
-Search for each of the interpolation tools listed above individually (for IDW, the tool is called "IDW") and explore their parameters. Natural Neighbor can be found with the "LAS to Raster" tool, change the "Interpolation Type" to "Triangulation", and "Cell Assignment" to "Natural Neighbor". Note that we will be using the 2D Spatial Analyst tools, not the 3D Analyst Tools.
+Search for each of the interpolation tools listed above individually (for IDW, the tool is called "IDW") and explore their parameters. Natural Neighbor can be found within the "LAS Dataset to Raster" tool, change the "Interpolation Type" to "Triangulation", and "Interpolation Method" to "Natural Neighbor". 
 
-**Step 1:** Create three rasters for each interpolation method: Natural Neighbor, IDW, and Spline. We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want. For each tool, keep the default settings, but make sure that you generate the rasters at 1 m resolution or whatever resolution you decided to run. 
+**Step 1:** Create three rasters for each interpolation method: Natural Neighbor, IDW, and Spline. We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want. For each tool, keep the default settings, but make sure that you generate the rasters at 1 m resolution or whatever resolution you decided to run. Note that the Spline tool will take several minutes to run. If you have trouble running this step try generating the rasters at a slightly coarser resolution (5 or 10m). 
 
 Take some time to inspect each raster, and look at their similarities and differences (make sure that you are using a common symbology when comparing). We can compare the differences between our interpolated rasters with the binned DEM that we created in the last task.
 
@@ -347,27 +385,13 @@ Take some time to inspect each raster, and look at their similarities and differ
 
 Next, we are going to quantitatively evaluate the differences and calculate statistics over different zones to see if there are any patterns or relationships with other variables.
 
-**Step 3:** Use the "Reclassify" tool to reclassify the binned **MKRF_DEM** into "high", "medium", and "low" areas. Use the range of elevation values that you recorded in the previous task from the LAS Dataset to decide the start and end ranges in the reclassification. Refer to the following table:
+**Step 3:** Change the Symbology of the **MKRF_DEM** to Classify and set the number of Classes to 3 with the method of your choice. Use the "Reclassify (Spatial Analyst)" tool to reclassify the binned **MKRF_DEM** into "high", "medium", and "low" areas using this classification scheme.  (If you symbolize first, then open the Reclassify tool it should popukate the start and end fields with the symbolized values.)
 
-| Start     | End    | New    |
-|-----------|--------|--------|
-|           |        | 1      |
-|           |        | 2      |
-|           |        | 3      |
-| NODATA    | NODATA | NODATA |
+**Step 4:** Use the "Slope (Spatial Analyst)" tool to create a raster called "mkrf_slope" using degrees. Then, use the "Reclassify" tool to reclassify the degree slope values into three classes using the same method. 
 
-**Step 4:** Use the "Slope" tool to create a raster called "mkrf_slope" using degrees. Then, use the "Reclassify" tool to reclassify the degree slope values as follows:
+We will use these reclassified areas as zones to calculate statistics about the difference between the interpolated surfaces and the binned DEM.
 
-| Start    | End    | New    |
-|----------|--------|--------|
-| 0        | 15     | 1      |
-| 15.00001 | 30     | 2      |
-| 30.00001 | 90     | 3      |
-| NODATA   | NODATA | NODATA |
-
-We will use these reclassified areas as zones to calculate statistics about the difference between the interpolated surfaces and the binned DEM. For both zonations, higher values correspond to higher elevations and slopes.
-
-**Step 5:** Search for the "Zonal Statistics as Table" tool. The "Input Raster or Feature Zone Data" are the reclassified zone rasters you just made. "Zone Field" should be "Value". The "Input Value Raster" is the raster that we want to summarize over the zones, which are all of the difference rasters we calculated in the earlier step. Run this tool for both each combination of the two topography zonations and the three difference rasters for the different interpolation methods. You should finish with six tables:
+**Step 5:** Search for the "Zonal Statistics as Table (Spatial Analyst)" tool. The "Input Raster or Feature Zone Data" are the reclassified zone rasters you just made. "Zone Field" should be "Value". The "Input Value Raster" is the raster that we want to summarize over the zones, which are all of the difference rasters we calculated in the earlier step. Run this tool for both each combination of the two topography zonations and the three difference rasters for the different interpolation methods. You should finish with six tables:
 
 -   idw_diff_elev
 
@@ -381,24 +405,15 @@ We will use these reclassified areas as zones to calculate statistics about the 
 
 -   spline_diff_slope
 
-**Step 6:** Create a hillshade from each of the interpolated surfaces using the "Hillshade" tool. Leave the default settings, which will illuminate the surface for a sun inclination (elevation) of 45° from a declination of 315° (northwest); unrealistic for this latitude at any time of year, but the cartographic standard nonetheless. Inspect the hillshades and use them to make additional observations for your report.
+**Step 6:** Create a final map with the following elements and include it in the Results: 
 
-**Step 7:** Switch ArcGIS Pro to a Layout view. You may want to change the page orientation to landscape instead of portrait. To do so, go to "File" then "Page and Print Setup". In ArcGIS Pro, we can insert as many map frames as we want into our map layout. In our case, we will need 6 maps in our layout, as well as some free space for legends and text. There will be one interpolated surface and one difference raster for each of the three interpolation methods. Display each of these layers in their own map and place them appropriately in the layout. Each map should include only one raster, one of the following: DEMs using Spline, Natural Neighbor, and IDW, “spline_diff”, “nn_diff”, and “idw_diff”. Arrange the data frames by row and column so that the layout makes sense (that is, so each interpolation method is near one another.
+- Each of the interpolated surfaces and difference rasters (6 total)
+     - The interpolated surfaces should be symbolized using **Shaded Relief** symbology
+- Summary statistics showing the mean and standard deviation across slope and elevation zones
+- North arrow and appropriate labels for each map panel (no need for name, date and title as this figure will be embedded in your report)
+- Figure caption 
 
-**Step 8:**  Add all of the tables from the previous step into one of the data frames. When you open these tables, you can add them to the map by clicking "Table Options" and selecting “Add Table to Layout”. You can also remove unimportant columns from the display by right clicking the column name in the attribute table and clicking "Turn Field Off". Place the tables in the layout view a way that makes sense (near their respective difference raster). Label what each of the values means
-with a text box ("Insert" > "Text").
-
-**Step 9:** Change symbology for both the overall and difference layers. Use the same symbology for all of them.
-
-Start with the elevations. Click on one of the layers representing the interpolated surfaces (Spline, for example) and select the the Symbology tab. Change the Primary symbology to "Classify". Set the number of classes to 7. You may change the color ramp to one that makes sense to you, but make sure that there is enough contrast between classes. Change the symbology of the other two interpolated surfaces to match the first one (i.e. make sure to match break classes). You can explore the "Apply Symbology from Layer" tool to do this quickly. 
-
-Repeat the same process for the difference rasters. This time, use 8 classes and set the breaks so that they make sense (e.g., 2, 4, 6, 8, 10, 12, 14, and 50).
-
-Add a legend for each symbology definition (Elevation and Difference) to the map layout by clicking on a data frame and selecting "Insert" > "Legend" from the top menu bar. Place them on the map layout in a way that makes sense (near the respective layers).
-
-Finally, put some text on the layout to communicate which data frame is which, and what each table represents. You can either label every data frame or label the columns and rows (“Interpolated Surface” and “Difference to DEM” as rows and “Spline”, “Natural Neighbor”, and “IDW” as columns). Make sure you communicate what each aspect of the map is effectively! Save the map document and export the map document to a PNG ("Share" > "Export Layout").
-
-Note that the figure above uses slightly different data than this lab and should only be used as a reference to for the symbology and layout expectations, so your maps will look different.
+Note that you can add standalone tables to your Map Layout by first clicking on the table in the Contents pane then Insert > Table Frame. Click and drag to set the extent of the table on the map, (similar to how you add a Map Frame).  
 
 ------------------------------------------------------------------------
 
@@ -435,7 +450,6 @@ Explore all of the DEM surfaces and export some examples that could help you int
 ## Summary {.unnumbered}
 
 We covered a lot of ground in this lab about LiDAR processing with GIS software. One thing that should be apparent is that the vast majority of your time will be spent preparing LiDAR data for analysis. Point clouds are dense. Advances in scanning technology are creating new challenges for managing, accessing, organizing, and manipulating these dense data. Remember, we always want to work with the least amount of LiDAR data that our task requires. For spatial interpolation of terrain, this means only working with the necessary ground returns in our AOI. By filtering the tiles and points to only those we needed for the interpolation task, we reduced our data overhead by over 650%! 
-
 You also practiced evaluating different spatial interpolation algorithms, which can have a large impact on subsequent analyses with those surfaces. When choosing an interpolation algorithm, you must always consider how dense your data are (i.e., how long will it take for me to produce this surface), what properties you want the output surface to have (i.e., statistical intervals, reproducing the true ranges, etc.), and what the surface will be used for (i.g., hydrology mapping, suitability analysis, etc.). Finally, you also practiced visualizing 3D data to augment and enhance your interpretations of these 2D interpolated surfaces.
 
 Return to the [**Deliverables**](#lab1-deliverables) section to check off everything you need to submit for credit in the course management system.
