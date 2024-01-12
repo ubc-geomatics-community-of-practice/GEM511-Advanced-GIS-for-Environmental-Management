@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Lab 3 Terrain Analaysis and Riparian Area Management | GEM 511: Advanced GIS for Environmental Management</title>
   <meta name="description" content="Open Educational Resources for GEM 511 course at the University of British Columbia" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Lab 3 Terrain Analaysis and Riparian Area Management | GEM 511: Advanced GIS for Environmental Management" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2024-01-07" />
+<meta name="date" content="2024-01-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,70 +54,6 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <style type="text/css">
   
@@ -180,6 +116,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#lab-overview-2"><i class="fa fa-check"></i>Lab Overview</a></li>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#learning-objectives-2"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#lab-background"><i class="fa fa-check"></i>Lab Background</a></li>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#lab3-deliverables"><i class="fa fa-check"></i>Deliverables</a></li>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#data-2"><i class="fa fa-check"></i>Data</a></li>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#task-1-prepare-the-dem-and-map-stream-networks"><i class="fa fa-check"></i>Task 1: Prepare the DEM and Map Stream Networks</a></li>
@@ -212,6 +149,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#task-3-analyze-your-own-census-characteristics"><i class="fa fa-check"></i>Task 3: Analyze your own census characteristics</a></li>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#summary-4"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="web-mapping.html"><a href="web-mapping.html"><i class="fa fa-check"></i><b>6</b> Lab Title</a>
+<ul>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#lab-overview-5"><i class="fa fa-check"></i>Lab Overview</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#learning-objectives-5"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#competencies-in-this-lab"><i class="fa fa-check"></i>Competencies in This Lab</a></li>
+<li class="chapter" data-level="6.1" data-path="web-mapping.html"><a href="web-mapping.html#deliverables-lab6-deliverables-.unnumbered"><i class="fa fa-check"></i><b>6.1</b> Deliverables {lab6-deliverables .unnumbered}</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#data-3"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#task-1-lorem-ipsum"><i class="fa fa-check"></i>Task 1: Lorem ipsum</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#task-2-lorem-ipsum"><i class="fa fa-check"></i>Task 2: Lorem ipsum</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#summary-5"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html"><i class="fa fa-check"></i><b>7</b> Lab Title</a>
+<ul>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#lab-overview-6"><i class="fa fa-check"></i>Lab Overview</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#learning-objectives-6"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#competencies-in-this-lab-1"><i class="fa fa-check"></i>Competencies in This Lab</a></li>
+<li class="chapter" data-level="7.1" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#deliverables-lab7-deliverables-.unnumbered"><i class="fa fa-check"></i><b>7.1</b> Deliverables {lab7-deliverables .unnumbered}</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#data-4"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#task-1-lorem-ipsum-1"><i class="fa fa-check"></i>Task 1: Lorem ipsum</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#task-2-lorem-ipsum-1"><i class="fa fa-check"></i>Task 2: Lorem ipsum</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#summary-6"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -238,24 +197,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Hana Travers-Smith</p>
 <div id="lab-overview-2" class="section level2 unnumbered hasAnchor">
 <h2>Lab Overview<a href="hydrology-analysis.html#lab-overview-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A Digital Elevation Model (DEM) is a digital representation of the Earth’s terrain including mountains, valleys, rivers, and other topographic features. They are typically created using remote sensing technology, such as radar or LiDAR (Light Detection and Ranging), which capture elevation data points across the landscape. Typically, these elevation data points are organized into raster format, where each raster cell represents elevation within specific pixel. DEMs are used in a range of applications, including cartography, hydrology, geology, environmental analysis, and simulating water flow and erosion.</p>
-<p>In this lab you will use the Hydrology toolset in ArcGIS Pro to delineate stream networks in salmon spawning habitat in the Nahmint watershed, British Columbia. You will then extract stream characteristics, including stream gradient, order and length to determine a Riparian Management Area (RMA) around each stream segment.</p>
-<p>Riparian areas are found adjacent streams, lakes and wetlands. In many areas they contain highly productive and commercially valuable timber. However, vegetation in riparian zones also have important ecological functions by stabilizing stream banks, regulating water temperature, providing nutrient inputs and reducing runoff into water bodies. In BC, Riparian Management Areas (RMAs) are defined around sensitive streams and rivers that forbid or limit forest harvest activities within them. The width of these buffer zones depend on stream class, defined by channel width and fish-bearing potential. Thus, it is critical for forest managers to accurately map and measure stream networks.</p>
-<p>Airborne Laser Scanning (ALS) can be used to derive detailed maps of terrain and vegetation structure to aid in riparian forest management. Previous work has been done using ALS to map and extract stream characteristics over large areas and assign stream classes (Tompalski et al., 2017). You will use similar methods to classify streams and define RMAs over a small area in the Nahmint valley, BC.</p>
-<p>In this lab you will take on the role of a forest manager with the following task: Define reserve (no harvest) areas within a topographically complex riparian forest using “best management” practices. To do this you will use a Digital Elevation Model and high-resolution basemaps. The deliverable for this assignment will be a written report where you will assess the application of DEMs for forest management in riparian regions.</p>
-<p>More background information on riparian forest management can be found here: <a href="https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook" class="uri">https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook</a></p>
-<p>Using ALS to determine Riparian Class: <a href="https://www.sciencedirect.com/science/article/pii/S0034425717300469?via%3Dihub#ab0010" class="uri">https://www.sciencedirect.com/science/article/pii/S0034425717300469?via%3Dihub#ab0010</a></p>
-<p>Remote sensing of riparian vegetation: <a href="https://www.sciencedirect.com/science/article/abs/pii/S0301479720305843?via%3Dihub" class="uri">https://www.sciencedirect.com/science/article/abs/pii/S0301479720305843?via%3Dihub</a></p>
-<p>More information on the Nahmint valley and recent logging activities in the region: <a href="https://ancientforestalliance.org/our-work/old-growth-campaigns/nahmint-valley/" class="uri">https://ancientforestalliance.org/our-work/old-growth-campaigns/nahmint-valley/</a></p>
+<p>In this lab you will take on the role of a forest manager with the following task: Define reserve (no harvest) areas within a topographically complex riparian forest using current “best management” practices. To do this you will use a Digital Elevation Model and high-resolution basemaps. The deliverable for this assignment will be a written report where you will assess the application of DEMs for forest management in riparian regions.</p>
 <hr />
 </div>
 <div id="learning-objectives-2" class="section level2 unnumbered hasAnchor">
 <h2>Learning Objectives<a href="hydrology-analysis.html#learning-objectives-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Lorem ipsum</li>
-<li>Lorem ipsum</li>
-<li>Lorem ipsum</li>
+<li>Understand the hydrology toolbox in ArcGIS Pro</li>
+<li>Execute tasks using Python scripting</li>
+<li>Research current forest management practices in BC</li>
 </ul>
+<hr />
+</div>
+<div id="lab-background" class="section level2 unnumbered hasAnchor">
+<h2>Lab Background<a href="hydrology-analysis.html#lab-background" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Riparian areas are found adjacent streams, lakes and wetlands. In many areas they contain highly productive and commercially valuable timber. However, vegetation in riparian zones also has important ecological function by stabilizing stream banks, regulating water temperature, providing nutrient inputs and reducing runoff into water bodies. In BC, Riparian Management Areas (RMAs) are defined around sensitive streams and rivers that forbid or limit forest harvest activities within them. The width of these buffer zones depend on stream class, which are defined by channel width and fish-bearing potential. Thus, it is critical for forest managers to accurately map and measure stream networks.</p>
+<p><img src="images/03-RMA.PNG" width="75%" />
+(Stackhouse et al., 2023)</p>
+<p>Airborne Laser Scanning (ALS) can be used to derive detailed maps of terrain and vegetation structure to aid in riparian forest management. Previous work has been done using ALS to map and extract stream characteristics over large areas and assign stream classes (Tompalski et al., 2017). You will use similar methods to classify streams and define RMAs over a small area in the Nahmint valley, BC.</p>
+<p>More background information on riparian forest management can be found here: <a href="https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook" class="uri">https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook</a></p>
+<p>Using ALS to determine stream characteristics: <a href="https://www.sciencedirect.com/science/article/pii/S0034425717300469?via%3Dihub#ab0010" class="uri">https://www.sciencedirect.com/science/article/pii/S0034425717300469?via%3Dihub#ab0010</a></p>
+<p>Remote sensing of riparian vegetation: <a href="https://www.sciencedirect.com/science/article/abs/pii/S0301479720305843?via%3Dihub" class="uri">https://www.sciencedirect.com/science/article/abs/pii/S0301479720305843?via%3Dihub</a>
+<a href="https://www.sciencedirect.com/science/article/pii/S0048969723080890?via%3Dihub#s0010" class="uri">https://www.sciencedirect.com/science/article/pii/S0048969723080890?via%3Dihub#s0010</a></p>
+<p>More information on the Nahmint valley and recent logging activities in the region: <a href="https://ancientforestalliance.org/our-work/old-growth-campaigns/nahmint-valley/" class="uri">https://ancientforestalliance.org/our-work/old-growth-campaigns/nahmint-valley/</a></p>
 <hr />
 </div>
 <div id="lab3-deliverables" class="section level2 unnumbered hasAnchor">
@@ -341,7 +305,7 @@ Hana Travers-Smith</p>
 <p>Compare your stream network to the streams visible in the ArcGIS satellite basemap. Experiment with different flow accumulation thresholds. What other features could be misclassified as a stream using this method? Find a threshold that captures streams visible in the basemap, without too many misclassified features.</p>
 <p>Once you have selected a threshold, open the “Reclassify (Spatial Analyst Tools)” tool.</p>
 <p>Use the threshold you have selected as the Start and End values. Set the cells representing streams to a “New value” of 1 and all other cells to <code>NODATA</code>. Save the new raster as “Stream_reclass”. Include your threshold value in the report Methods section.</p>
-<p><img src="images/03-reclassify.JPG" width="75%" /></p>
+<p><img src="images/03-reclassify.JPG" width="50%" /></p>
 <p>Zoom into the reclassified flow accumulation raster to see your stream network.</p>
 <p><strong>Step 5:</strong> Next, we will assign a stream order to each segment in the stream network. Stream ordering is a system to classify streams based on the number of tributaries (smaller streams) that flow into it. First order streams have no tributaries and higher order streams may have multiple levels of tributaries flowing into it.</p>
 <p>Read the following documentation on the Strahler and Shreve methods of stream ordering. <a href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-stream-order-works.htm" class="uri">https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-stream-order-works.htm</a></p>
@@ -381,7 +345,7 @@ Hana Travers-Smith</p>
 <p>Streams with a gradient &lt;20% are considered “fish bearing” in the absence of other field data.</p>
 <p><strong>Step 1:</strong> First, use the “Raster Calculator” tool to multiply the classified flow accumulation layer <strong>Stream_reclass</strong> and the <strong>Nahmint_DEM</strong> layer. This will give elevation within streams.</p>
 <p><strong>Step 2:</strong> Open the “Zonal Statistics” tool. This tool calculates summary statistics in one raster layer within “zones” or groups defined in another layer. This is a very useful tool for many applications! We will use the unique IDs from the <strong>StreamLinks</strong> layer as “zones” to calculate the range in elevation within each stream segment.</p>
-<p><img src="images/03-zonal-statistics.jpg" width="75%" /></p>
+<p><img src="images/03-zonal-statistics.jpg" width="50%" /></p>
 <p>The resulting raster shows the gain in elevation within each stream segment.</p>
 <p><strong>Step 3:</strong> We will convert the elevation change raster to polygon using the “Raster to Polygon” tool. Save the output as <strong>gradient_polygon</strong>. This step will allow us to perform a spatial join with the vectorized stream network. Open the attribute table and note that some attribute names are the same as the <strong>StreamNetwork_polyline</strong>. The attribute “grid_code” represents the elevation gain within each stream segment.</p>
 <p><strong>Step 4:</strong> Open the “Spatial Join” tool and join the <strong>StreamNetwork_polyline</strong> with the <strong>gradient_polygon</strong>. Parameterize the tool as follows:</p>
@@ -484,7 +448,7 @@ Hana Travers-Smith</p>
 </div>
 <div id="summary-2" class="section level2 unnumbered hasAnchor">
 <h2>Summary<a href="hydrology-analysis.html#summary-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Here</p>
+<p>The aim of this lab was to practice solving a real-world forest management problem using raster and vector data. You have hopefully gained a thorough understanding of the tools available for modeling hydrology in ArcGIS Pro. In addition, the high resolution basemaps in ArcGIS Pro can be a valuable source of high-resolution satellite imagery. Stand up, stretch and drink some water!</p>
 <p>Return to the <a href="hydrology-analysis.html#lab3-deliverables"><strong>Deliverables</strong></a> section to check off everything you need to submit for credit in the course management system.</p>
 
 </div>
