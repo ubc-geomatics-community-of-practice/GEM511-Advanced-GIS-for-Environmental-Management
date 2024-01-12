@@ -393,7 +393,7 @@ Paul Pickell</p>
 <p><img src="images/01-json.PNG" width="100%" /></p>
 <p><strong>Step 9:</strong> Return to the OSGeo4W shell and run the pipeline using the following command: <code>pdal pipeline process-lidar.json</code>. It may take several minutes for this step to complete, but in the end you should have a file called “mkrf_aoi_lidar.las” in your QGIS project folder. Drag it into QGIS and inspect it. The processed file should be ~90000KB when finished. If you get an error at this step make sure you have downloaded the correct tiles and the filenames match what is being loaded into the pipeline.</p>
 <p><strong>Step 10</strong>: Finally, we will create a thinned point cloud to compare different interpolation methods in Task 3. In the OSGeo4w shell run the following command:</p>
-<p><code>pdal translate mkrf_aoi_lidar.las thinned.las sample -—filters.sample.radius=5</code></p>
+<p><code>pdal translate mkrf_aoi_lidar.las thinned.las sample --filters.sample.radius=5</code></p>
 <p>This will thin the point cloud by selecting a random point within a sphere with 5m radius. The output will be called “thinned.las” and will be written to the current working directory.</p>
 <hr />
 </div>

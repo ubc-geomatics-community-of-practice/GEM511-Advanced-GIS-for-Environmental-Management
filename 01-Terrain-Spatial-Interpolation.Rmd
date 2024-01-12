@@ -248,7 +248,7 @@ This next filter stage [merges](https://pdal.io/en/2.6.0/stages/filters.merge.ht
 
 **Step 10**: Finally, we will create a thinned point cloud to compare different interpolation methods in Task 3. In the OSGeo4w shell run the following command:
 
-```pdal translate mkrf_aoi_lidar.las thinned.las sample -—filters.sample.radius=5```
+```pdal translate mkrf_aoi_lidar.las thinned.las sample --filters.sample.radius=5```
 
 This will thin the point cloud by selecting a random point within a sphere with 5m radius. The output will be called "thinned.las" and will be written to the current working directory.   
 
