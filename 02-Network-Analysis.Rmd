@@ -118,8 +118,6 @@ This was the general process applied to create the DEM in case you want to repro
     knitr::include_graphics("images/02-vancouver-island-dem.png")
 ```
 
-**vancouver_island_dem_filled**
-
 The DEM above was filtered several times for sinks. Generally, you can use the "Fill" tool to achieve this. However, Vancouver Island has many naturally-occurring geomorphic features that can cause real sinks (as opposed to random errors). In order to create a depressionless DEM, the DEM was iteratively put through the following process:
 
 1.  Calculate flow direction
