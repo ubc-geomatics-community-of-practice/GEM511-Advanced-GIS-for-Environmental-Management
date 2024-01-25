@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Lab 2 Salmon Stream Network Analysis | GEM 511: Advanced GIS for Environmental Management</title>
   <meta name="description" content="Open Educational Resources for GEM 511 course at the University of British Columbia" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Lab 2 Salmon Stream Network Analysis | GEM 511: Advanced GIS for Environmental Management" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2024-01-07" />
+<meta name="date" content="2024-01-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,70 +54,6 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <style type="text/css">
   
@@ -180,6 +116,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#lab-overview-2"><i class="fa fa-check"></i>Lab Overview</a></li>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#learning-objectives-2"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#lab-background"><i class="fa fa-check"></i>Lab Background</a></li>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#lab3-deliverables"><i class="fa fa-check"></i>Deliverables</a></li>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#data-2"><i class="fa fa-check"></i>Data</a></li>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#task-1-prepare-the-dem-and-map-stream-networks"><i class="fa fa-check"></i>Task 1: Prepare the DEM and Map Stream Networks</a></li>
@@ -211,6 +148,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#task-2-practice-geographically-weighted-regression"><i class="fa fa-check"></i>Task 2: Practice geographically weighted regression</a></li>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#task-3-analyze-your-own-census-characteristics"><i class="fa fa-check"></i>Task 3: Analyze your own census characteristics</a></li>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#summary-4"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="web-mapping.html"><a href="web-mapping.html"><i class="fa fa-check"></i><b>6</b> Lab Title</a>
+<ul>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#lab-overview-5"><i class="fa fa-check"></i>Lab Overview</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#learning-objectives-5"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#competencies-in-this-lab"><i class="fa fa-check"></i>Competencies in This Lab</a></li>
+<li class="chapter" data-level="6.1" data-path="web-mapping.html"><a href="web-mapping.html#deliverables-lab6-deliverables-.unnumbered"><i class="fa fa-check"></i><b>6.1</b> Deliverables {lab6-deliverables .unnumbered}</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#data-3"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#task-1-lorem-ipsum"><i class="fa fa-check"></i>Task 1: Lorem ipsum</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#task-2-lorem-ipsum"><i class="fa fa-check"></i>Task 2: Lorem ipsum</a></li>
+<li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#summary-5"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html"><i class="fa fa-check"></i><b>7</b> Lab Title</a>
+<ul>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#lab-overview-6"><i class="fa fa-check"></i>Lab Overview</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#learning-objectives-6"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#competencies-in-this-lab-1"><i class="fa fa-check"></i>Competencies in This Lab</a></li>
+<li class="chapter" data-level="7.1" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#deliverables-lab7-deliverables-.unnumbered"><i class="fa fa-check"></i><b>7.1</b> Deliverables {lab7-deliverables .unnumbered}</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#data-4"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#task-1-lorem-ipsum-1"><i class="fa fa-check"></i>Task 1: Lorem ipsum</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#task-2-lorem-ipsum-1"><i class="fa fa-check"></i>Task 2: Lorem ipsum</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#summary-6"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -273,27 +232,30 @@ Paul Pickell</p>
 <ul>
 <li><p>Describe network analysis and network topology.</p></li>
 <li><p>What are some approaches to modelling reach within networks? Connectivity?</p></li>
+<li><p>Why are reach and connectivity important for salmon conservation?</p></li>
 <li><p>Reference to at least 3 peer review sources.</p></li>
 </ul>
 <p><input type="checkbox" unchecked> Methods should address the following requirements (10 points):</input></p>
 <ul>
 <li><p>Brief study area description and study area map showing the salmon conservation unit that you have selected to focus on.</p></li>
 <li><p>Outline all primary steps included in the lab (no need to include exact ArcGIS Pro tool parameters).</p></li>
-<li><p>Justify the use of specific methodological choices indicated in the lab.</p></li>
 </ul>
 <p><input type="checkbox" unchecked> Results should address the following questions and requirements (15 points):</input></p>
 <ul>
+<li><p><strong>You are only expected to comment on a single conservation unit.</strong></p></li>
 <li><p>Map showing the reach of your streams from the ocean with dams as barriers</p></li>
-<li><p>Zoom to Lake Cowichan. What is going on here? What could you do to automatically fix this for all large lakes?</p></li>
+<li><p>How many dams/ocean outlets are in your conservation area?</p></li>
+<li><p>How much of the stream network is accessible and inaccessible?</p></li>
 <li><p>How well do the streams you created line up with the mapped streams in the ArcGIS basemap?</p></li>
 </ul>
 <p><input type="checkbox" unchecked> Discussion should address the following questions and requirements (10 points):</input></p>
 <ul>
-<li><p>Comment on both small and large scale observations that you made throughout the process. Small scale observations would be investigating the behavior/structure of individual routes, while large scale observations would be the overall differences between total salmon habitat and habitat that can actually be reached from the ocean.</p></li>
-<li><p>Discuss any limitations to the analysis based on your observations and suggest how the modelling process might be improved further. Illustrate your findings with figures, maps, and tables as needed. You are only expected to comment on a single conservation unit, but you may also run the entire island if you feel ambitious.</p></li>
+<li><p>Comment on both small and large scale observations that you made throughout the process. Small scale observations would be investigating the behavior/structure of individual routes, while large scale observations would be the overall differences between total salmon habitat (all streams) and habitat that can actually be reached unimpeded from the ocean.</p></li>
 <li><p>Consider how you might model the other salmon habitat requirements laid out at the beginning of the lab. Give brief examples for how you would model at least <u>three of the criteria</u> that we <u>did not</u> consider in the lab (i.e., do not discuss stream order, stream gradient). Assume that you have access to any typical data source (e.g., LiDAR, optical satellite, RADAR, land inventory, gauge stations, weather stations, etc).</p></li>
 <li><p>How would you expect the stream network to change if you used a raster with a cell size of 5 m or 100 m?</p></li>
 <li><p>How might additional topological errors and unidentified/unfilled sinks in the DEM impact your analysis?</p></li>
+<li><p>Discuss any limitations to the analysis based on your observations and suggest how the modelling process might be improved further.</p></li>
+<li><p>Zoom to Lake Cowichan. What is going on here? What could you do to automatically fix this for all large lakes?</p></li>
 <li><p>What are your final recommendations to the province for conservation of spawning salmon habitat in Vancouver Island streams?</p></li>
 <li><p>Reference to at least 3 peer review sources (can be the same sources as introduction).</p></li>
 </ul>
@@ -333,14 +295,19 @@ Paul Pickell</p>
 </div>
 <div id="task-1-create-stream-segments" class="section level2 unnumbered hasAnchor">
 <h2>Task 1: Create stream segments<a href="network-analysis.html#task-1-create-stream-segments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Before starting the lab, you will need to download all of the data from the <code>salmon</code> database on the UBC PostgreSQL server and save it to your ArcGIS Pro project folder. You should save all of your outputs from the tools in this lab directly into your ArcGIS Pro project geodatabase. The reasoning for this is because we will only be working in ArcGIS Pro for this lab and also because the ArcGIS Pro topology tools only work with data inside an ArcGIS Pro geodatabase.</p>
-<p><strong>Step 1:</strong> Calculate the flow direction of the filled DEM, using the “Flow Direction” tool. The flow direction tool determines which raster cells flow into other cells based on the elevation difference the immediate neighborhood. Keep the defaults of the tool. Ensure that “Force all edge cells to flow outward” is toggled on and leave all other parameters with the default value.</p>
+<p><strong>Step 1</strong>: Before starting the lab, you will need to download all of the data from the <code>salmon</code> database on the UBC PostgreSQL server. Currently, ArcGIS Pro cannot read Post GIS raster datasets so we will first open the Vancouver Island DEM in QGIS and Export it as a GeoTiff, which can be opened in ArcGIS Pro.</p>
+<p>Open QGIS and connect to the <code>salmon</code> PostgreSQL server. Expand the <code>salmon</code> database in the Browser pane and right-click on “vancouver_island_dem” &gt; Add Layer to Project.</p>
+<p>Right click on the DEM layer in the Layers pane &gt; Export &gt; Save as. Save the file as a GeoTiff in your Lab 2 project folder. Leave the default settings. Close QGIS.</p>
+<p><strong>Step 2:</strong> Now in ArcGIS Pro, add the Vancouver Island DEM to your map project.
+You should save all of your outputs from the tools in this lab directly into your ArcGIS Pro project geodatabase. The reasoning for this is because we will only be working in ArcGIS Pro for this lab and also because the ArcGIS Pro topology tools only work with data inside an ArcGIS Pro geodatabase.</p>
+<p>Calculate the flow direction of the filled DEM, using the “Flow Direction” tool. The flow direction tool determines which raster cells flow into other cells based on the elevation difference the immediate neighborhood. Keep the defaults of the tool. Ensure that “Force all edge cells to flow outward” is toggled on and leave all other parameters with the default value. The cell values in the output raster represent the steepest down slope direction of each pixel.</p>
 <p><img src="images/02-flow-direction.png" width="50%" /></p>
-<p><strong>Step 2:</strong> Use the output from the “Flow Direction” tool as an input into the “Flow Accumulation” tool. Again, use the defaults within the tool, but select integer as the output data type because the output of this tool is a count. This tool will create a raster that represents the number of pixels that will accumulate into any given pixel. The bigger rivers will be displayed in the output. Play around with the symbology to visualize the stream network. (Hint: try using classify and various methods within symbology).</p>
-<p><strong>Step 3:</strong> To define streams, you need to set a threshold for the flow accumulation. Open “Con” and set the threshold or expression as any pixel that has a count of more than 1000. Therefore, any pixel that has a count of more than 1000 will be classified as a stream. For “Input true raster or constant value”, use value 1. For “Input false raster or constant value”, use value 0.</p>
-<p><strong>Step 4:</strong> Next, you will create a grid of stream links, which assigns unique values to each stream segment, so that the user can see how the streams are connected. Open the “Stream Link” tool and use the output from the “Con” tool and the flow direction raster here.</p>
-<p><strong>Step 5:</strong> You will also use the “Stream Order” tool using the same inputs as in step 4 and the default parameters. The “Stream Order” tool assigns a numeric order to segments of the raster, essentially classifying branches of the stream network.</p>
-<p><strong>Step 6:</strong> You will also convert your raster into polylines using the stream links raster and flow direction raster as inputs for the “Stream to Feature” tool. Toggle off “Simplify polylines”.</p>
+<p><strong>Step 3:</strong> Use the output from the “Flow Direction” tool as an input into the “Flow Accumulation” tool. Again, use the defaults within the tool, but select integer as the output data type because the output of this tool is a count. This tool will create a raster that represents the number of pixels that will accumulate into any given pixel. You may need to zoom into the output to be able to see these streams. Play around with the symbology to visualize the stream network. (Hint: try using classify and various methods within symbology).</p>
+<p><strong>Step 4:</strong> To define streams, you need to set a threshold for the flow accumulation. Open “Con”(Image Analyst Tools). This tool allows you to set a true/false condition and assign values to a new raster based on whether the condition is met. Set the expression so that a pixel that has a count equal to or more than 1000 will be assigned a value of 1. For “Input true raster or constant value”, use value 1. For “Input false raster or constant value”, use value 0.</p>
+<p><img src="images/02-con.png" width="50%" /></p>
+<p><strong>Step 5:</strong> Next, you will create a grid of stream links, which assigns unique values to each stream segment, so that the user can see how the streams are connected. Open the “Stream Link” tool and use the output from the “Con” tool and the flow direction raster here.</p>
+<p><strong>Step 6:</strong> You will also use the “Stream Order” tool using the same inputs as in step 4 and the default parameters. The “Stream Order” tool assigns a numeric order to segments of the raster, essentially classifying branches of the stream network. The lowest order streams do not have any other streams that flow into it, while higher order streams can have multiple levels of tributaries that flow into it. This tool will take some time to run on the whole island. Take a moment to stretch and hydrate!</p>
+<p><strong>Step 7:</strong> You will also convert your raster into polylines using the stream links raster and flow direction raster as inputs for the “Stream to Feature” tool. Toggle off “Simplify polylines”.</p>
 <p>Below is a useful flowchart of the process of creating a stream network from a DEM (<a href="https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/deriving-runoff-characteristics.htm">Source</a>)</p>
 <p><img src="images/02-flow-chart.png" width="75%" /></p>
 <hr />
@@ -348,26 +315,26 @@ Paul Pickell</p>
 <div id="task-2-create-routes-and-apply-topology" class="section level2 unnumbered hasAnchor">
 <h2>Task 2: Create routes and apply topology<a href="network-analysis.html#task-2-create-routes-and-apply-topology" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>At this point, you have only created polyline features representing streams. Next will convert those segments to routes and apply topology for our streams, as well as incorporate dams into the network.</p>
-<p><strong>Step 1:</strong> Convert your stream features into routes using the “Create routes” tool. Set the Route ID field to “arcid”. The coordinate Priority parameter can be set to any corner.</p>
+<p><strong>Step 1:</strong> Convert your stream features into routes using the “Create routes” tool. Set the Route ID field to “arcid”. The coordinate Priority parameter can be set to any corner. Save the output as “vancouver_island_stream_routes”.</p>
 <p><img src="images/02-create-routes.png" width="50%" /></p>
-<p><strong>Step 2:</strong> Create a new feature dataset in your geodatabase. Right-click your geodatabase in the Catalog pane and select New Feature Dataset. For the projection, use NAD 1983 BC Environment Albers.</p>
-<p><strong>Step 3:</strong> Import the stream routes and dams feature classes to the feature dataset within the Catalog view.</p>
-<p>The dams are modelled as polylines. We need to identify where these dams intersect the stream routes. We want to return a single point for that location so that we can properly model the dams in our network. We will use topology to achieve this.</p>
+<p><strong>Step 2:</strong> Create a blank feature dataset and name it “stream_routes_dams”. To do this, right-click the geodatabase in the Catalog pane and select New Feature Dataset. For the projection, use NAD 1983 BC Environment Albers (EPSG: 3005).</p>
+<p><strong>Step 3:</strong> Click and drag the stream routes and dams feature classes to the new feature dataset within the Catalog view.</p>
+<p>The dams are modelled as polylines. We need to identify where these dams intersect the stream routes. We want to return a single point for that location so that we can properly model the dams in our network, which act as barriers to salmon as they travel through the stream network. We will use topology to achieve this.</p>
 <p><img src="images/02-example-dam.png" width="50%" /></p>
 <p><strong>Step 4:</strong> Right-click the feature dataset and select “New” and “Topology”. This will open the Create Topology Wizard dialogue box.</p>
 <p><strong>Step 5:</strong> On the first page of the wizard, toggle on the dams and stream routes feature classes.</p>
 <p><img src="images/02-create-topology-1.png" width="75%" /></p>
 <p><strong>Step 6:</strong> On the second page of the wizard, add a new rule so that the stream polylines must not intersect with the dam polylines.</p>
 <p><img src="images/02-create-topology-2.png" width="75%" /></p>
-<p>Once done, click “Finish”.</p>
+<p>Once done, click “Finish”. Refresh the feature dataset in the Catalog pane to see the new Topology.</p>
 <p><strong>Step 7:</strong> Validate the topology by right-clicking the topology in the feature dataset and clicking “Validate”.</p>
 <p><img src="images/02-topology-errors.png" width="50%" /></p>
 <p><strong>Step 8:</strong> You can click and drag the topology into the map to view any errors. We expect there to be errors because we know that the dams should intersect with our stream routes. You should see red squares all over the island. In the Contents Pane, right-click the “Point Errors” layer, select “Data”, and select “Export Features”. Save the points to your feature dataset as “stream_dam_junctions”.</p>
 <p>At this point, take a moment to appreciate where we are in this problem. We have modelled streams as routes and we now know where dams intersect with those routes. Salmon are diadromous species, they swim from the saltwater ocean up the freshwater streams to spawn. Therefore, we need one more piece of information in order to model how salmon swim upstream. We need to know where the streams meet the ocean.</p>
 <p><strong>Step 9:</strong> Take the Vancouver Island boundary polygon provided and perform a negative buffer, called a nibble. Use -25 meters for the buffer distance. We are doing a negative buffer because we want to ensure that this edge intersects with the streams that terminate at the ocean. Remember that the streams were generated by an imperfect and imprecise DEM, therefore this process will ensure that every stream that reaches the ocean will intersect this boundary.</p>
-<p><strong>Step 10:</strong> Convert the nibbled Vancouver Island boundary to a polyline using the “Polygon to line” tool. Be sure to toggle off “Identify and store polygon neighboring information”. Save the result to your feature dataset.</p>
-<p>Next, we will use the same topology process to identify where the island boundary intersects the stream routes.</p>
-<p><strong>Step 11:</strong> Right-click the network topology and select “Properties”. This will open the topology wizard dialogue again. On the left, select “Feature Class” and toggle on the nibbled Vancouver island boundary that you created in step 10 and the stream routes. Toggle everything else off. On the left, select “Rules”. Highlight the previous rule and click the “Remove” button at the top. Then, add a rule so that the stream routes must not intersect with the nibbled island boundary. Refer to steps 5 and 6 above if you need clarification.</p>
+<p><strong>Step 10:</strong> Convert the nibbled Vancouver Island boundary to a polyline using the “Polygon to line” tool. Be sure to toggle off “Identify and store polygon neighboring information”. <strong>Save the result to your feature dataset with the stream links and dams.</strong></p>
+<p>Next, we will use the same topology process to identify where the island boundary intersects the stream routes, representing where salmon enter the stream network from the ocean.</p>
+<p><strong>Step 11:</strong> Right-click the network topology in the Catalog and select “Properties”. This will open the topology wizard dialogue again. On the left, select “Feature Class” and toggle on the nibbled Vancouver island boundary that you created in step 10 and the stream routes. Toggle everything else off. On the left, select “Rules”. Highlight the previous rule and click the “Remove” button at the top. Then, add a rule so that the stream routes must not intersect with the nibbled island boundary. Refer to steps 5 and 6 above if you need clarification.</p>
 <p><strong>Step 12:</strong> Again, validate the topology, add the topology to the map view, and export the Point Errors to a point feature class in your feature dataset. Name it “stream_ocean_junctions”. Refer to steps 7 and 8 if you need clarification.</p>
 <p><img src="images/02-ocean-stream-junctions.png" width="100%" /></p>
 <hr />
@@ -375,18 +342,18 @@ Paul Pickell</p>
 <div id="task-3-record-stream-attributes-with-linear-referencing" class="section level2 unnumbered hasAnchor">
 <h2>Task 3: Record stream attributes with linear referencing<a href="network-analysis.html#task-3-record-stream-attributes-with-linear-referencing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now that we have stream routes, we can calculate some information that relate to salmon habitat. Water quality is important for salmon spawning habitat. Steeper gradients (slope) may be more susceptible to erosion that could be one proxy for lower water quality. In this task, you will practice extracting information about the streams and storing that information in the routes using linear referencing.</p>
-<p><strong>Important:</strong> Some of these operations can be computationally intensive because we will be dealing with up to 10<sup>5</sup> features for the entire island. The instructions that follow are demonstrated on the entire island network dataset. You can attempt to process the entire island, but ultimately <u>you need to clip your stream routes to one of the conservation units</u> (CU) for any of the three species of salmon for your report.</p>
+<p><strong>Important:</strong> Some of these operations can be computationally intensive because we will be dealing with up to 10<sup>5</sup> features for the entire island.</p>
 <p><strong>Step 1:</strong> Calculate the slope of the filled DEM using “Percent rise” as the output measurement and “Planar” as the Method.</p>
 <p><strong>Step 2:</strong> Now use the “Extract by Mask” tool to extract the slope raster by the mask of the stream links raster you created back in Task 1. This will produce a raster with slope values only where our streams exist.</p>
-<p><strong>Step 3:</strong> In British Columbia, stream gradients &lt; 20% are generally considered to be fish-bearing. Therefore, use the “Reclassify” tool to classify slopes &lt; 20% to a value of 1 and all other slopes to a value of 0.</p>
-<p><strong>Step 4:</strong> Use the “Stream to Feature” tool to convert the classified slope raster to line features. Parameterize this tool similar to the way you did in Task 1:</p>
+<p><strong>Step 3:</strong> In British Columbia, stream gradients &lt; 20% are generally considered to be fish-bearing. Therefore, use the “Reclassify” tool to classify slopes &lt; 20% to a value of 1 and all other slopes to a value of 0 for the stream raster you created in the last step.</p>
+<p><strong>Step 4:</strong> Use the “Stream to Feature” tool to convert the classified slope raster to line features. Parameterize this tool as follows:</p>
 <ul>
 <li><p>Input stream raster is the classified slope raster you just made in step 3</p></li>
 <li><p>Input flow direction raster is the original flow direction raster you made in Task 1</p></li>
 <li><p>Name the output “stream_features_slope_classified”</p></li>
-<li><p>Uncheck “Simplify polygons”</p></li>
+<li><p><strong>Uncheck</strong> “Simplify polygons”</p></li>
 </ul>
-<p>Now you have another feature class of streams that should spatially match your stream routes, but these new polylines contain the gradient information. Now we will overlay this information with the routes.</p>
+<p>Now you have another feature class of streams that should spatially match your stream routes, but these new polylines contain the gradient information. Now we will overlay this information with the routes. Open the attribute table of this layer, the field “grid_code” stores the value of the reclassified slope raster for each stream segment.</p>
 <p><strong>Step 5:</strong> Use the “Locate Features Along Routes” tool to overlay the gradient information with the routes.</p>
 <p><img src="images/02-locate-features-along-routes.png" width="50%" /></p>
 <p>This will produce a route event table that should look something like this:</p>
@@ -398,13 +365,15 @@ Paul Pickell</p>
 </div>
 <div id="task-4-trace-the-network" class="section level2 unnumbered hasAnchor">
 <h2>Task 4: Trace the network<a href="network-analysis.html#task-4-trace-the-network" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Now we can create a network that will allow us to trace the routes from the ocean to the dams.</p>
+<p>Now we can create a network that will allow us to trace the routes from the ocean to the dams. The goal of this task is to identify routes through the stream network that flow to the ocean and are unimpeded by dams. The following link provides more information about trace networks in ArcGIS Pro: <a href="https://pro.arcgis.com/en/pro-app/latest/help/data/trace-network/what-is-a-trace-network-.htm" class="uri">https://pro.arcgis.com/en/pro-app/latest/help/data/trace-network/what-is-a-trace-network-.htm</a></p>
+<p>The following steps will use the “stream_dams_junction”, “stream_ocean_junctions” and the “vancouver_island_stream_routes” layers to trace stream routes starting from the ocean and are unimpeded by dams. You will need to save them in the Topology geodatabase.</p>
+<p>Before running the next steps save your ArcGIS Project. Ensure you have cleared any selected features from the map.</p>
 <p><strong>Step 1:</strong> Open the “Create Trace Network” tool:</p>
 <ul>
 <li><p>The Input Feature Dataset should point to your feature dataset in your geodatabase</p></li>
 <li><p>Trace Network Name can be named “stream_trace_network”</p></li>
-<li><p>Input Junctions should contain both the “stream_dams_junction” and “stream_ocean_junctions” that you created in steps 8 and 12 from Task 2</p></li>
-<li><p>Input Edges should contain the stream routes and set the Connectivity Policy to “Complex edge”</p></li>
+<li><p>Input Junctions should contain both the “stream_dams_junction” and “stream_ocean_junctions” from the Topology geodatabase.</p></li>
+<li><p>Input Edges should contain the clipped stream routes and set the Connectivity Policy to “Complex edge”</p></li>
 </ul>
 <p><img src="images/02-create-trace-network.png" width="50%" /></p>
 <p><strong>Step 2:</strong> Run the “Enable Network Topology” tool on the trace network you just created.</p>
@@ -413,15 +382,16 @@ Paul Pickell</p>
 <ul>
 <li><p>Input Trace Network is the trace network that you created earlier</p></li>
 <li><p>Trace Type is “Connected”</p></li>
-<li><p>Starting Points are the “stream_ocean_junctions” that you created earlier</p></li>
-<li><p>Barriers are the “stream_dam_junctions” that you created earlier</p></li>
+<li><p>Starting Points are the “stream_ocean_junctions” (make sure this is the layer stored in the Topology geodatabase)</p></li>
+<li><p>Barriers are the “stream_dam_junctions” (make sure this is the layer stored in the Topology geodatabase)</p></li>
 <li><p>Toggle on “Include Barrier Features”</p></li>
 <li><p>Toggle off “Validate Consistency”</p></li>
 <li><p>Toggle off “Ignore Barriers at Starting Points”</p></li>
 <li><p>Leave all Advanced Options as defaults</p></li>
 </ul>
+<p>After the tool has finished running, toggle off the stream trace network and toggle on the stream routes layer (“vancouver_island_stream_routes”). You should see some of the routes are now highlighted on your map.</p>
 <p><img src="images/02-trace.png" width="50%" /></p>
-<p><strong>Step 5:</strong> Once you have ran the “Trace” tool, you will see some of the routes selected on your map. Add a Short field to the route attribute table called “REACHED”. Calculate this field with a value of “1” for the routes selected. Invert the selection and calculate the field again for the selected features with a value of “0”. Finally, clear the selection and symbolize the routes based on the “REACHED” field. Congratulations! You have now modelled which route segments can be reached from the ocean before running into a dam. Your stream_routes should look something like this (blue = unimpeded streams, yellow = stream reaches that are impeded by a dam):</p>
+<p><strong>Step 5:</strong> Add a Short field to the stream routes attribute table called “REACHED”. Calculate this field with a value of “1” for the routes selected. Invert the selection and calculate the field again for the selected features with a value of “0”. Finally, clear the selection and symbolize the routes based on the “REACHED” field. Congratulations! You have now modeled which route segments can be reached from the ocean and are not impeded by dams. Your stream_routes should look something like this (blue = unimpeded streams, yellow = stream reaches that are impeded by a dam):</p>
 <p><img src="images/02-traced-network.png" width="75%" /></p>
 <p><strong>Important:</strong> If your map looks significantly different from above, like most of the streams are impeded, then try these fixes:</p>
 <ul>
@@ -448,7 +418,7 @@ Paul Pickell</p>
 </ul>
 <p><img src="images/02-overlay-route-events.png" width="50%" /></p>
 <p>This will produce a new output event table that contains the intersection of stream gradient and stream order along the routes. As well, this event table should contain which routes can be reached from the ocean before running into a dam. Keep in mind that this is just a table, not a feature class. This is known as <em>dynamic segmentation</em>. Next we will add one last field, visualize the everything and do a simple query.</p>
-<p><strong>Step 2:</strong> Join the field “REACHED” from the original routes to the overlay event table you just created using the “Join Field” tool:</p>
+<p><strong>Step 2:</strong> Join the field “REACHED” from the original routes to the overlay event table you just created using the “Join Field” tool. The stream_routes layer should be the layer with the REACHED field:</p>
 <p><img src="images/02-join-field.png" width="50%" /></p>
 <p>You should now have a table that has all the fields we need: SORDER, GRADIENT, and REACHED. (Note that some fields have been hidden from view in the table below.)</p>
 <p><img src="images/02-stream-route-overlay.png" width="75%" /></p>
@@ -477,6 +447,7 @@ Paul Pickell</p>
 <p>Export the selected features to a new feature class called “inaccessible_salmon_habitat”.</p>
 <p>If everything goes <em>swimmingly</em>, then the selected stream segments that meet the habitat criteria and can be reached from the ocean will look something like this:</p>
 <p><img src="images/02-selected-streams.png" width="100%" /></p>
+<p><strong>For your final report, you will clip these layers to one of the salmon conservation units.</strong></p>
 <hr />
 </div>
 <div id="summary-1" class="section level2 unnumbered hasAnchor">
@@ -546,20 +517,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

@@ -382,6 +382,6 @@ As your final deliverable create a map with the following elements:
 
 ## Summary {.unnumbered}
 
-The aim of this lab was to practice solving a real-world forest management problem using raster and vector data. You have hopefully gained a thorough understanding of the tools available for modeling hydrology in ArcGIS Pro. In addition, the high resolution basemaps in ArcGIS Pro can be a valuable source of high-resolution satellite imagery. Stand up, stretch and drink some water! 
+The aim of this lab was to practice solving a real-world forest management problem using raster and vector data. You have hopefully gained a thorough understanding of the tools available for modeling hydrology in ArcGIS Pro. In addition, the basemaps in ArcGIS Pro can be a valuable source of high-resolution satellite imagery. Stand up, stretch and drink some water! 
 
 Return to the [**Deliverables**](#lab3-deliverables) section to check off everything you need to submit for credit in the course management system.
