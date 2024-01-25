@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<metadata xml:lang="en"><Esri><CreaDate>20240122</CreaDate><CreaTime>13301000</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process ToolSource="c:\program files\arcgis\pro\Resources\ArcToolbox\toolboxes\Spatial Analyst Tools.tbx\Con" Date="20240122" Time="133010">Con flowaccumulation.tif 1 C:\Users\hanats\Documents\NRES\GEM511-Advanced-GIS-for-Environmental-Management\streams 0 "VALUE &gt;= 1000"</Process></lineage></DataProperties></Esri></metadata>
