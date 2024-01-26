@@ -157,7 +157,8 @@ Open QGIS and connect to the `salmon` PostgreSQL server. Expand the `salmon` dat
 
 Right click on the DEM layer in the Layers pane >  Export > Save as. Save the file as a GeoTiff in your Lab 2 project folder. Leave the default settings. Close QGIS. 
 
-**Step 2:** Now in ArcGIS Pro, add the Vancouver Island DEM to your map project. 
+**Step 2:** In ArcGIS Pro, add the Vancouver Island DEM to your map project. Clip the DEM to the"vancouver_island_boundary" using the clip raster tool, toggle on "use input features for clipping geometry".  
+
 You should save all of your outputs from the tools in this lab directly into your ArcGIS Pro project geodatabase. The reasoning for this is because we will only be working in ArcGIS Pro for this lab and also because the ArcGIS Pro topology tools only work with data inside an ArcGIS Pro geodatabase.
 
 Calculate the flow direction of the filled DEM, using the "Flow Direction" tool. The flow direction tool determines which raster cells flow into other cells based on the elevation difference the immediate neighborhood. Keep the defaults of the tool. Ensure that "Force all edge cells to flow outward" is toggled on and leave all other parameters with the default value. The cell values in the output raster represent the steepest down slope direction of each pixel. 
@@ -298,9 +299,7 @@ Add a Short field to the event table called "GRADIENT" and calculate this field 
 
 Now we can create a network that will allow us to trace the routes from the ocean to the dams. The goal of this task is to identify routes through the stream network that flow to the ocean and are unimpeded by dams. The following link provides more information about trace networks in ArcGIS Pro: https://pro.arcgis.com/en/pro-app/latest/help/data/trace-network/what-is-a-trace-network-.htm
 
-The following steps will use the "stream_dams_junction", "stream_ocean_junctions" and the "vancouver_island_stream_routes" layers to trace stream routes starting from the ocean and are unimpeded by dams. You will need to save them in the Topology geodatabase. 
-
-Before running the next steps save your ArcGIS Project. Ensure you have cleared any selected features from the map. 
+The following steps will use the "stream_dams_junction", "stream_ocean_junctions" and the "vancouver_island_stream_routes" layers. Before running the next steps save your ArcGIS Project. Ensure you have cleared any selected features from the map. 
 
 **Step 1:** Open the "Create Trace Network" tool:
 
