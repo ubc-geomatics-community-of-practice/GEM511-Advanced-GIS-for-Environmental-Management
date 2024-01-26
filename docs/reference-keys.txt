@@ -3,8 +3,3 @@ network-analysis
 hydrology-analysis
 machine-learning
 geographically-weighted-regression
-web-mapping
-deliverables-lab6-deliverables-.unnumbered
-writing-metadata-documentation
-deliverables-lab7-deliverables-.unnumbered
-lab-background
