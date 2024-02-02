@@ -110,7 +110,7 @@ This was the general process applied to create the DEM in case you want to repro
 4.  Convert the result of step 3 to a raster with cell size 25 m and project to NAD 1983 BC Environment Albers. This is a mask that extends just beyond the shore of Vancouver Island to account for mapping errors.
 5.  Extract the DEM from step 2 by the mask in step 4 to produce a DEM for only Vancouver Island that excludes all other nearby islands:
 
-```{r 02-vancouver-island-dem, out.width= "75%", echo = FALSE}
+```{r 02-vancouver-island-dem, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/02-vancouver-island-dem.png")
 ```
 
@@ -171,7 +171,7 @@ Calculate the flow direction of the filled DEM, using the "Flow Direction" tool.
 
 **Step 7:** You will also convert your raster into polylines using the stream links raster and flow direction raster as inputs for the "Stream to Feature" tool. Toggle off "Simplify polylines". 
 
-Below is a useful flowchart of the process of creating a stream network from a DEM ([Source](https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/deriving-runoff-characteristics.htm))
+Below is a useful flowchart of the process of creating a stream network from a DEM ([ArcGIS Pro](https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/deriving-runoff-characteristics.htm)).
 
 ```{r 02-flow-chart, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/02-flow-chart.png")
@@ -183,7 +183,7 @@ Below is a useful flowchart of the process of creating a stream network from a D
 
 At this point, you have only created polyline features representing streams. Next will convert those segments to routes and apply topology for our streams, as well as incorporate dams into the network.
 
-```{r 02-create-routes, out.width= "50%", echo = FALSE}
+```{r 02-create-routes, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/02-create-routes.png")
 ```
 
@@ -195,7 +195,7 @@ At this point, you have only created polyline features representing streams. Nex
 
 The dams are modelled as polylines. We need to identify where these dams intersect the stream routes. We want to return a single point for that location so that we can properly model the dams in our network, which act as barriers to salmon as they travel through the stream network. We will use topology to achieve this.
 
-```{r 02-example-dam, out.width= "50%", echo = FALSE}
+```{r 02-example-dam, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/02-example-dam.png")
 ```
 
@@ -203,13 +203,13 @@ The dams are modelled as polylines. We need to identify where these dams interse
 
 **Step 5:** On the first page of the wizard, toggle on the dams and stream routes feature classes.
 
-```{r 02-create-topology-1, out.width= "75%", echo = FALSE}
+```{r 02-create-topology-1, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/02-create-topology-1.png")
 ```
 
 **Step 6:** On the second page of the wizard, add a new rule so that the stream polylines must not intersect with the dam polylines.
 
-```{r 02-create-topology-2, out.width= "75%", echo = FALSE}
+```{r 02-create-topology-2, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/02-create-topology-2.png")
 ```
 
@@ -217,7 +217,7 @@ Once done, click "Finish". Refresh the feature dataset in the Catalog pane to se
 
 **Step 7:** Validate the topology by right-clicking the topology in the feature dataset and clicking "Validate".
 
-```{r 02-topology-errors, out.width= "50%", echo = FALSE}
+```{r 02-topology-errors, out.width= "25%", echo = FALSE}
     knitr::include_graphics("images/02-topology-errors.png")
 ```
 
@@ -267,13 +267,13 @@ Now you have another feature class of streams that should spatially match your s
 
 **Step 5:** Use the "Locate Features Along Routes" tool to overlay the gradient information with the routes.
 
-```{r 02-locate-features-along-routes, out.width= "50%", echo = FALSE}
+```{r 02-locate-features-along-routes, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/02-locate-features-along-routes.png")
 ```
 
 This will produce a route event table that should look something like this:
 
-```{r 02-stream-routes-gradient, out.width= "50%", echo = FALSE}
+```{r 02-stream-routes-gradient, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/02-stream-routes-gradient.png")
 ```
 
@@ -335,7 +335,7 @@ After the tool has finished running, toggle off the stream trace network and tog
 
 **Step 5:** Add a Short field to the stream routes attribute table called "REACHED". Calculate this field with a value of "1" for the routes selected. Invert the selection and calculate the field again for the selected features with a value of "0". Finally, clear the selection and symbolize the routes based on the "REACHED" field. Congratulations! You have now modeled which route segments can be reached from the ocean and are not impeded by dams. Your stream_routes should look something like this (blue = unimpeded streams, yellow = stream reaches that are impeded by a dam):
 
-```{r 02-traced-network, out.width= "75%", echo = FALSE}
+```{r 02-traced-network, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/02-traced-network.png")
 ```
 
@@ -377,7 +377,7 @@ Now you will practice doing an overlay with your route event tables to transfer 
     knitr::include_graphics("images/02-overlay-route-events.png")
 ```
 
-This will produce a new output event table that contains the intersection of stream gradient and stream order along the routes. As well, this event table should contain which routes can be reached from the ocean before running into a dam. Keep in mind that this is just a table, not a feature class. This is known as *dynamic segmentation*. Next we will add one last field, visualize the everything and do a simple query.
+This will produce a new output event table that contains the intersection of stream gradient and stream order along the routes. As well, this event table should contain which routes can be reached from the ocean before running into a dam. Keep in mind that this is just a table, not a feature class. This is known as dynamic segmentation. Next we will add one last field, visualize the everything and do a simple query.
 
 **Step 2:** Join the field "REACHED" from the original routes to the overlay event table you just created using the "Join Field" tool. The stream_routes layer should be the layer with the REACHED field:
 
@@ -387,7 +387,7 @@ This will produce a new output event table that contains the intersection of str
 
 You should now have a table that has all the fields we need: SORDER, GRADIENT, and REACHED. (Note that some fields have been hidden from view in the table below.)
 
-```{r 02-stream-route-overlay, out.width= "75%", echo = FALSE}
+```{r 02-stream-route-overlay, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/02-stream-route-overlay.png")
 ```
 

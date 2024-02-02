@@ -306,7 +306,7 @@ Paul Pickell</p>
 <li>Convert the result of step 3 to a raster with cell size 25 m and project to NAD 1983 BC Environment Albers. This is a mask that extends just beyond the shore of Vancouver Island to account for mapping errors.</li>
 <li>Extract the DEM from step 2 by the mask in step 4 to produce a DEM for only Vancouver Island that excludes all other nearby islands:</li>
 </ol>
-<p><img src="images/02-vancouver-island-dem.png" width="75%" /></p>
+<p><img src="images/02-vancouver-island-dem.png" width="100%" /></p>
 <p>The DEM above was filtered several times for sinks. Generally, you can use the “Fill” tool to achieve this. However, Vancouver Island has many naturally-occurring geomorphic features that can cause real sinks (as opposed to random errors). In order to create a depressionless DEM, the DEM was iteratively put through the following process:</p>
 <ol style="list-style-type: decimal">
 <li>Calculate flow direction</li>
@@ -340,27 +340,27 @@ Paul Pickell</p>
 <p><strong>Step 5:</strong> Next, you will create a grid of stream links, which assigns unique values to each stream segment, so that the user can see how the streams are connected. Open the “Stream Link” tool and use the output from the “Con” tool and the flow direction raster here.</p>
 <p><strong>Step 6:</strong> You will also use the “Stream Order” tool using the same inputs as in step 4 and the default parameters. The “Stream Order” tool assigns a numeric order to segments of the raster, essentially classifying branches of the stream network. The lowest order streams do not have any other streams that flow into it, while higher order streams can have multiple levels of tributaries that flow into it. This tool will take some time to run on the whole island. Take a moment to stretch and hydrate!</p>
 <p><strong>Step 7:</strong> You will also convert your raster into polylines using the stream links raster and flow direction raster as inputs for the “Stream to Feature” tool. Toggle off “Simplify polylines”.</p>
-<p>Below is a useful flowchart of the process of creating a stream network from a DEM (<a href="https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/deriving-runoff-characteristics.htm">Source</a>)</p>
+<p>Below is a useful flowchart of the process of creating a stream network from a DEM (<a href="https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/deriving-runoff-characteristics.htm">ArcGIS Pro</a>).</p>
 <p><img src="images/02-flow-chart.png" width="75%" /></p>
 <hr />
 </div>
 <div id="task-2-create-routes-and-apply-topology" class="section level2 unnumbered hasAnchor">
 <h2>Task 2: Create routes and apply topology<a href="network-analysis.html#task-2-create-routes-and-apply-topology" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>At this point, you have only created polyline features representing streams. Next will convert those segments to routes and apply topology for our streams, as well as incorporate dams into the network.</p>
-<p><img src="images/02-create-routes.png" width="50%" /></p>
+<p><img src="images/02-create-routes.png" width="75%" /></p>
 <p><strong>Step 1:</strong> Create a blank feature dataset and name it “stream_routes_dams”. To do this, right-click the geodatabase in the Catalog pane and select New Feature Dataset. For the projection, use NAD 1983 BC Environment Albers (EPSG: 3005).</p>
 <p><strong>Step 2:</strong> Convert your stream features into routes using the “Create routes” tool. Set the Route ID field to “arcid”. The coordinate Priority parameter can be set to any corner. When you go to save your output, navigate into your feature dataset (it “feels” like entering another folder from the Catalog view), and save the output as “vancouver_island_stream_routes”.</p>
 <p><strong>Step 3:</strong> Right-click on the feature dataset, select “Import”, and then navigate to the <strong>dams</strong> layer on the UBC PostgreSQL server and import this layer into your feeature dataset.</p>
 <p>The dams are modelled as polylines. We need to identify where these dams intersect the stream routes. We want to return a single point for that location so that we can properly model the dams in our network, which act as barriers to salmon as they travel through the stream network. We will use topology to achieve this.</p>
-<p><img src="images/02-example-dam.png" width="50%" /></p>
+<p><img src="images/02-example-dam.png" width="100%" /></p>
 <p><strong>Step 4:</strong> Right-click the feature dataset and select “New” and “Topology”. This will open the Create Topology Wizard dialogue box.</p>
 <p><strong>Step 5:</strong> On the first page of the wizard, toggle on the dams and stream routes feature classes.</p>
-<p><img src="images/02-create-topology-1.png" width="75%" /></p>
+<p><img src="images/02-create-topology-1.png" width="100%" /></p>
 <p><strong>Step 6:</strong> On the second page of the wizard, add a new rule so that the stream polylines must not intersect with the dam polylines.</p>
-<p><img src="images/02-create-topology-2.png" width="75%" /></p>
+<p><img src="images/02-create-topology-2.png" width="100%" /></p>
 <p>Once done, click “Finish”. Refresh the feature dataset in the Catalog pane to see the new Topology.</p>
 <p><strong>Step 7:</strong> Validate the topology by right-clicking the topology in the feature dataset and clicking “Validate”.</p>
-<p><img src="images/02-topology-errors.png" width="50%" /></p>
+<p><img src="images/02-topology-errors.png" width="25%" /></p>
 <p><strong>Step 8:</strong> You can click and drag the topology into the map to view any errors. We expect there to be errors because we know that the dams should intersect with our stream routes. You should see red squares all over the island. In the Contents Pane, right-click the “Point Errors” layer, select “Data”, and select “Export Features”. Save the points to your feature dataset as “stream_dam_junctions”.</p>
 <p>At this point, take a moment to appreciate where we are in this problem. We have modelled streams as routes and we now know where dams intersect with those routes. Salmon are diadromous species, they swim from the saltwater ocean up the freshwater streams to spawn. Therefore, we need one more piece of information in order to model how salmon swim upstream. We need to know where the streams meet the ocean.</p>
 <p><strong>Step 9:</strong> Take the Vancouver Island boundary polygon provided and perform a negative buffer, called a nibble. Use -25 meters for the buffer distance. We are doing a negative buffer because we want to ensure that this edge intersects with the streams that terminate at the ocean. Remember that the streams were generated by an imperfect and imprecise DEM, therefore this process will ensure that every stream that reaches the ocean will intersect this boundary.</p>
@@ -387,9 +387,9 @@ Paul Pickell</p>
 </ul>
 <p>Now you have another feature class of streams that should spatially match your stream routes, but these new polylines contain the gradient information. Now we will overlay this information with the routes. Open the attribute table of this layer, the field “grid_code” stores the value of the reclassified slope raster for each stream segment.</p>
 <p><strong>Step 5:</strong> Use the “Locate Features Along Routes” tool to overlay the gradient information with the routes.</p>
-<p><img src="images/02-locate-features-along-routes.png" width="50%" /></p>
+<p><img src="images/02-locate-features-along-routes.png" width="75%" /></p>
 <p>This will produce a route event table that should look something like this:</p>
-<p><img src="images/02-stream-routes-gradient.png" width="50%" /></p>
+<p><img src="images/02-stream-routes-gradient.png" width="75%" /></p>
 <p>grid_code in the event table represents the classified stream gradient (0 is ≥20%, 1 is &lt;20%). Note that you have more records in this table than you have routes, because many routes are being segmented based on the gradient. Thus, you see repeating route id”s (RID).</p>
 <p>Add a Short field to the event table called “GRADIENT” and calculate this field as !grid_code! to transfer the grid_code values to a more meaningful field name.</p>
 <p><strong>Step 6:</strong> Repeat steps 4 and 5 above for the stream order raster that you generated in Task 1. Ensure that the stream_order raster is used as the “Input stream raster” and “Simplify polygons” is toggled off. In the end, you should have a second event table where the grid_code (values between 1 and 6) indicates the stream order for each route. Again, add a Short field to the event table called “SORDER” and calculate this field as !grid_code! to transfer the grid_code values to a more meaningful field name.</p>
@@ -423,7 +423,7 @@ Paul Pickell</p>
 <p>After the tool has finished running, toggle off the stream trace network and toggle on the stream routes layer (“vancouver_island_stream_routes”). You should see some of the routes are now highlighted on your map.</p>
 <p><img src="images/02-trace.png" width="50%" /></p>
 <p><strong>Step 5:</strong> Add a Short field to the stream routes attribute table called “REACHED”. Calculate this field with a value of “1” for the routes selected. Invert the selection and calculate the field again for the selected features with a value of “0”. Finally, clear the selection and symbolize the routes based on the “REACHED” field. Congratulations! You have now modeled which route segments can be reached from the ocean and are not impeded by dams. Your stream_routes should look something like this (blue = unimpeded streams, yellow = stream reaches that are impeded by a dam):</p>
-<p><img src="images/02-traced-network.png" width="75%" /></p>
+<p><img src="images/02-traced-network.png" width="100%" /></p>
 <p><strong>Important:</strong> If your map looks significantly different from above, like most of the streams are impeded, then try these fixes:</p>
 <ul>
 <li><p>Zoom in closely to the ocean and dam junctions to ensure they are overlapping with the stream routes.</p></li>
@@ -448,11 +448,11 @@ Paul Pickell</p>
 <li><p>Leave the Route Identifier Field empty for the output, but ensure it is set to RID for both the input tables</p></li>
 </ul>
 <p><img src="images/02-overlay-route-events.png" width="50%" /></p>
-<p>This will produce a new output event table that contains the intersection of stream gradient and stream order along the routes. As well, this event table should contain which routes can be reached from the ocean before running into a dam. Keep in mind that this is just a table, not a feature class. This is known as <em>dynamic segmentation</em>. Next we will add one last field, visualize the everything and do a simple query.</p>
+<p>This will produce a new output event table that contains the intersection of stream gradient and stream order along the routes. As well, this event table should contain which routes can be reached from the ocean before running into a dam. Keep in mind that this is just a table, not a feature class. This is known as dynamic segmentation. Next we will add one last field, visualize the everything and do a simple query.</p>
 <p><strong>Step 2:</strong> Join the field “REACHED” from the original routes to the overlay event table you just created using the “Join Field” tool. The stream_routes layer should be the layer with the REACHED field:</p>
 <p><img src="images/02-join-field.png" width="50%" /></p>
 <p>You should now have a table that has all the fields we need: SORDER, GRADIENT, and REACHED. (Note that some fields have been hidden from view in the table below.)</p>
-<p><img src="images/02-stream-route-overlay.png" width="75%" /></p>
+<p><img src="images/02-stream-route-overlay.png" width="100%" /></p>
 <p><strong>Step 3:</strong> Use the “Make Route Event Layer” tool to convert the output event table to a feature class. Parameterize the tool as follows:</p>
 <ul>
 <li><p>Input route features will be the routes you originally created in Task 1</p></li>
