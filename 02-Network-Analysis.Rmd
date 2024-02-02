@@ -58,23 +58,7 @@ Lab report with the following specification:
 
 <input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
 
-<input type="checkbox" unchecked> Introduction should address the following questions and requirements (10 points):</input>
-
--   Describe network analysis and network topology.
-
--   What are some approaches to modelling reach within networks? Connectivity?
-
--   Why are reach and connectivity important for salmon conservation? 
-
--   Reference to at least 3 peer review sources.
-
-<input type="checkbox" unchecked> Methods should address the following requirements (10 points):</input>
-
--   Brief study area description and study area map showing the salmon conservation unit that you have selected to focus on.
-
--   Outline all primary steps included in the lab (no need to include exact ArcGIS Pro tool parameters).
-
-<input type="checkbox" unchecked> Results should address the following questions and requirements (15 points):</input>
+<input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input>
 
 - **You are only expected to comment on a single conservation unit.**
 
@@ -86,9 +70,17 @@ Lab report with the following specification:
 
 -   How well do the streams you created line up with the mapped streams in the ArcGIS basemap?
 
-<input type="checkbox" unchecked> Discussion should address the following questions and requirements (10 points):</input>
+-   Zoom to Lake Cowichan. What is going on here? What could you do to automatically fix this for all large lakes?
 
--   Comment on both small and large scale observations that you made throughout the process. Small scale observations would be investigating the behavior/structure of individual routes, while large scale observations would be the overall differences between total salmon habitat (all streams) and habitat that can actually be reached unimpeded from the ocean. 
+-   Report any other metrics that you calculated that might be useful for making your arguments in the Discussion section.
+
+-   Comment on both small and large scale observations that you made throughout the process. Small scale observations would be investigating the behavior/structure of individual routes, while large scale observations would be the overall differences between total salmon habitat (all streams) and habitat that can actually be reached unimpeded from the ocean.
+
+<input type="checkbox" unchecked> Discussion should address the following questions and requirements (20 points):</input>
+
+-   Why are reach and connectivity important for salmon conservation? 
+
+-   What are some approaches to modelling reach within networks? Connectivity?
 
 -   Consider how you might model the other salmon habitat requirements laid out at the beginning of the lab. Give brief examples for how you would model at least [three of the criteria]{.underline} that we [did not]{.underline} consider in the lab (i.e., do not discuss stream order, stream gradient). Assume that you have access to any typical data source (e.g., LiDAR, optical satellite, RADAR, land inventory, gauge stations, weather stations, etc).
 
@@ -98,11 +90,9 @@ Lab report with the following specification:
 
 -   Discuss any limitations to the analysis based on your observations and suggest how the modelling process might be improved further. 
 
--   Zoom to Lake Cowichan. What is going on here? What could you do to automatically fix this for all large lakes?
-
 -   What are your final recommendations to the province for conservation of spawning salmon habitat in Vancouver Island streams?
 
--   Reference to at least 3 peer review sources (can be the same sources as introduction).
+-   Reference any peer reviewed sources as needed.
 
 ------------------------------------------------------------------------
 
