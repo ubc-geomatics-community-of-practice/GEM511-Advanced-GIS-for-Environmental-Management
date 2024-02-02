@@ -38,32 +38,13 @@ Lab report with the following specification:
 
 <input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
 
-<input type="checkbox" unchecked> Introduction should address the following questions and requirements (10 points):</input>
-
--   Conceptually describe how the random forest algorithm works.
-
--   Describe some considerations when selecting different sampling strategies and comment specifically on the sampling strategies that we tested.
-
--   What are the advantages and limitations of using remote sensing data to predict crown closure and fuel types? What about climate data? Terrain data? Why should we use these data for this problem?
-
--   Reference to at least 3 peer review sources.
-
-<input type="checkbox" unchecked> Methods should address the following requirements (10 points):</input>
-
--   Brief study area description and study area map.
+<input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input>
 
 -   How many fuel types are there in the VRI dataset? Which fuel type has the fewest number of points?
 
 -   What is the null hypothesis for the Spatial Autocorrelation tool? Why do we test CROWN_CLOS for spatial autocorrelation but not FUEL_TYPE?
 
--   Outline all primary steps included in the lab (no need to include exact ArcGIS Pro tool parameters).
-
--   Justify the use of specific methodological choices indicated in the lab.
-
 -   Why do we use "Closest" and not "Intersect" when doing the spatial join for the FIP data? Consider the geometry of the data. What are the benefits and drawbacks of using each sampling design, both in terms of statistical power and the limits of field data acquisition?
-
-
-<input type="checkbox" unchecked> Results should address the following questions and requirements (15 points):</input>
 
 -   What are the results of the spatial autocorrelation (SA) tool and what do they tell us? Why did we use the K Nearest Neighbours method for this dataset? 
 
@@ -73,13 +54,17 @@ Lab report with the following specification:
 
 -   Map of one of the FUEL_TYPE rasters and one of the CROWN_CLOS rasters. Be sure to specify in a caption or title what sampling design / parameter settings you are displaying in each.
 
-<input type="checkbox" unchecked> Discussion should address the following questions and requirements (10 points):</input>
+<input type="checkbox" unchecked> Discussion should address the following questions and requirements (20 points):</input>
 
 -   Display the VRI dataset and observe the distribution of the points across the landscape. What is the main difference between this method and distance-based methods? Why is accounting for spatial autocorrelation in your data important? If you were not limited by the tool inputs, how would you change your sampling design to account for spatial autocorrelation?
 
 -   We are constrained by the ArcGIS Pro capabilities and can only use the Exploratory Regression tool with interval or ratio data, i.e., our crown closure variable, so we used the same explanatory variables for both analyses. If you were able to run Exploratory Regression with fuel type, do you think the results would be different? Why or why not?
 
--   Reference to at least 3 peer review sources (can be the same sources as introduction).
+-   Describe some considerations when selecting different sampling strategies and comment specifically on the sampling strategies that we tested.
+
+-   What are the advantages and limitations of using remote sensing data to predict crown closure and fuel types? What about climate data? Terrain data? Why should we use these data for this problem?
+
+-   Reference to any peer reviewed sources as needed.
 
 ------------------------------------------------------------------------
 

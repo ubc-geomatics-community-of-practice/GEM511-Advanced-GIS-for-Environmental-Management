@@ -21,7 +21,7 @@ In this lab you will take on the role of a forest manager with the following tas
 
 -   Practice characterizing riparian areas using hydrological toolsets
 -   Execute tasks using Python scripting
--   Evaluate  
+-   Evaluate harvestable areas near riparian management areas
 
 ------------------------------------------------------------------------
 

@@ -42,29 +42,15 @@ Vancouver is the most populous city in British Columbia, Canada with a populatio
 
 Lab report with the following specification:
 
-<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
+<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All 
 
-<input type="checkbox" unchecked> Introduction should address the following questions and requirements (10 points):</input>
-
--   Describe geographically weighted regression and compare it with ordinary least squares.
-
--   Reference to at least 3 peer review sources.
-
-<input type="checkbox" unchecked> Methods should address the following requirements (10 points):</input>
-
--   Brief study area description and study area map.
+<input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input>
 
 -   Describe the qualities of the census data and the Landsat image.
-
--   Outline all primary steps included in the lab (no need to include exact ArcGIS Pro tool parameters).
 
 -   How did you evaluate your models and select your final model? Report any relevant statistics that you used in your judgement.
 
 -   Why did you select the 10 characteristics that you choose in Task 3?
-
--   Justify the use of specific methodological choices indicated in the lab.
-
-<input type="checkbox" unchecked> Results should address the following questions and requirements (15 points):</input>
 
 -   A table with the ordinary least squares and geographically weighted regression results for the model that used your 10 characteristics.
 
@@ -78,7 +64,7 @@ Lab report with the following specification:
 
 -   Maps illustrating the standardized residuals and local R^{2} for each of your three different NDVI statistics.
 
-<input type="checkbox" unchecked> Discussion should address the following questions and requirements (10 points):</input>
+<input type="checkbox" unchecked> Discussion should address the following questions and requirements (20 points):</input>
 
 -   What other factors (spatial or aspatial) might be contributing or confounding your analysis? In other words, what other data sources might you add/calculate or what methods might you change to improve your results?
 
@@ -86,7 +72,7 @@ Lab report with the following specification:
 
 -   What are your final recommendations to city council about green equity in Vancouver?
 
--   Reference to at least 3 peer review sources (can be the same sources as introduction).
+-   Reference to any peer reviewed sources as needed.
 
 ------------------------------------------------------------------------
 
