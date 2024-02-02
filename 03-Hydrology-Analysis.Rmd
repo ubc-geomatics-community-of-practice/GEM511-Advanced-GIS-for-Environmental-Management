@@ -4,7 +4,7 @@ yml_content <- yaml::read_yaml("chapterauthors.yml")
 author <- yml_content[["hydrology-analysis"]][["author"]]
 ```
 
-# Terrain Analaysis and Riparian Area Management {#hydrology-analysis}
+# Terrain Analysis and Riparian Area Management {#hydrology-analysis}
 
 Written by
 ```{r results='asis', echo=FALSE}
@@ -19,31 +19,19 @@ In this lab you will take on the role of a forest manager with the following tas
 
 ## Learning Objectives {.unnumbered}
 
--   Understand the hydrology toolbox in ArcGIS Pro
+-   Practice characterizing riparian areas using hydrological toolsets
 -   Execute tasks using Python scripting
--   Research current forest management practices in BC 
+-   Evaluate  
 
 ------------------------------------------------------------------------
 
 ## Lab Background {.unnumbered}
 
-Riparian areas are found adjacent streams, lakes and wetlands. In many areas they contain highly productive and commercially valuable timber. However, vegetation in riparian zones also has important ecological function by stabilizing stream banks, regulating water temperature, providing nutrient inputs and reducing runoff into water bodies. In BC, Riparian Management Areas (RMAs) are defined around sensitive streams and rivers that forbid or limit forest harvest activities within them. The width of these buffer zones depend on stream class, which are defined by channel width and fish-bearing potential. Thus, it is critical for forest managers to accurately map and measure stream networks.
+Riparian areas are found adjacent streams, lakes and wetlands. In many areas they contain highly productive and commercially valuable timber. However, vegetation in riparian zones also has important ecological function by stabilizing stream banks, regulating water temperature, providing nutrient inputs and reducing runoff into water bodies. In British Columbia, Riparian Management Areas (RMAs) are defined around sensitive streams and rivers that forbid or limit forest harvest activities within them. The width of these buffer zones depend on stream class, which are defined by channel width and fish-bearing potential. Thus, it is critical for forest managers to accurately map and measure stream networks.
 
-```{r 03-RMA, out.width= "75%", echo = FALSE}
-  knitr::include_graphics("images/03-RMA.PNG")
-```
-(Stackhouse et al., 2023)
+Airborne Laser Scanning (ALS) can be used to derive detailed maps of terrain and vegetation structure to aid in riparian forest management. Previous work has been done using ALS to map and extract stream characteristics over large areas and assign stream classes ([Tompalski et al., 2017](https://doi.org/10.1016/j.rse.2017.01.038)). You will use similar methods to classify streams and define RMAs over a small area in the Nahmint valley, British Columbia.
 
-Airborne Laser Scanning (ALS) can be used to derive detailed maps of terrain and vegetation structure to aid in riparian forest management. Previous work has been done using ALS to map and extract stream characteristics over large areas and assign stream classes (Tompalski et al., 2017). You will use similar methods to classify streams and define RMAs over a small area in the Nahmint valley, BC.
-
-More background information on riparian forest management can be found here: <https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook>
-
-Using ALS to determine stream characteristics: <https://www.sciencedirect.com/science/article/pii/S0034425717300469?via%3Dihub#ab0010>
-
-Remote sensing of riparian vegetation: <https://www.sciencedirect.com/science/article/abs/pii/S0301479720305843?via%3Dihub>
-<https://www.sciencedirect.com/science/article/pii/S0048969723080890?via%3Dihub#s0010>
-
-More information on the Nahmint valley and recent logging activities in the region: <https://ancientforestalliance.org/our-work/old-growth-campaigns/nahmint-valley/>
+More background information on riparian forest management in British Columbia can be found here: <https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook>
 
 ------------------------------------------------------------------------
 
@@ -53,27 +41,11 @@ Lab report with the following specification:
 
 <input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
 
-<input type="checkbox" unchecked> Introduction should address the following questions and requirements (10 points):</input>
+<input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input>
 
 -   What is a Riparian Management Area? Why are they important and how are they defined in BC?
 
 -   What remote sensing technology can be used to measure streams and riparian vegetation?
-
--   Potential advantages of using remote sensing in riparian management.
-
--   Overall goal of the analysis.
-
--   Reference to at least 3 peer review sources.
-
-<input type="checkbox" unchecked> Methods should address the following requirements (10 points):</input>
-
--   Brief study area description and study area map.
-
--   Outline all primary steps included in the lab (no need to include exact ArcGIS Pro tool parameters).
-
--   Justify the use of specific methodological choices indicated in the lab.
-
-<input type="checkbox" unchecked> Results should address the following questions and requirements (15 points):</input>
 
 -   Table of summary statistics of number of stream links, average stream length, width and gradient grouped by stream order?
 
@@ -83,6 +55,10 @@ Lab report with the following specification:
 
 -   Average area of watersheds and number of watersheds in study area.
 
+-   Compare and contrast the Strahler and Shreve methods for stream ordering.
+
+-   Report the threshold value that you used to create **Stream_reclass**.
+
 -   A map including the following spatial layers:
 
     -   Watersheds, contour lines
@@ -90,8 +66,10 @@ Lab report with the following specification:
     -   Stream networks symbolized by stream class
 
     -   Inset map showing example stream network and Riparian Management Areas
+    
+    -   Text showing the total area in the Reserve and Management Zone and the length of the stream network
 
-<input type="checkbox" unchecked> Discussion should address the following questions and requirements (10 points):</input>
+<input type="checkbox" unchecked> Discussion should address the following questions and requirements (20 points):</input>
 
 -   Accuracy of stream networks compared to basemaps.
 
@@ -101,7 +79,9 @@ Lab report with the following specification:
 
 -   Strengths and limitations of methods for determining RMAs and application for forest management.
 
--   Reference to at least 3 peer review sources (can be the same sources as introduction).
+-   Referring to Figure \@ref(fig:03-flow-direction): What direction is water flowing at locations A and B? Why do you think this is the case? What topographic features can be seen interpreted from the flow direction raster?
+
+-   Reference peer review sources as needed
 
 ------------------------------------------------------------------------
 
@@ -138,11 +118,10 @@ There are three flow modelling algorithms, but we will use the simplest: D8. In 
 
 Click Run. You should now have something like the image below:
 
-```{r 03-flow-direction, out.width= "75%", echo = FALSE}
+```{r 03-flow-direction, fig.cap=fig_cap, out.width= "100%", echo = FALSE}
+  fig_cap <- paste0("Flow Direction.")
   knitr::include_graphics("images/03-flow-direction.jpg")
 ```
-
-What direction is water flowing at locations A and B? Why do you think this is the case? What topographic features can be seen interpreted from the flow direction raster? Consider these questions when writing your report discussion.
 
 **Step 3:** We will use the flow direction raster calculated in the last step to calculate flow accumulation, which counts the total number of cells that will flow into a given cell. For example, a cell located at the bottom of the hill will have high flow accumulation and a cell at the top of a hill will not have any flow accumulation. Open the "Flow Accumulation" tool and parameterize it as follows:
 
@@ -157,7 +136,7 @@ Leave all other fields blank then run the tool.
 
 To see how different thresholds impact stream identification, change the symbology of the flow accumulation raster and use the **Manual Interval** symbology to set two classes. See the example below for a stream network with a flow accumulation threshold of 100 (cells with flow accumulation \< 100 are set to no color).
 
-```{r 03-streams, out.width= "75%", echo = FALSE}
+```{r 03-streams, out.width= "100%", echo = FALSE}
   knitr::include_graphics("images/03-streams.JPG")
 ```
 
@@ -165,7 +144,7 @@ Compare your stream network to the streams visible in the ArcGIS satellite basem
 
 Once you have selected a threshold, open the "Reclassify (Spatial Analyst Tools)" tool.
 
-Use the threshold you have selected as the Start and End values. Set the cells representing streams to a "New value" of 1 and all other cells to `NODATA`. Save the new raster as "Stream_reclass". Include your threshold value in the report Methods section.
+Use the threshold you have selected as the Start and End values. Set the cells representing streams to a "New value" of 1 and all other cells to `NODATA`. Save the new raster as "Stream_reclass".
 
 ```{r 03-reclassify, out.width= "50%", echo = FALSE}
   knitr::include_graphics("images/03-reclassify.JPG")
@@ -175,12 +154,6 @@ Zoom into the reclassified flow accumulation raster to see your stream network.
 
 **Step 5:** Next, we will assign a stream order to each segment in the stream network. Stream ordering is a system to classify streams based on the number of tributaries (smaller streams) that flow into it. First order streams have no tributaries and higher order streams may have multiple levels of tributaries flowing into it.
 
-Read the following documentation on the Strahler and Shreve methods of stream ordering. <https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-stream-order-works.htm>
-
-```{r 03-stream-order, out.width= "75%", echo = FALSE}
-  knitr::include_graphics("images/03-stream-order.jpg")
-```
-
 Open the "Stream Order" tool and parameterize it as follows:
 
 -   Input stream raster: **Stream_reclass**
@@ -188,7 +161,7 @@ Open the "Stream Order" tool and parameterize it as follows:
 -   Method of stream ordering: **Strahler**
 -   Output raster: **StreamOrder**
 
-Zoom in to see the **StreamOrder** output. The value of each pixel corresponds to the order of each stream segment. Now re-run the tool using the Shreve method and compare the two outputs. Which one produces a more meaningful output and why? In the methods section of your report justify the use of the Stahler method for mapping this stream network.
+Zoom in to see the **StreamOrder** output. The value of each pixel corresponds to the order of each stream segment. Now re-run the tool using the Shreve method and compare the two outputs.
 
 **Step 6:** Use the "Stream to Feature (Spatial Analyst Tools)" tool to create polyline features representing the ordered stream network. Parameterize the tool as follows:
 
@@ -243,8 +216,6 @@ The resulting raster shows the gain in elevation within each stream segment.
 -   Match Option: Largest Overlap
 -   Search Radius: 3 Meters
 
-Include a rationale for using "Largest Overlap" as the "Match Option" in the Methods section of your report.
-
 **Step 5:** Open the attribute table of the output feature class. Notice the duplicated attribute names. The attributes are ordered with the attributes from the Target Feature first and the Join Features second. You may rename and delete unnecessary attributes.
 
 Create a new field called "Gradient" and use the "Calculate Field" tool to calculate the gradient for each stream segment. Streams with gradient \< 20% will be considered as "fish bearing".
@@ -253,19 +224,19 @@ Create a new field called "Gradient" and use the "Calculate Field" tool to calcu
 
 Stream width is defined using the entire channel width, not just the part with water currently flowing through it. Use the examples below to guide you with your mapping. You should be able to see channels for streams in orders 2-4, but order 1 streams will likely not be visible. We will assign these streams an average width of 1 m.
 
-```{r 03-s4-stream, out.width= "75%", echo = FALSE}
+```{r 03-s4-stream, out.width= "100%", echo = FALSE}
   knitr::include_graphics("images/03-s4-stream.JPG")
 ```
 
-```{r 03-s3-stream, out.width= "75%", echo = FALSE}
+```{r 03-s3-stream, out.width= "100%", echo = FALSE}
 knitr::include_graphics("images/03-s3-stream.JPG")
 ```
 
-```{r 03-s2-stream, out.width= "75%", echo = FALSE}
+```{r 03-s2-stream, out.width= "100%", echo = FALSE}
 knitr::include_graphics("images/03-s2-stream.JPG")
 ```
 
-Measure 10-15 stream widths per order using the "Measure" tool on your toolbar and record these measurements in an excel document. When you are satisfied with your measurements calculate average width of each stream order. Use the DTM and stream network polyline to help you find some of the smaller order 2 streams.
+Measure 10-15 stream widths per order using the "Measure" tool on your toolbar and record these measurements in an excel document. When you are satisfied with your measurements calculate average width of each stream order. Use the DEM and stream network polyline to help you find some of the smaller order 2 streams.
 
 **Step 7:** In the **StreamNetwork_join** layer, create a new field called "StreamWidth". We will use an `ifelse` statement to conditionally assign values to the stream width attribute depending on stream order. Select the "StreamWidth" column in the attribute table and click "Calculate". In the "Calculate Field" tool, change the "Expression Type" to "Python".
 
@@ -273,7 +244,7 @@ To use Python in the tool we need to populate two fields. First, the top "Expres
 
 Next, in the "Code Block" we need to define the `reclass` function, so that we can use it as part of an expression. Here we will use an `ifelse` statement to set the values of stream width based on stream order.
 
-```{r 03-python-stream-width, out.width= "75%", echo = FALSE}
+```{r 03-python-stream-width, out.width= "100%", echo = FALSE}
 knitr::include_graphics("images/03-python-stream-width.png")
 ```
 
@@ -299,7 +270,7 @@ If you get an "Invalid Field" error it is because the variable in the "Expressio
 
 **Step 1:** Use the following table to assign a stream class (S1-S6) based on average channel width and fish bearing potential. The Reserve Zone defines the region around the stream where harvest is prohibited and the Management Zone defines the region where limited harvest is permitted. Note that not all stream classes may be present in the dataset.
 
-```{r 03-stream-class, out.width= "75%", echo = FALSE}
+```{r 03-stream-class, out.width= "100%", echo = FALSE}
   knitr::include_graphics("images/03-stream-class.PNG")
 ```
 
@@ -309,11 +280,11 @@ Select the "Reserve_BufferDist" field in the attribute table and open the "Calcu
 
 This time we will combine the `ifelse` syntax from the previous task with conditional statements to assign buffer distances to each stream class. The example below defines the Reserve Zone buffer distance for the S1 (except large rivers) class using the stream gradient and stream width attributes.
 
-The Reserve Zones and Management Zones are typically measured from the edge of the stream channel, however our streams are represented as lines down the centre of the stream channel. Think of a way to modify the buffer distances in the table to reflect the approximate width of the stream. Include these methods in your report.
+The Reserve Zones and Management Zones are typically measured from the edge of the stream channel, however our streams are represented as lines down the centre of the stream channel. Think of a way to modify the buffer distances in the table to reflect the approximate width of the stream.
 
 Your code should look something like the following (make sure the attribute names in the Expression field match the names in your table!):
 
-```{r 03-stream-network-python, out.width= "75%", echo = FALSE}
+```{r 03-stream-network-python, out.width= "100%", echo = FALSE}
   knitr::include_graphics("images/03-stream-network-python.jpg")
 ```
 
@@ -357,11 +328,11 @@ Open the "Watershed" tool and parameterize it as follows:
 
 The output will be a new raster where the cell values correspond to each unique watershed catchment. You should have something like the following (do not worry if it is not exactly the same):
 
-```{r 03-map-layers, out.width= "75%", echo = FALSE}
+```{r 03-map-layers, out.width= "100%", echo = FALSE}
   knitr::include_graphics("images/03-map-layers.JPG")
 ```
 
-**Step 4:** Finally, we will create contour lines to help interpret the the DTM. Open the "Contour" tool and parameterize it as follows:
+**Step 4:** Finally, we will create contour lines to help interpret the the DEM. Open the "Contour" tool and parameterize it as follows:
 
 -   Raster: **Nahmint_DEM**
 -   Output features class: **Nahmint_contour**
@@ -369,14 +340,6 @@ The output will be a new raster where the cell values correspond to each unique 
 -   Base contour: [Set to the lowest elevation in the study area]
 -   Z factor: 1
 -   Contour type: Contour
-
-As your final deliverable create a map with the following elements:
-
--   Watersheds, contour lines
--   Stream networks symbolized by stream class
--   Example stream network and Riparian Management Areas (Reserve Zone and Management Zone)
--   Text showing the total area in the Reserve and Management Zone and the length of the stream network
--   Name, date, legend, north arrow, scale bar, title
 
 ------------------------------------------------------------------------
 

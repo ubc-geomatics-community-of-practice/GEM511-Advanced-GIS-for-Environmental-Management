@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Lab 3 Terrain Analaysis and Riparian Area Management | GEM 511: Advanced GIS for Environmental Management</title>
+  <title>Lab 3 Terrain Analysis and Riparian Area Management | GEM 511: Advanced GIS for Environmental Management</title>
   <meta name="description" content="Open Educational Resources for GEM 511 course at the University of British Columbia" />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lab 3 Terrain Analaysis and Riparian Area Management | GEM 511: Advanced GIS for Environmental Management" />
+  <meta property="og:title" content="Lab 3 Terrain Analysis and Riparian Area Management | GEM 511: Advanced GIS for Environmental Management" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Open Educational Resources for GEM 511 course at the University of British Columbia" />
   <meta name="github-repo" content="github.com/ubc-geomatics-community-of-practice/GEM511-Advanced-GIS-for-Environmental-Management/book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lab 3 Terrain Analaysis and Riparian Area Management | GEM 511: Advanced GIS for Environmental Management" />
+  <meta name="twitter:title" content="Lab 3 Terrain Analysis and Riparian Area Management | GEM 511: Advanced GIS for Environmental Management" />
   
   <meta name="twitter:description" content="Open Educational Resources for GEM 511 course at the University of British Columbia" />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2024-01-26" />
+<meta name="date" content="2024-02-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -176,7 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="network-analysis.html"><a href="network-analysis.html#task-5-overlay-and-query-the-network"><i class="fa fa-check"></i>Task 5: Overlay and query the network</a></li>
 <li class="chapter" data-level="" data-path="network-analysis.html"><a href="network-analysis.html#summary-1"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html"><i class="fa fa-check"></i><b>3</b> Terrain Analaysis and Riparian Area Management</a>
+<li class="chapter" data-level="3" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html"><i class="fa fa-check"></i><b>3</b> Terrain Analysis and Riparian Area Management</a>
 <ul>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#lab-overview-2"><i class="fa fa-check"></i>Lab Overview</a></li>
 <li class="chapter" data-level="" data-path="hydrology-analysis.html"><a href="hydrology-analysis.html#learning-objectives-2"><i class="fa fa-check"></i>Learning Objectives</a></li>
@@ -234,7 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="hydrology-analysis" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Lab 3</span> Terrain Analaysis and Riparian Area Management<a href="hydrology-analysis.html#hydrology-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Lab 3</span> Terrain Analysis and Riparian Area Management<a href="hydrology-analysis.html#hydrology-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Written by
 Hana Travers-Smith</p>
 <div id="lab-overview-2" class="section level2 unnumbered hasAnchor">
@@ -245,63 +245,49 @@ Hana Travers-Smith</p>
 <div id="learning-objectives-2" class="section level2 unnumbered hasAnchor">
 <h2>Learning Objectives<a href="hydrology-analysis.html#learning-objectives-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Understand the hydrology toolbox in ArcGIS Pro</li>
+<li>Practice characterizing riparian areas using hydrological toolsets</li>
 <li>Execute tasks using Python scripting</li>
-<li>Research current forest management practices in BC</li>
+<li>Evaluate</li>
 </ul>
 <hr />
 </div>
 <div id="lab-background" class="section level2 unnumbered hasAnchor">
 <h2>Lab Background<a href="hydrology-analysis.html#lab-background" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Riparian areas are found adjacent streams, lakes and wetlands. In many areas they contain highly productive and commercially valuable timber. However, vegetation in riparian zones also has important ecological function by stabilizing stream banks, regulating water temperature, providing nutrient inputs and reducing runoff into water bodies. In BC, Riparian Management Areas (RMAs) are defined around sensitive streams and rivers that forbid or limit forest harvest activities within them. The width of these buffer zones depend on stream class, which are defined by channel width and fish-bearing potential. Thus, it is critical for forest managers to accurately map and measure stream networks.</p>
-<p><img src="images/03-RMA.PNG" width="75%" />
-(Stackhouse et al., 2023)</p>
-<p>Airborne Laser Scanning (ALS) can be used to derive detailed maps of terrain and vegetation structure to aid in riparian forest management. Previous work has been done using ALS to map and extract stream characteristics over large areas and assign stream classes (Tompalski et al., 2017). You will use similar methods to classify streams and define RMAs over a small area in the Nahmint valley, BC.</p>
-<p>More background information on riparian forest management can be found here: <a href="https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook" class="uri">https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook</a></p>
-<p>Using ALS to determine stream characteristics: <a href="https://www.sciencedirect.com/science/article/pii/S0034425717300469?via%3Dihub#ab0010" class="uri">https://www.sciencedirect.com/science/article/pii/S0034425717300469?via%3Dihub#ab0010</a></p>
-<p>Remote sensing of riparian vegetation: <a href="https://www.sciencedirect.com/science/article/abs/pii/S0301479720305843?via%3Dihub" class="uri">https://www.sciencedirect.com/science/article/abs/pii/S0301479720305843?via%3Dihub</a>
-<a href="https://www.sciencedirect.com/science/article/pii/S0048969723080890?via%3Dihub#s0010" class="uri">https://www.sciencedirect.com/science/article/pii/S0048969723080890?via%3Dihub#s0010</a></p>
-<p>More information on the Nahmint valley and recent logging activities in the region: <a href="https://ancientforestalliance.org/our-work/old-growth-campaigns/nahmint-valley/" class="uri">https://ancientforestalliance.org/our-work/old-growth-campaigns/nahmint-valley/</a></p>
+<p>Riparian areas are found adjacent streams, lakes and wetlands. In many areas they contain highly productive and commercially valuable timber. However, vegetation in riparian zones also has important ecological function by stabilizing stream banks, regulating water temperature, providing nutrient inputs and reducing runoff into water bodies. In British Columbia, Riparian Management Areas (RMAs) are defined around sensitive streams and rivers that forbid or limit forest harvest activities within them. The width of these buffer zones depend on stream class, which are defined by channel width and fish-bearing potential. Thus, it is critical for forest managers to accurately map and measure stream networks.</p>
+<p>Airborne Laser Scanning (ALS) can be used to derive detailed maps of terrain and vegetation structure to aid in riparian forest management. Previous work has been done using ALS to map and extract stream characteristics over large areas and assign stream classes (<a href="https://doi.org/10.1016/j.rse.2017.01.038">Tompalski et al., 2017</a>). You will use similar methods to classify streams and define RMAs over a small area in the Nahmint valley, British Columbia.</p>
+<p>More background information on riparian forest management in British Columbia can be found here: <a href="https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook" class="uri">https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/silviculture/silvicultural-systems/silviculture-guidebooks/riparian-management-area-guidebook</a></p>
 <hr />
 </div>
 <div id="lab3-deliverables" class="section level2 unnumbered hasAnchor">
 <h2>Deliverables<a href="hydrology-analysis.html#lab3-deliverables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Lab report with the following specification:</p>
 <p><input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input></p>
-<p><input type="checkbox" unchecked> Introduction should address the following questions and requirements (10 points):</input></p>
+<p><input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input></p>
 <ul>
 <li><p>What is a Riparian Management Area? Why are they important and how are they defined in BC?</p></li>
 <li><p>What remote sensing technology can be used to measure streams and riparian vegetation?</p></li>
-<li><p>Potential advantages of using remote sensing in riparian management.</p></li>
-<li><p>Overall goal of the analysis.</p></li>
-<li><p>Reference to at least 3 peer review sources.</p></li>
-</ul>
-<p><input type="checkbox" unchecked> Methods should address the following requirements (10 points):</input></p>
-<ul>
-<li><p>Brief study area description and study area map.</p></li>
-<li><p>Outline all primary steps included in the lab (no need to include exact ArcGIS Pro tool parameters).</p></li>
-<li><p>Justify the use of specific methodological choices indicated in the lab.</p></li>
-</ul>
-<p><input type="checkbox" unchecked> Results should address the following questions and requirements (15 points):</input></p>
-<ul>
 <li><p>Table of summary statistics of number of stream links, average stream length, width and gradient grouped by stream order?</p></li>
 <li><p>How many streams have fish bearing potential? What is the total length of these streams?</p></li>
 <li><p>How much forest area is retained within the Riparian Reserve and Management Zones?</p></li>
 <li><p>Average area of watersheds and number of watersheds in study area.</p></li>
+<li><p>Compare and contrast the Strahler and Shreve methods for stream ordering.</p></li>
+<li><p>Report the threshold value that you used to create <strong>Stream_reclass</strong>.</p></li>
 <li><p>A map including the following spatial layers:</p>
 <ul>
 <li><p>Watersheds, contour lines</p></li>
 <li><p>Stream networks symbolized by stream class</p></li>
 <li><p>Inset map showing example stream network and Riparian Management Areas</p></li>
+<li><p>Text showing the total area in the Reserve and Management Zone and the length of the stream network</p></li>
 </ul></li>
 </ul>
-<p><input type="checkbox" unchecked> Discussion should address the following questions and requirements (10 points):</input></p>
+<p><input type="checkbox" unchecked> Discussion should address the following questions and requirements (20 points):</input></p>
 <ul>
 <li><p>Accuracy of stream networks compared to basemaps.</p></li>
 <li><p>How did stream characteristics change across stream order? Is this what you expected?</p></li>
 <li><p>Use the watershed map, contour lines and flow direction layers to assess how runoff from harvesting may impact stream networks. Do you think the mapped RMAs provide adequate protection to streams in this area?</p></li>
 <li><p>Strengths and limitations of methods for determining RMAs and application for forest management.</p></li>
-<li><p>Reference to at least 3 peer review sources (can be the same sources as introduction).</p></li>
+<li><p>Referring to Figure <a href="hydrology-analysis.html#fig:03-flow-direction">3.1</a>: What direction is water flowing at locations A and B? Why do you think this is the case? What topographic features can be seen interpreted from the flow direction raster?</p></li>
+<li><p>Reference peer review sources as needed</p></li>
 </ul>
 <hr />
 </div>
@@ -331,8 +317,12 @@ Hana Travers-Smith</p>
 </ul>
 <p>There are three flow modelling algorithms, but we will use the simplest: D8. In this model water will flow from one cell to its steepest downslope neighbour. The cell will then be assigned a value based on which of its 8 neighbours water will flow into.</p>
 <p>Click Run. You should now have something like the image below:</p>
-<p><img src="images/03-flow-direction.jpg" width="75%" /></p>
-<p>What direction is water flowing at locations A and B? Why do you think this is the case? What topographic features can be seen interpreted from the flow direction raster? Consider these questions when writing your report discussion.</p>
+<div class="figure"><span style="display:block;" id="fig:03-flow-direction"></span>
+<img src="images/03-flow-direction.jpg" alt="Flow Direction." width="100%" />
+<p class="caption">
+Figure 3.1: Flow Direction.
+</p>
+</div>
 <p><strong>Step 3:</strong> We will use the flow direction raster calculated in the last step to calculate flow accumulation, which counts the total number of cells that will flow into a given cell. For example, a cell located at the bottom of the hill will have high flow accumulation and a cell at the top of a hill will not have any flow accumulation. Open the “Flow Accumulation” tool and parameterize it as follows:</p>
 <ul>
 <li>Input flow direction raster: <strong>Nahmint_FlowDir</strong></li>
@@ -343,15 +333,13 @@ Hana Travers-Smith</p>
 <p>Leave all other fields blank then run the tool.</p>
 <p><strong>Step 4:</strong> Next, we will create a raster-based stream network using a threshold in the flow accumulation raster. For example, if the threshold is 100, then only cells with flow accumulation greater than 100 will be counted as a stream. Cells with flow accumulation less than 100 will be set to a background value of 0.</p>
 <p>To see how different thresholds impact stream identification, change the symbology of the flow accumulation raster and use the <strong>Manual Interval</strong> symbology to set two classes. See the example below for a stream network with a flow accumulation threshold of 100 (cells with flow accumulation &lt; 100 are set to no color).</p>
-<p><img src="images/03-streams.JPG" width="75%" /></p>
+<p><img src="images/03-streams.JPG" width="100%" /></p>
 <p>Compare your stream network to the streams visible in the ArcGIS satellite basemap. Experiment with different flow accumulation thresholds. What other features could be misclassified as a stream using this method? Find a threshold that captures streams visible in the basemap, without too many misclassified features.</p>
 <p>Once you have selected a threshold, open the “Reclassify (Spatial Analyst Tools)” tool.</p>
-<p>Use the threshold you have selected as the Start and End values. Set the cells representing streams to a “New value” of 1 and all other cells to <code>NODATA</code>. Save the new raster as “Stream_reclass”. Include your threshold value in the report Methods section.</p>
+<p>Use the threshold you have selected as the Start and End values. Set the cells representing streams to a “New value” of 1 and all other cells to <code>NODATA</code>. Save the new raster as “Stream_reclass”.</p>
 <p><img src="images/03-reclassify.JPG" width="50%" /></p>
 <p>Zoom into the reclassified flow accumulation raster to see your stream network.</p>
 <p><strong>Step 5:</strong> Next, we will assign a stream order to each segment in the stream network. Stream ordering is a system to classify streams based on the number of tributaries (smaller streams) that flow into it. First order streams have no tributaries and higher order streams may have multiple levels of tributaries flowing into it.</p>
-<p>Read the following documentation on the Strahler and Shreve methods of stream ordering. <a href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-stream-order-works.htm" class="uri">https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-stream-order-works.htm</a></p>
-<p><img src="images/03-stream-order.jpg" width="75%" /></p>
 <p>Open the “Stream Order” tool and parameterize it as follows:</p>
 <ul>
 <li>Input stream raster: <strong>Stream_reclass</strong></li>
@@ -359,7 +347,7 @@ Hana Travers-Smith</p>
 <li>Method of stream ordering: <strong>Strahler</strong></li>
 <li>Output raster: <strong>StreamOrder</strong></li>
 </ul>
-<p>Zoom in to see the <strong>StreamOrder</strong> output. The value of each pixel corresponds to the order of each stream segment. Now re-run the tool using the Shreve method and compare the two outputs. Which one produces a more meaningful output and why? In the methods section of your report justify the use of the Stahler method for mapping this stream network.</p>
+<p>Zoom in to see the <strong>StreamOrder</strong> output. The value of each pixel corresponds to the order of each stream segment. Now re-run the tool using the Shreve method and compare the two outputs.</p>
 <p><strong>Step 6:</strong> Use the “Stream to Feature (Spatial Analyst Tools)” tool to create polyline features representing the ordered stream network. Parameterize the tool as follows:</p>
 <ul>
 <li>Input stream raster: <strong>StreamOrder</strong></li>
@@ -400,19 +388,18 @@ Hana Travers-Smith</p>
 <li>Match Option: Largest Overlap</li>
 <li>Search Radius: 3 Meters</li>
 </ul>
-<p>Include a rationale for using “Largest Overlap” as the “Match Option” in the Methods section of your report.</p>
 <p><strong>Step 5:</strong> Open the attribute table of the output feature class. Notice the duplicated attribute names. The attributes are ordered with the attributes from the Target Feature first and the Join Features second. You may rename and delete unnecessary attributes.</p>
 <p>Create a new field called “Gradient” and use the “Calculate Field” tool to calculate the gradient for each stream segment. Streams with gradient &lt; 20% will be considered as “fish bearing”.</p>
 <p><strong>Step 6:</strong> Next, we will use the ESRI basemaps to measure stream width for a sample of streams stratified by order. We will use the average stream width per order to approximate the width for all streams in the study area. (For example, if the average width of streams in order 1 is 30 m, all streams in order 1 will be assigned that width).</p>
 <p>Stream width is defined using the entire channel width, not just the part with water currently flowing through it. Use the examples below to guide you with your mapping. You should be able to see channels for streams in orders 2-4, but order 1 streams will likely not be visible. We will assign these streams an average width of 1 m.</p>
-<p><img src="images/03-s4-stream.JPG" width="75%" /></p>
-<p><img src="images/03-s3-stream.JPG" width="75%" /></p>
-<p><img src="images/03-s2-stream.JPG" width="75%" /></p>
-<p>Measure 10-15 stream widths per order using the “Measure” tool on your toolbar and record these measurements in an excel document. When you are satisfied with your measurements calculate average width of each stream order. Use the DTM and stream network polyline to help you find some of the smaller order 2 streams.</p>
+<p><img src="images/03-s4-stream.JPG" width="100%" /></p>
+<p><img src="images/03-s3-stream.JPG" width="100%" /></p>
+<p><img src="images/03-s2-stream.JPG" width="100%" /></p>
+<p>Measure 10-15 stream widths per order using the “Measure” tool on your toolbar and record these measurements in an excel document. When you are satisfied with your measurements calculate average width of each stream order. Use the DEM and stream network polyline to help you find some of the smaller order 2 streams.</p>
 <p><strong>Step 7:</strong> In the <strong>StreamNetwork_join</strong> layer, create a new field called “StreamWidth”. We will use an <code>ifelse</code> statement to conditionally assign values to the stream width attribute depending on stream order. Select the “StreamWidth” column in the attribute table and click “Calculate”. In the “Calculate Field” tool, change the “Expression Type” to “Python”.</p>
 <p>To use Python in the tool we need to populate two fields. First, the top “Expression” field, which should read <code>StreamWidth =</code>. This is where we can call a function and define the inputs to the function. Here we have called the function <code>reclass</code> with the “StreamOrder” attribute as the input.</p>
 <p>Next, in the “Code Block” we need to define the <code>reclass</code> function, so that we can use it as part of an expression. Here we will use an <code>ifelse</code> statement to set the values of stream width based on stream order.</p>
-<p><img src="images/03-python-stream-width.png" width="75%" /></p>
+<p><img src="images/03-python-stream-width.png" width="100%" /></p>
 <p>Modify the following code and paste it into the “Code Block” (delete the square brackets before running). Verify the expression using the check button &gt; Apply.</p>
 <pre><code>def reclass(Order):
      if (Order == 1):
@@ -429,13 +416,13 @@ Hana Travers-Smith</p>
 <div id="task-3-mapping-watersheds-and-riparian-management-areas" class="section level2 unnumbered hasAnchor">
 <h2>Task 3: Mapping Watersheds and Riparian Management Areas<a href="hydrology-analysis.html#task-3-mapping-watersheds-and-riparian-management-areas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Step 1:</strong> Use the following table to assign a stream class (S1-S6) based on average channel width and fish bearing potential. The Reserve Zone defines the region around the stream where harvest is prohibited and the Management Zone defines the region where limited harvest is permitted. Note that not all stream classes may be present in the dataset.</p>
-<p><img src="images/03-stream-class.PNG" width="75%" /></p>
+<p><img src="images/03-stream-class.PNG" width="100%" /></p>
 <p>In the <strong>StreamNetwork_join</strong> layer, create a new attribute called “Reserve_BufferDist” and set the “Number Format” to “Numeric”.</p>
 <p>Select the “Reserve_BufferDist” field in the attribute table and open the “Calculate Field” tool. Change the “Expression Type” to “Python”.</p>
 <p>This time we will combine the <code>ifelse</code> syntax from the previous task with conditional statements to assign buffer distances to each stream class. The example below defines the Reserve Zone buffer distance for the S1 (except large rivers) class using the stream gradient and stream width attributes.</p>
-<p>The Reserve Zones and Management Zones are typically measured from the edge of the stream channel, however our streams are represented as lines down the centre of the stream channel. Think of a way to modify the buffer distances in the table to reflect the approximate width of the stream. Include these methods in your report.</p>
+<p>The Reserve Zones and Management Zones are typically measured from the edge of the stream channel, however our streams are represented as lines down the centre of the stream channel. Think of a way to modify the buffer distances in the table to reflect the approximate width of the stream.</p>
 <p>Your code should look something like the following (make sure the attribute names in the Expression field match the names in your table!):</p>
-<p><img src="images/03-stream-network-python.jpg" width="75%" /></p>
+<p><img src="images/03-stream-network-python.jpg" width="100%" /></p>
 <p>Use the following template in the “Code Block” to calculate the buffer distance for the remaining Reserve Zones (S1-S6). For classes with a width of 0 set the buffer distance to 0.</p>
 <pre><code>def myCalc (gradient, width):
      if (gradient &lt; 20)and(width &gt;= 100):
@@ -468,8 +455,8 @@ Hana Travers-Smith</p>
 <li>Output raster: <strong>Nahmint_watersheds</strong></li>
 </ul>
 <p>The output will be a new raster where the cell values correspond to each unique watershed catchment. You should have something like the following (do not worry if it is not exactly the same):</p>
-<p><img src="images/03-map-layers.JPG" width="75%" /></p>
-<p><strong>Step 4:</strong> Finally, we will create contour lines to help interpret the the DTM. Open the “Contour” tool and parameterize it as follows:</p>
+<p><img src="images/03-map-layers.JPG" width="100%" /></p>
+<p><strong>Step 4:</strong> Finally, we will create contour lines to help interpret the the DEM. Open the “Contour” tool and parameterize it as follows:</p>
 <ul>
 <li>Raster: <strong>Nahmint_DEM</strong></li>
 <li>Output features class: <strong>Nahmint_contour</strong></li>
@@ -477,14 +464,6 @@ Hana Travers-Smith</p>
 <li>Base contour: [Set to the lowest elevation in the study area]</li>
 <li>Z factor: 1</li>
 <li>Contour type: Contour</li>
-</ul>
-<p>As your final deliverable create a map with the following elements:</p>
-<ul>
-<li>Watersheds, contour lines</li>
-<li>Stream networks symbolized by stream class</li>
-<li>Example stream network and Riparian Management Areas (Reserve Zone and Management Zone)</li>
-<li>Text showing the total area in the Reserve and Management Zone and the length of the stream network</li>
-<li>Name, date, legend, north arrow, scale bar, title</li>
 </ul>
 <hr />
 </div>

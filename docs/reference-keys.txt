@@ -1,3 +1,4 @@
+fig:03-flow-direction
 terrain-spatial-interpolation
 network-analysis
 hydrology-analysis
