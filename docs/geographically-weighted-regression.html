@@ -466,7 +466,7 @@ Paul Pickell</p>
 </tbody>
 </table>
 <p>Your output table should look like the image below:</p>
-<p><img src="images/05-qgis-query-characteristics.png" width="75%" /></p>
+<p><img src="images/05-qgis-query-characteristics.png" width="100%" /></p>
 <p><strong>Step 8:</strong> Finally, we are going to put everything together into a single SQL statement that will query, intersect, aggregate, group, and join the spatial data with the tabular data. Save your SQL query in QGIS Database Manager or copy it and paste it somewhere, then clear the SQL query area and paste the following statement:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="geographically-weighted-regression.html#cb13-1" tabindex="-1"></a><span class="kw">WITH</span> </span>
 <span id="cb13-2"><a href="geographically-weighted-regression.html#cb13-2" tabindex="-1"></a></span>
@@ -516,17 +516,17 @@ Paul Pickell</p>
 <span id="cb13-46"><a href="geographically-weighted-regression.html#cb13-46" tabindex="-1"></a><span class="kw">JOIN</span></span>
 <span id="cb13-47"><a href="geographically-weighted-regression.html#cb13-47" tabindex="-1"></a>  vancouver_da <span class="kw">ON</span> characteristics.alt_geo_code:<span class="ch">:integer</span> <span class="op">=</span> vancouver_da.DAUID:<span class="ch">:integer</span>;</span></code></pre></div>
 <p>Be sure to add your modified statement from Step 7 where it is indicated. Then, the statement above should produce the final table we are looking for: a layer of dissemination areas for Vancouver that contain the values for the 14 characteristics we are interested in.</p>
-<p><img src="images/05-qgis-final-query-load-layer.png" width="75%" /></p>
+<p><img src="images/05-qgis-final-query-load-layer.png" width="100%" /></p>
 <p><strong>Step 9:</strong> When you are satisfied, export the layer to your QGIS map and save it in your project folder (right-click the layer, “Export” &gt; “Save Features As…”). We suggest exporting as shapefile format to maintain compatibility with ArcGIS Pro.</p>
 <p>You may also want to save your SQL statement somewhere, too. You can use it later to recover all of your work from this task at any time from the PostgreSQL server. In QGIS, you can now play around with symbolizing the different characteristics. The image below shows population density <span class="math inline">\(\frac{persons}{km^2}\)</span> of Vancouver dissemination areas in 2021 (projected coordinate system is Lambert Conformal Conic).</p>
 <p><img src="images/05-qgis-population-density-vancouver-2021.png" width="75%" /></p>
-<p><strong>Step 10:</strong> Save you QGIS project.</p>
+<p><strong>Step 10:</strong> Save your QGIS project.</p>
 <hr />
 </div>
 </div>
 <div id="task-2-practice-geographically-weighted-regression" class="section level2 unnumbered hasAnchor">
 <h2>Task 2: Practice geographically weighted regression<a href="geographically-weighted-regression.html#task-2-practice-geographically-weighted-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this task, we are going to calculate the distance of each dissemination area to the nearest park in Vancouver and then select characteristics from the census data that explain the local variation in proximity to green space. So the census characteristics are going to be our independent (explanatory) variables <span class="math inline">\(k\)</span> and the calculated distance to green space is going to be the dependent (response) variable <span class="math inline">\(y_i\)</span> for our geographically weighted regression:</p>
+<p>In this task, we are going to calculate the Normalized Difference Vegetation Index (NDVI) of each dissemination area in Vancouver and then select characteristics from the census data that explain the local variation in vegetation greenness, as expressed by NDVI. So the census characteristics are going to be our independent (explanatory) variables <span class="math inline">\(k\)</span> and the calculated statistics of NDVI are going to be the dependent (response) variable <span class="math inline">\(y_i\)</span> for our geographically weighted regression:</p>
 <p><span class="math display">\[
 y_i=𝛽_0(u_i,v_i)+\sum_{k}^{}𝛽_𝑘(u_i,v_i) 𝑥_{𝑖𝑘}+ε _𝑖
 \]</span></p>
@@ -549,14 +549,14 @@ NDVI=\frac{Band5-Band4}{Band5+Band4}
 <p><img src="images/05-arcgis-ndvi-mean.png" width="100%" /></p>
 <p>It is important to initially analyze our census characteristics <span class="math inline">\(k\)</span> to determine which independent variables and combination of these variables have the strongest relationship with our dependent variable, NDVI <span class="math inline">\(y\)</span>. To conduct the initial analysis, we will use a tool called “Exploratory Regression”, which is part of the Spatial Statistics Toolbox.</p>
 <p><strong>Step 5:</strong> Open the “Exploratory Regression” tool. Select “vancouver_da_characteristics” as your “Input Features” and “ndvi_zonal_statistics.MEAN” as your dependent variable. Select all of the census characteristics as your “Candidate Explanatory Variables”, expand “Search Criteria” and change the “Maximum Number of Explanatory Variables” to 14 then run the tool with other fields as default.</p>
-<p><img src="images/05-arcgis-exploratory-regression.png" width="75%" /></p>
+<p><img src="images/05-arcgis-exploratory-regression.png" width="50%" /></p>
 <p><em>NOTE:</em> <em>Some fields were truncated when we saved the “vancouver_da_characteristics” shapefile. It should still be apparent which fields to select, but some of the original names will not perfectly match.</em></p>
 <p><strong>Step 6:</strong> When the tool has finished running, click “View Details” at the bottom and then click “Messages”. Under the heading “Highest adjusted R-squared results”, you can explore the modeled relationship between one or more independent variables and the dependent variable. You should see the adjusted R-squared plateau at 0.41 when using a model with seven independent variables. We can use the statistics like Akaike’s Information Criterion (AICc), Jarque-Bera p-value (JB), and Max Variance Inflation Factor (VIF) to choose between similar models with different sets of independent variables. Be sure to copy-paste this output message to a notepad so that you can reference it later in your report.</p>
-<p><img src="images/05-arcgis-exploratory-regression-results.png" width="75%" /></p>
+<p><img src="images/05-arcgis-exploratory-regression-results.png" width="100%" /></p>
 <p><strong>Step 7:</strong> Once you have selected a model, write down the independent variables that are used in the model. Open the “Ordinary Least Squares (OLS)” tool. The “Input Feature Class” is “vancouverda_characteristics”, “Unique ID Field” is “vancouver_da_characteristcs.alt_geo_co”, name the “Output Feature Class” as “ols_mean_ndvi”, set the “Dependent Variable” to “ndvi_zonal_statistics.MEAN”, and then select all of the independent variables that you wrote down from the last step. Run the tool, then click “View Details”, select “Messages”, and copy-paste the output to a notepad to reference it later in your report.</p>
-<p><img src="images/05-arcgis-ols.png" width="75%" /></p>
+<p><img src="images/05-arcgis-ols.png" width="50%" /></p>
 <p><strong>Step 8:</strong> Open the “Geographically Weighted Regression (GWR)” tool and parameterize it the same as you did in the last step for OLS, but change “Neighborhood Type” to “Number of neighbors”, change “Neighborhood Selection Method” to “Golden search”, and set “Minimum Number of Neighbors” to 50 and “Maximum Number of Neighbors” to 250. Name the “Output Features” as “gwr_mean_ndvi”. Again, select all of the independent variables that you wrote down from earlier then run the tool. The output will automatically be added to your map along with several charts. Doubling-clicking on a chart will open it.</p>
-<p><img src="images/05-arcgis-variable-chart.png" width="75%" /></p>
+<p><img src="images/05-arcgis-variable-chart.png" width="100%" /></p>
 <p><strong>Step 9:</strong> Save you ArcGIS Pro project.</p>
 <hr />
 </div>

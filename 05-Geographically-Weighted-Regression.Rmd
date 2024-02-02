@@ -207,7 +207,7 @@ LIMIT 10;
 
 Your output table should look like the image below:
 
-```{r 05-qgis-query-characteristics, out.width= "75%", echo = FALSE}
+```{r 05-qgis-query-characteristics, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/05-qgis-query-characteristics.png")
 ```
 
@@ -265,7 +265,7 @@ JOIN
 
 Be sure to add your modified statement from Step 7 where it is indicated. Then, the statement above should produce the final table we are looking for: a layer of dissemination areas for Vancouver that contain the values for the 14 characteristics we are interested in.
 
-```{r 05-qgis-final-query-load-layer, out.width= "75%", echo = FALSE}
+```{r 05-qgis-final-query-load-layer, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/05-qgis-final-query-load-layer.png")
 ```
 
@@ -277,13 +277,13 @@ You may also want to save your SQL statement somewhere, too. You can use it late
     knitr::include_graphics("images/05-qgis-population-density-vancouver-2021.png")
 ```
 
-**Step 10:** Save you QGIS project.
+**Step 10:** Save your QGIS project.
 
 ------------------------------------------------------------------------
 
 ## Task 2: Practice geographically weighted regression {.unnumbered}
 
-In this task, we are going to calculate the distance of each dissemination area to the nearest park in Vancouver and then select characteristics from the census data that explain the local variation in proximity to green space. So the census characteristics are going to be our independent (explanatory) variables $k$ and the calculated distance to green space is going to be the dependent (response) variable $y_i$ for our geographically weighted regression:
+In this task, we are going to calculate the Normalized Difference Vegetation Index (NDVI) of each dissemination area in Vancouver and then select characteristics from the census data that explain the local variation in vegetation greenness, as expressed by NDVI. So the census characteristics are going to be our independent (explanatory) variables $k$ and the calculated statistics of NDVI are going to be the dependent (response) variable $y_i$ for our geographically weighted regression:
 
 $$
 y_i=𝛽_0(u_i,v_i)+\sum_{k}^{}𝛽_𝑘(u_i,v_i) 𝑥_{𝑖𝑘}+ε _𝑖
@@ -333,7 +333,7 @@ It is important to initially analyze our census characteristics $k$ to determine
 
 **Step 5:** Open the "Exploratory Regression" tool. Select "vancouver_da_characteristics" as your "Input Features" and "ndvi_zonal_statistics.MEAN" as your dependent variable. Select all of the census characteristics as your "Candidate Explanatory Variables", expand "Search Criteria" and change the "Maximum Number of Explanatory Variables" to 14 then run the tool with other fields as default.
 
-```{r 05-arcgis-exploratory-regression, out.width= "75%", echo = FALSE}
+```{r 05-arcgis-exploratory-regression, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/05-arcgis-exploratory-regression.png")
 ```
 
@@ -341,19 +341,19 @@ It is important to initially analyze our census characteristics $k$ to determine
 
 **Step 6:** When the tool has finished running, click "View Details" at the bottom and then click "Messages". Under the heading "Highest adjusted R-squared results", you can explore the modeled relationship between one or more independent variables and the dependent variable. You should see the adjusted R-squared plateau at 0.41 when using a model with seven independent variables. We can use the statistics like Akaike's Information Criterion (AICc), Jarque-Bera p-value (JB), and Max Variance Inflation Factor (VIF) to choose between similar models with different sets of independent variables. Be sure to copy-paste this output message to a notepad so that you can reference it later in your report.
 
-```{r 05-arcgis-exploratory-regression-results, out.width= "75%", echo = FALSE}
+```{r 05-arcgis-exploratory-regression-results, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/05-arcgis-exploratory-regression-results.png")
 ```
 
 **Step 7:** Once you have selected a model, write down the independent variables that are used in the model. Open the "Ordinary Least Squares (OLS)" tool. The "Input Feature Class" is "vancouverda_characteristics", "Unique ID Field" is "vancouver_da_characteristcs.alt_geo_co", name the "Output Feature Class" as "ols_mean_ndvi", set the "Dependent Variable" to "ndvi_zonal_statistics.MEAN", and then select all of the independent variables that you wrote down from the last step. Run the tool, then click "View Details", select "Messages", and copy-paste the output to a notepad to reference it later in your report. 
 
-```{r 05-arcgis-ols, out.width= "75%", echo = FALSE}
+```{r 05-arcgis-ols, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/05-arcgis-ols.png")
 ```
 
 **Step 8:** Open the "Geographically Weighted Regression (GWR)" tool and parameterize it the same as you did in the last step for OLS, but change "Neighborhood Type" to "Number of neighbors", change "Neighborhood Selection Method" to "Golden search", and set "Minimum Number of Neighbors" to 50 and "Maximum Number of Neighbors" to 250. Name the "Output Features" as "gwr_mean_ndvi". Again, select all of the independent variables that you wrote down from earlier then run the tool. The output will automatically be added to your map along with several charts. Doubling-clicking on a chart will open it.
 
-```{r 05-arcgis-variable-chart, out.width= "75%", echo = FALSE}
+```{r 05-arcgis-variable-chart, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/05-arcgis-variable-chart.png")
 ```
 
