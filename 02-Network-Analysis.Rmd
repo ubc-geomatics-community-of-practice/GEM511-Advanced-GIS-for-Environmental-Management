@@ -165,7 +165,9 @@ Calculate the flow direction of the filled DEM, using the "Flow Direction" tool.
 
 **Step 5:** Next, you will create a grid of stream links, which assigns unique values to each stream segment, so that the user can see how the streams are connected. Open the "Stream Link" tool and use the output from the "Con" tool and the flow direction raster here. 
 
-**Step 6:** You will also use the "Stream Order" tool using the same inputs as in step 4 and the default parameters. The "Stream Order" tool assigns a numeric order to segments of the raster, essentially classifying branches of the stream network. The lowest order streams do not have any other streams that flow into it, while higher order streams can have multiple levels of tributaries that flow into it. This tool will take some time to run on the whole island. Take a moment to stretch and hydrate! 
+**Step 6:** You will also use the "Stream Order" tool using the same inputs as in step 4 and the default parameters. The "Stream Order" tool assigns a numeric order to segments of the raster, essentially classifying branches of the stream network. The lowest order streams do not have any other streams that flow into it, while higher order streams can have multiple levels of tributaries that flow into it. This tool will take some time to run on the whole island. Take a moment to stretch and hydrate!
+
+
 
 **Step 7:** You will also convert your raster into polylines using the stream links raster and flow direction raster as inputs for the "Stream to Feature" tool. Toggle off "Simplify polylines". 
 
@@ -181,15 +183,15 @@ Below is a useful flowchart of the process of creating a stream network from a D
 
 At this point, you have only created polyline features representing streams. Next will convert those segments to routes and apply topology for our streams, as well as incorporate dams into the network.
 
-**Step 1:** Convert your stream features into routes using the "Create routes" tool. Set the Route ID field to "arcid". The coordinate Priority parameter can be set to any corner. Save the output as "vancouver_island_stream_routes".
-
 ```{r 02-create-routes, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/02-create-routes.png")
 ```
 
-**Step 2:** Create a blank feature dataset and name it "stream_routes_dams". To do this, right-click the geodatabase in the Catalog pane and select New Feature Dataset. For the projection, use NAD 1983 BC Environment Albers (EPSG: 3005).
+**Step 1:** Create a blank feature dataset and name it "stream_routes_dams". To do this, right-click the geodatabase in the Catalog pane and select New Feature Dataset. For the projection, use NAD 1983 BC Environment Albers (EPSG: 3005).
 
-**Step 3:** Click and drag the stream routes and dams feature classes to the new feature dataset within the Catalog view. 
+**Step 2:** Convert your stream features into routes using the "Create routes" tool. Set the Route ID field to "arcid". The coordinate Priority parameter can be set to any corner. When you go to save your output, navigate into your feature dataset (it "feels" like entering another folder from the Catalog view), and save the output as "vancouver_island_stream_routes".
+
+**Step 3:** Right-click on the feature dataset, select "Import", and then navigate to the **dams** layer on the UBC PostgreSQL server and import this layer into your feeature dataset.
 
 The dams are modelled as polylines. We need to identify where these dams intersect the stream routes. We want to return a single point for that location so that we can properly model the dams in our network, which act as barriers to salmon as they travel through the stream network. We will use topology to achieve this.
 

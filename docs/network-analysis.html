@@ -347,10 +347,10 @@ Paul Pickell</p>
 <div id="task-2-create-routes-and-apply-topology" class="section level2 unnumbered hasAnchor">
 <h2>Task 2: Create routes and apply topology<a href="network-analysis.html#task-2-create-routes-and-apply-topology" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>At this point, you have only created polyline features representing streams. Next will convert those segments to routes and apply topology for our streams, as well as incorporate dams into the network.</p>
-<p><strong>Step 1:</strong> Convert your stream features into routes using the “Create routes” tool. Set the Route ID field to “arcid”. The coordinate Priority parameter can be set to any corner. Save the output as “vancouver_island_stream_routes”.</p>
 <p><img src="images/02-create-routes.png" width="50%" /></p>
-<p><strong>Step 2:</strong> Create a blank feature dataset and name it “stream_routes_dams”. To do this, right-click the geodatabase in the Catalog pane and select New Feature Dataset. For the projection, use NAD 1983 BC Environment Albers (EPSG: 3005).</p>
-<p><strong>Step 3:</strong> Click and drag the stream routes and dams feature classes to the new feature dataset within the Catalog view.</p>
+<p><strong>Step 1:</strong> Create a blank feature dataset and name it “stream_routes_dams”. To do this, right-click the geodatabase in the Catalog pane and select New Feature Dataset. For the projection, use NAD 1983 BC Environment Albers (EPSG: 3005).</p>
+<p><strong>Step 2:</strong> Convert your stream features into routes using the “Create routes” tool. Set the Route ID field to “arcid”. The coordinate Priority parameter can be set to any corner. When you go to save your output, navigate into your feature dataset (it “feels” like entering another folder from the Catalog view), and save the output as “vancouver_island_stream_routes”.</p>
+<p><strong>Step 3:</strong> Right-click on the feature dataset, select “Import”, and then navigate to the <strong>dams</strong> layer on the UBC PostgreSQL server and import this layer into your feeature dataset.</p>
 <p>The dams are modelled as polylines. We need to identify where these dams intersect the stream routes. We want to return a single point for that location so that we can properly model the dams in our network, which act as barriers to salmon as they travel through the stream network. We will use topology to achieve this.</p>
 <p><img src="images/02-example-dam.png" width="50%" /></p>
 <p><strong>Step 4:</strong> Right-click the feature dataset and select “New” and “Topology”. This will open the Create Topology Wizard dialogue box.</p>
