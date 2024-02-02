@@ -56,7 +56,7 @@ In this lab, we will focus on Vancouver Island for a few reasons. First, islands
 
 Lab report with the following specification:
 
-<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
+<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (5 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
 
 <input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input>
 
