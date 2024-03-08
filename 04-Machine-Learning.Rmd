@@ -42,25 +42,19 @@ Lab report with the following specification:
 
 -   How many fuel types are there in the VRI dataset? Which fuel type has the fewest number of points?
 
--   What is the null hypothesis for the Spatial Autocorrelation tool? Why do we test CROWN_CLOS for spatial autocorrelation but not FUEL_TYPE?
+-   What are the results of the spatial autocorrelation (SA) tool and what do they tell us? Why do we test CROWN_CLOS for spatial autocorrelation but not FUEL_TYPE?
 
--   Why do we use "Closest" and not "Intersect" when doing the spatial join for the FIP data? Consider the geometry of the data. What are the benefits and drawbacks of using each sampling design, both in terms of statistical power and the limits of field data acquisition?
+-   Report the diagnostic results of the Exploratory Regression (R^2^, AIC, VIF, variable significance) **for three of best models**. What model had the highest R^2^? Based on this, what variables did you choose to include in your final model? Use the statistical terms in the results  to justify your choice.
 
--   What are the results of the spatial autocorrelation (SA) tool and what do they tell us? Why did we use the K Nearest Neighbours method for this dataset? 
-
--   What is the maximum R^2^ value out of all the equations in the results?
-
--   What variables did you choose to include in your model after running exploratory regression? Why did you choose this equation and/or set of variables? Use the statistical terms in the results (R^2^, p-value, AIC, VIF, variable significance, etc.) to help you explain.
-
--   Map of one of the FUEL_TYPE rasters and one of the CROWN_CLOS rasters. Be sure to specify in a caption or title what sampling design / parameter settings you are displaying in each.
+-   Select the best model for FUEL_TYPE and CROWN_CLOS and briefly justify your choice. Map one of the FUEL_TYPE rasters and one of the CROWN_CLOS rasters. Be sure to specify in a caption or title what sampling design / parameter settings you are displaying in each. 
 
 <input type="checkbox" unchecked> Discussion should address the following questions and requirements (20 points):</input>
 
--   Display the VRI dataset and observe the distribution of the points across the landscape. What is the main difference between this method and distance-based methods? Why is accounting for spatial autocorrelation in your data important? If you were not limited by the tool inputs, how would you change your sampling design to account for spatial autocorrelation?
+-  For the fuel type model discuss the performance of each model. Were there large differences in model performance among the three sampling strategies? What are the benefits and drawbacks of using each sampling design, both in terms of statistical power and the limits of field data acquisition?
 
--   We are constrained by the ArcGIS Pro capabilities and can only use the Exploratory Regression tool with interval or ratio data, i.e., our crown closure variable, so we used the same explanatory variables for both analyses. If you were able to run Exploratory Regression with fuel type, do you think the results would be different? Why or why not?
+- For the crown closure model discuss the impact of changing the Random Forests parameters on the model performance. What parameters should be optimized and why?
 
--   Describe some considerations when selecting different sampling strategies and comment specifically on the sampling strategies that we tested.
+-   We used the Exploratory Regression tool to select our input variables. Discuss why you think these variables were important in predicting crown closure. We used the same variables for both the crown closure and fuel type models, what variables might be better for predicting fuel type that we didn't include?  
 
 -   What are the advantages and limitations of using remote sensing data to predict crown closure and fuel types? What about climate data? Terrain data? Why should we use these data for this problem?
 
@@ -194,19 +188,19 @@ Double-check that your sub-samples have the correct number and fuel types in the
 
 **Step 6:** Using the "Merge" tool, combine your four sub-sample data sets and call the output "stratified_sample". This sample should have 500 points.
 
-**Step 7:** To make the fixed interval point (FIP) sampled dataset, we will create a regularly spaced grid from which to sample our points by creating a fishnet of polygons, converting those polygons into centroid points, and then sampling the closest VRI point to our fishnet points. Open the "Create Fishnet" tool and name your "Output Feature Class" "fishnet". Set your "Template Extent" to the VRI point feature class. The coordinates should match what you see in the screenshot below. Set the "Number of Rows" to 20 and the "Number of Columns" to 25. This divides the extent into 20x25 (500!) identical segments. Change the "Geometry" to "Polygon" and run the tool. Your output feature class should look like the grid below.
+**Step 7:** To make the fixed interval point (FIP) sampled dataset, we will create a regularly spaced grid from which to sample our points by creating a fishnet of polygons, converting those polygons into centroid points, and then sampling the closest VRI point to our fishnet points. Open the "Create Fishnet" tool and name your "Output Feature Class" "fishnet". Under "Template Extent" click "Browse" and select the vri shapefile. The X and Y Extents and Origin Coordinates should automatically populate. Set the “Number of Rows” to 20 and the “Number of Columns” to 25. This divides the extent into 20x25 (500!) identical segments. Change the “Geometry” to “Polygon” and run the tool. Your output feature class should look like the grid below. 
 
 ```{r 04-elephant-hill-fishnet, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/04-elephant-hill-fishnet.png")
 ```
 
-**Step 8:** Open the "Feature to Point" tool and use your fishnet from the previous step as the input. The default of this tool when used with polygon geometry is to place a point at the center of each polygon. If you overlay your new point feature class onto your fishnet, it should look like the screenshot below.
+**Step 8:** The tool will also create a point layer called "fishnet_label" with points in the center of each polygon (shown below). 
 
 ```{r 04-elephant-hill-fishnet-points, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/04-elephant-hill-fishnet-points.png")
 ```
 
-**Step 9:** We have a nice lattice of points across our study area, and we have a point feature class to sample from, but we need to put them together. Open the "Spatial Join" tool and set your fishnet points (not polygons!) as the "Target Features" and your VRI point feature class as the "Join Features". Set "Closest" as the "Match Option". This will find the closest VRI point to the fishnet and join it to the table. The "Join Operation" should be "Join one to one" and your "Search Radius" can be left blank. Name your "Output Feature Class" "FIP_sample" and run the tool.
+**Step 9:** We have a nice lattice of points across our study area, and we have a point feature class to sample from, but we need to put them together. Open the "Spatial Join" tool and set "fishnet_label" (points not the polygons!) as the "Target Features" and your VRI point feature class as the "Join Features". Set "Closest" as the "Match Option". This will find the closest VRI point to the fishnet and join it to the table. The "Join Operation" should be "Join one to one" and your "Search Radius" can be left blank. Name your "Output Feature Class" "FIP_sample" and run the tool.
 
 ```{r 04-spatial-join, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/04-spatial-join.png")
@@ -218,9 +212,11 @@ You now have three sampling sets to try your machine learning with!
 
 ## Task 3: Forest-Based Classification {.unnumbered}
 
-Our last task will be using the "Forest-based Classification and Regression" tool to run our machine learning. ESRI provides a helpful overview of the tool [here](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/how-forest-works.htm). We will be running it a total of nine times (three with FUEL_TYPE, six with CROWN_CLOS) and it can be slow, so please be patient and leave yourself lots of time.
+Our last task will be using the "Forest-based Classification and Regression" tool to run our machine learning. ESRI provides a helpful overview of the tool [here](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/how-forest-works.htm). 
 
-**Step 1:** Open the "Forest-based Classification and Regression" tool. When you search for the tool, check that it is from the "Spatial Statistics" toolbox and NOT the "GeoAnalytics Desktop" toolbox as they have different inputs. Parameterize the tool as follows:
+We will be running it a total of nine times (three with FUEL_TYPE, six with CROWN_CLOS) and it can be slow, so please be patient and leave yourself lots of time.
+
+**Step 1:** Open the "Forest-based and Boosted Classification and Regression" tool. When you search for the tool, check that it is from the "Spatial Statistics" toolbox and NOT the "GeoAnalytics Desktop" toolbox as they have different inputs. Parameterize the tool as follows:
 
 -   **Prediction Type:** Predict to Raster
 -   **Input Training Features:** random_sample
@@ -237,11 +233,17 @@ Leave all other parameters as the default value or blank. Run the tool. You may 
 
 **Step 2:** Run the tool again, but this time use "stratified_sample" as your "Input Training Features". Change the name of your outputs accordingly, but keep everything else the same. When this is finished, run the tool a third time with "FIP_sample" as the input. Remember to keep your regression results in a text file. If you do forget, just go to "History" under the "Analysis" tab and hover over the tool.
 
+You should now have three Random Forests outputs for fuel type from the three sampling strategies:
+- random_output_FT
+- stratified_output_FT
+- FIP_output_FT
+
 **HINT: Under the "Analysis" tab, view your tool "History". Double-click the "Forest-based Classification and Regression" tool and it will pop up in your geoprocessing pane with the same inputs and settings you used for that particular run -- this way, you can just edit the inputs that are changing between runs rather than having to reenter the settings each time.**
 
-For CROWN_CLOS, instead of changing the sampling design, we are going to experiment with different parameter settings on the tool for a total of 6 runs (three different parameters, two settings each).
 
-**Step 3:** Open the "Forest-based Classification and Regression" tool again and set these inputs which will act as our control:
+**Step 3:** For CROWN_CLOS, instead of changing the sampling design, we are going to experiment with different parameter settings on the tool for a total of **6 runs** (three different parameters, two settings each).
+
+Open the "Forest-based Boosted Classification and Regression" tool again and set these inputs which will act as our control:
 
 -   **Prediction Type:** Predict to Raster
 -   **Input Training Features:** random_sample
