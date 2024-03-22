@@ -4,11 +4,3 @@ network-analysis
 hydrology-analysis
 machine-learning
 geographically-weighted-regression
-leaflet-web-mapping
-q1-what-is-the-name-of-the-publised-layer-1-point
-q2-what-is-the-native-crs-for-the-layer-give-the-epsg-code-1-point
-q2.
-q3.-what-is-the-nothern-most-latitude-of-the-data-extent-in-decimal-degrees
-q4.-why-are-you-unable-to-edit-the-symbology-of-a-wms
-q5.-why-are-you-not-able-to-export-or-save-the-above-wms-layers-in-a-vector-format
-task-2-create-a-leaflet-with-qgis
