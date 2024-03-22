@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2024-03-08" />
+<meta name="date" content="2024-03-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -212,6 +212,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#task-2-practice-geographically-weighted-regression"><i class="fa fa-check"></i>Task 2: Practice geographically weighted regression</a></li>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#task-3-analyze-your-own-census-characteristics"><i class="fa fa-check"></i>Task 3: Analyze your own census characteristics</a></li>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#summary-4"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="leaflet-web-mapping.html"><a href="leaflet-web-mapping.html"><i class="fa fa-check"></i><b>6</b> Leaflet Web Mapping</a>
+<ul>
+<li class="chapter" data-level="" data-path="leaflet-web-mapping.html"><a href="leaflet-web-mapping.html#lab-overview-5"><i class="fa fa-check"></i>Lab Overview</a></li>
+<li class="chapter" data-level="" data-path="leaflet-web-mapping.html"><a href="leaflet-web-mapping.html#learning-objectives-5"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="leaflet-web-mapping.html"><a href="leaflet-web-mapping.html#lab6-deliverables"><i class="fa fa-check"></i>Deliverables</a></li>
+<li class="chapter" data-level="" data-path="leaflet-web-mapping.html"><a href="leaflet-web-mapping.html#data-3"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="leaflet-web-mapping.html"><a href="leaflet-web-mapping.html#task-1-explore-wms-and-wfs-with-qgis-and-geoserver"><i class="fa fa-check"></i>Task 1: Explore WMS and WFS with QGIS and Geoserver</a></li>
+<li class="chapter" data-level="6.1" data-path="leaflet-web-mapping.html"><a href="leaflet-web-mapping.html#task-2-create-a-leaflet-with-qgis"><i class="fa fa-check"></i><b>6.1</b> Task 2: Create a Leaflet with QGIS</a></li>
+<li class="chapter" data-level="" data-path="leaflet-web-mapping.html"><a href="leaflet-web-mapping.html#summary-5"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -486,6 +496,8 @@ Paul Pickell</p>
 <p>Would you have guessed that you could do all that analysis from a single DEM? That is the power of applying focal functions to the raster (flow direction, flow accumulation, slope) and deriving a network with topology. In this lab, we were principally concerned with events and attributes along the stream segments. Although we did not explicitly calculate connectivity measures, the connectivity of the network was implied through the modelling approach using flow direction from the filled DEM. If you attempted to perform this same analysis without the aid of a DEM, then you would need to take additional precautions to ensure that your polyline features have topological connectivity and valid junctions. Still, our approach using a DEM is prone to artifacts from the raster. Stream segments are limited to eight turning angles and the resolution of the DEM can impact stream attributes.</p>
 <p>Return to the <a href="network-analysis.html#lab2-deliverables"><strong>Deliverables</strong></a> section to check off everything you need to submit for credit in the course management system.</p>
 
+<pre><code>## Warning in readLines(file, warn = readLines.warn): incomplete final line found
+## on &#39;chapterauthors.yml&#39;</code></pre>
 </div>
 </div>
             </section>

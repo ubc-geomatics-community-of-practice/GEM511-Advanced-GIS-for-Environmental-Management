@@ -299,9 +299,9 @@ $ε _𝒊$ is the local error term (residual) for the $i$-th prediction
 
 All of the instructions that follow are written for ArcGIS Pro because we will be performing the geographically weighted regression in ArcGIS Pro. We suggest setting up a new project and copying the "vancouver_da_characteristics" shapefile that you produced in the previous task into that project folder.
 
-**Step 1:** Connect to the `greenequity` database on the UBC PostgreSQL server. Add two Landsat raster images: **LC08_L1TP_047026_20200814_20210330_02_T1_B4** and **LC08_L1TP_047026_20200814_20210330_02_T1_B5**. These images represent bands 4 (red) and 5 (near-infrared), respectively, and were acquired on August 14, 2020, which is approximately when the 2021 census data were collected.
+**Step 1:** First we will save the Landsat tiles as tifs. Connect to the `greenequity` database on the UBC PostgreSQL server in QGIS. Add two Landsat raster images: **LC08_L1TP_047026_20200814_20210330_02_T1_B4** and **LC08_L1TP_047026_20200814_20210330_02_T1_B5**. You will need to set the CRS of the rasters to UTM Zone 10 (EPSG: 32610) and export to geotif. These images represent bands 4 (red) and 5 (near-infrared), respectively, and were acquired on August 14, 2020, which is approximately when the 2021 census data were collected.
 
-**Step 2:** Open the "Raster Calculator" tool and calculate the Normalized Difference Vegetation Index (NDVI) and save the output in your project geodatabase simply as "ndvi":
+**Step 2:** Now in ArcGIS, open the geotifs you just created. Open the "Raster Calculator" tool and calculate the Normalized Difference Vegetation Index (NDVI) and save the output in your project geodatabase simply as "ndvi":
 
 $$
 NDVI=\frac{Band5-Band4}{Band5+Band4}
