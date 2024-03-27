@@ -8,7 +8,7 @@ machine-learning:
   author: Claire Armour
 geographically-weighted-regression:
   author: Paul Pickell
-leaflet-web-mapping:
+web-mapping:
   author: Paul Pickell
 writing-metadata-documentation:
   author: Paul Pickell

@@ -4,3 +4,6 @@ network-analysis
 hydrology-analysis
 machine-learning
 geographically-weighted-regression
+web-mapping
+task-1-adding-content-to-your-arcgis-online-profile
+task-2-creating-your-arcgis-storymap
