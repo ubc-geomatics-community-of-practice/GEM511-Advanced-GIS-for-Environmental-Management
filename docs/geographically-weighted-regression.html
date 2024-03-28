@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2024-03-27" />
+<meta name="date" content="2024-03-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -204,7 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#lab-overview-4"><i class="fa fa-check"></i>Lab Overview</a></li>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#learning-objectives-4"><i class="fa fa-check"></i>Learning Objectives</a></li>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#lab5-deliverables"><i class="fa fa-check"></i>Deliverables</a></li>
-<li class="chapter" data-level="" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html#data"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#lab5-data"><i class="fa fa-check"></i>Data</a></li>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#task-1-prepare-census-data"><i class="fa fa-check"></i>Task 1: Prepare census data</a>
 <ul>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#a-word-about-alt_geo_code"><i class="fa fa-check"></i>A word about alt_geo_code</a></li>
@@ -222,6 +222,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#task-1-adding-content-to-your-arcgis-online-profile"><i class="fa fa-check"></i>Task 1: Adding content to your ArcGIS Online profile</a></li>
 <li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#task-2-creating-your-arcgis-storymap"><i class="fa fa-check"></i>Task 2: Creating your ArcGIS StoryMap</a></li>
 <li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#summary-5"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html"><i class="fa fa-check"></i><b>7</b> Writing Metadata and Documentation</a>
+<ul>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#lab-overview-6"><i class="fa fa-check"></i>Lab Overview</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#learning-objectives-6"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#lab7-deliverables"><i class="fa fa-check"></i>Deliverables</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#data-4"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#task-1-depositing-in-the-dataverse"><i class="fa fa-check"></i>Task 1: Depositing in the Dataverse</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#summary-6"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -276,7 +285,7 @@ Paul Pickell</p>
 <li><p>Describe the qualities of the census data and the Landsat image.</p></li>
 <li><p>How did you evaluate your models and select your final model? Report any relevant statistics that you used in your judgement.</p></li>
 <li><p>Why did you select the 10 characteristics that you choose in Task 3?</p></li>
-<li><p>A table with the ordinary least squares and geographically weighted regression results for the model that used your 10 characteristics.</p></li>
+<li><p>A table with the ordinary least squares and geographically weighted regression results for the models that used the best subsets of your 10 characteristics.</p></li>
 <li><p>Describe all of the terms, coefficients, and explanatory variables of your selected GWR model.</p></li>
 <li><p>Justify your choice of a final set of independent variables for your GWR model.</p></li>
 <li><p>Compare and contrast the different NDVI statistics. Which statistic had the best model? What evidence do you have for that conclusion? Why do you think that relationship was the strongest?</p></li>
@@ -292,8 +301,8 @@ Paul Pickell</p>
 </ul>
 <hr />
 </div>
-<div id="data" class="section level2 unnumbered hasAnchor">
-<h2>Data<a href="terrain-spatial-interpolation.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="lab5-data" class="section level2 unnumbered hasAnchor">
+<h2>Data<a href="geographically-weighted-regression.html#lab5-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>All data for this lab are accessible via the UBC PostgreSQL server. Instructions for connecting to the server are given in the tasks below. We will be using data from the <code>greenequity</code> database.</p>
 <p>Statistics Canada. 2022. Census Profile. 2021 Census. Statistics Canada Catalogue no. 98-316-X2021001. Ottawa. Released December 15, 2022. <a href="https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E" class="uri">https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?Lang=E</a></p>
 <p>We are using only a small subset of the national 2021 census data set for British Columbia: “Canada, provinces, territories, census divisions (CDs), census subdivisions (CSDs) and dissemination areas (DAs) - British Columbia only” (Statistics Canada Catalogue no. 98-401-X2021006).</p>
@@ -572,8 +581,8 @@ NDVI=\frac{Band5-Band4}{Band5+Band4}
 </div>
 <div id="task-3-analyze-your-own-census-characteristics" class="section level2 unnumbered hasAnchor">
 <h2>Task 3: Analyze your own census characteristics<a href="geographically-weighted-regression.html#task-3-analyze-your-own-census-characteristics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Your final task for this lab is to repeat Steps 8 and 9 of Task 1, but this time, select 10 of your own census characteristics and then perform your own analysis using what you have learned in Task 2. We strongly recommend referring to the readme file and other metadata that are linked in the Data section of the lab.</p>
-<p><strong>Step 1:</strong> Select 10 different census characteristics than the 14 we worked with and repeat Steps 8 and 9 of Task 1. You will be expected to rationalize why you selected these 10 characteristics in your report.</p>
+<p>Your final task for this lab is to repeat Steps 8 and 9 of Task 1, but this time, select 10 of your own census characteristics and then perform your own analysis using what you have learned in Task 2. We strongly recommend referring to the readme file and other metadata that are linked in the <a href="geographically-weighted-regression.html#lab5-data"><strong>Data section</strong></a> of the lab.</p>
+<p><strong>Step 1:</strong> Select 10 different census characteristics other than the 14 we worked with and repeat Steps 8 and 9 of Task 1. You will be expected to rationalize why you selected these 10 characteristics in your report.</p>
 <p><strong>Step 2:</strong> Run all 10 characteristics through the “Exploratory Regression” tool. Repeat this process with three different NDVI statistics (e.g., mean, max, min, standard deviation, etc.). Record the output message and refer to any statistics here to justify your choice of a final set of independent variables for your regressions.</p>
 <p><strong>Step 3:</strong> Using your selected subset of independent variables, run the “Ordinary Least Squares (OLS)” tool for each of the three dependent variables, NDVI statistics that you chose in Step 2. Record the output message and refer to these statistics when you compare your OLS results to your GWR results.</p>
 <p><strong>Step 4:</strong> Using your selected subset of independent variables, run the “Geographically Weighted Regression (GWR)” tool for each of the three dependent variables, NDVI statistics that you chose in Step 2. Record the output message and refer to these statistics when you compare your GWR results to your OLS results.</p>

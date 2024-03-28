@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2024-03-27" />
+<meta name="date" content="2024-03-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="geographically-weighted-regression.html"/>
-
+<link rel="next" href="writing-metadata-documentation.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -204,7 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#lab-overview-4"><i class="fa fa-check"></i>Lab Overview</a></li>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#learning-objectives-4"><i class="fa fa-check"></i>Learning Objectives</a></li>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#lab5-deliverables"><i class="fa fa-check"></i>Deliverables</a></li>
-<li class="chapter" data-level="" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html#data"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#lab5-data"><i class="fa fa-check"></i>Data</a></li>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#task-1-prepare-census-data"><i class="fa fa-check"></i>Task 1: Prepare census data</a>
 <ul>
 <li class="chapter" data-level="" data-path="geographically-weighted-regression.html"><a href="geographically-weighted-regression.html#a-word-about-alt_geo_code"><i class="fa fa-check"></i>A word about alt_geo_code</a></li>
@@ -222,6 +222,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#task-1-adding-content-to-your-arcgis-online-profile"><i class="fa fa-check"></i>Task 1: Adding content to your ArcGIS Online profile</a></li>
 <li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#task-2-creating-your-arcgis-storymap"><i class="fa fa-check"></i>Task 2: Creating your ArcGIS StoryMap</a></li>
 <li class="chapter" data-level="" data-path="web-mapping.html"><a href="web-mapping.html#summary-5"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html"><i class="fa fa-check"></i><b>7</b> Writing Metadata and Documentation</a>
+<ul>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#lab-overview-6"><i class="fa fa-check"></i>Lab Overview</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#learning-objectives-6"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#lab7-deliverables"><i class="fa fa-check"></i>Deliverables</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#data-4"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#task-1-depositing-in-the-dataverse"><i class="fa fa-check"></i>Task 1: Depositing in the Dataverse</a></li>
+<li class="chapter" data-level="" data-path="writing-metadata-documentation.html"><a href="writing-metadata-documentation.html#summary-6"><i class="fa fa-check"></i>Summary</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -337,6 +346,8 @@ Try the New Map Viewer: <a href="https://learn.arcgis.com/en/paths/try-the-new-m
 <p>In this lab, you were introduced to some of the functionality of ArcGIS Online and ArcGIS StoryMaps. In this example, you were shown how to host your own geospatial data on ArcGIS Online and then access those hosted layers via web maps that can be embedded into an ArcGIS StoryMap. We have really only scratched the surface with web mapping in this short lab. If you are interested in learning more, you should consider reading about <a href="https://leafletjs.com/">leaflet</a> and <a href="https://openlayers.org/">open layers</a>, two popular free and open source software packages that can be used to make web and publish maps. As well, ArcGIS Pro supports the ability to publish <a href="https://doc.arcgis.com/en/arcgis-online/reference/what-is-web-scene.htm">Web Scenes</a>, which is a 3D extension of the 2D web mapping capability that we covered in this lab.</p>
 <p>Return to the <a href="web-mapping.html#lab6-deliverables"><strong>Deliverables</strong></a> section to check off everything you need to submit for credit in the course management system.</p>
 
+<pre><code>## Warning in readLines(file, warn = readLines.warn): incomplete final line found
+## on &#39;chapterauthors.yml&#39;</code></pre>
 </div>
 </div>
             </section>
@@ -344,8 +355,8 @@ Try the New Map Viewer: <a href="https://learn.arcgis.com/en/paths/try-the-new-m
           </div>
         </div>
       </div>
-<a href="geographically-weighted-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="geographically-weighted-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="writing-metadata-documentation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -52,7 +52,7 @@ Lab report with the following specification:
 
 -   Why did you select the 10 characteristics that you choose in Task 3?
 
--   A table with the ordinary least squares and geographically weighted regression results for the model that used your 10 characteristics.
+-   A table with the ordinary least squares and geographically weighted regression results for the models that used the best subsets of your 10 characteristics.
 
 -   Describe all of the terms, coefficients, and explanatory variables of your selected GWR model.
 
@@ -76,7 +76,7 @@ Lab report with the following specification:
 
 ------------------------------------------------------------------------
 
-## Data {#data .unnumbered}
+## Data {#lab5-data .unnumbered}
 
 All data for this lab are accessible via the UBC PostgreSQL server. Instructions for connecting to the server are given in the tasks below. We will be using data from the `greenequity` database.
 
@@ -363,9 +363,9 @@ It is important to initially analyze our census characteristics $k$ to determine
 
 ## Task 3: Analyze your own census characteristics {.unnumbered}
 
-Your final task for this lab is to repeat Steps 8 and 9 of Task 1, but this time, select 10 of your own census characteristics and then perform your own analysis using what you have learned in Task 2. We strongly recommend referring to the readme file and other metadata that are linked in the Data section of the lab.
+Your final task for this lab is to repeat Steps 8 and 9 of Task 1, but this time, select 10 of your own census characteristics and then perform your own analysis using what you have learned in Task 2. We strongly recommend referring to the readme file and other metadata that are linked in the [**Data section**](#lab5-data) of the lab.
 
-**Step 1:** Select 10 different census characteristics than the 14 we worked with and repeat Steps 8 and 9 of Task 1. You will be expected to rationalize why you selected these 10 characteristics in your report.
+**Step 1:** Select 10 different census characteristics other than the 14 we worked with and repeat Steps 8 and 9 of Task 1. You will be expected to rationalize why you selected these 10 characteristics in your report.
 
 **Step 2:** Run all 10 characteristics through the "Exploratory Regression" tool. Repeat this process with three different NDVI statistics (e.g., mean, max, min, standard deviation, etc.). Record the output message and refer to any statistics here to justify your choice of a final set of independent variables for your regressions.
 
