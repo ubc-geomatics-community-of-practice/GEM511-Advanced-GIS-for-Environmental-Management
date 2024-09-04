@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2024-03-28" />
+<meta name="date" content="2024-09-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -279,7 +279,7 @@ Paul Pickell</p>
 <div id="lab5-deliverables" class="section level2 unnumbered hasAnchor">
 <h2>Deliverables<a href="geographically-weighted-regression.html#lab5-deliverables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Lab report with the following specification:</p>
-<p><input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All</p>
+<p><input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point).</p>
 <p><input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input></p>
 <ul>
 <li><p>Describe the qualities of the census data and the Landsat image.</p></li>
@@ -572,7 +572,7 @@ NDVI=\frac{Band5-Band4}{Band5+Band4}
 <p><em>NOTE:</em> <em>Some fields were truncated when we saved the “vancouver_da_characteristics” shapefile. It should still be apparent which fields to select, but some of the original names will not perfectly match.</em></p>
 <p><strong>Step 6:</strong> When the tool has finished running, click “View Details” at the bottom and then click “Messages”. Under the heading “Highest adjusted R-squared results”, you can explore the modeled relationship between one or more independent variables and the dependent variable. You should see the adjusted R-squared plateau at 0.41 when using a model with seven independent variables. We can use the statistics like Akaike’s Information Criterion (AICc), Jarque-Bera p-value (JB), and Max Variance Inflation Factor (VIF) to choose between similar models with different sets of independent variables. Be sure to copy-paste this output message to a notepad so that you can reference it later in your report.</p>
 <p><img src="images/05-arcgis-exploratory-regression-results.png" width="100%" /></p>
-<p><strong>Step 7:</strong> Once you have selected a model, write down the independent variables that are used in the model. Open the “Ordinary Least Squares (OLS)” tool. The “Input Feature Class” is “vancouverda_characteristics”, “Unique ID Field” is “vancouver_da_characteristcs.alt_geo_co”, name the “Output Feature Class” as “ols_mean_ndvi”, set the “Dependent Variable” to “ndvi_zonal_statistics.MEAN”, and then select all of the independent variables that you wrote down from the last step. Run the tool, then click “View Details”, select “Messages”, and copy-paste the output to a notepad to reference it later in your report.</p>
+<p><strong>Step 7:</strong> Once you have selected a model, write down the independent variables that are used in the model. Open the “Ordinary Least Squares (OLS)” tool. The “Input Feature Class” is “vancouver_da_characteristics”, “Unique ID Field” is “vancouver_da_characteristcs.alt_geo_co”, name the “Output Feature Class” as “ols_mean_ndvi”, set the “Dependent Variable” to “ndvi_zonal_statistics.MEAN”, and then select all of the independent variables that you wrote down from the last step. Run the tool, then click “View Details”, select “Messages”, and copy-paste the output to a notepad to reference it later in your report.</p>
 <p><img src="images/05-arcgis-ols.png" width="50%" /></p>
 <p><strong>Step 8:</strong> Open the “Geographically Weighted Regression (GWR)” tool and parameterize it the same as you did in the last step for OLS, but change “Neighborhood Type” to “Number of neighbors”, change “Neighborhood Selection Method” to “Golden search”, and set “Minimum Number of Neighbors” to 50 and “Maximum Number of Neighbors” to 250. Name the “Output Features” as “gwr_mean_ndvi”. Again, select all of the independent variables that you wrote down from earlier then run the tool. The output will automatically be added to your map along with several charts. Doubling-clicking on a chart will open it.</p>
 <p><img src="images/05-arcgis-variable-chart.png" width="100%" /></p>

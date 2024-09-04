@@ -42,7 +42,7 @@ Vancouver is the most populous city in British Columbia, Canada with a populatio
 
 Lab report with the following specification:
 
-<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All 
+<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). 
 
 <input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input>
 
@@ -345,7 +345,7 @@ It is important to initially analyze our census characteristics $k$ to determine
     knitr::include_graphics("images/05-arcgis-exploratory-regression-results.png")
 ```
 
-**Step 7:** Once you have selected a model, write down the independent variables that are used in the model. Open the "Ordinary Least Squares (OLS)" tool. The "Input Feature Class" is "vancouverda_characteristics", "Unique ID Field" is "vancouver_da_characteristcs.alt_geo_co", name the "Output Feature Class" as "ols_mean_ndvi", set the "Dependent Variable" to "ndvi_zonal_statistics.MEAN", and then select all of the independent variables that you wrote down from the last step. Run the tool, then click "View Details", select "Messages", and copy-paste the output to a notepad to reference it later in your report. 
+**Step 7:** Once you have selected a model, write down the independent variables that are used in the model. Open the "Ordinary Least Squares (OLS)" tool. The "Input Feature Class" is "vancouver_da_characteristics", "Unique ID Field" is "vancouver_da_characteristcs.alt_geo_co", name the "Output Feature Class" as "ols_mean_ndvi", set the "Dependent Variable" to "ndvi_zonal_statistics.MEAN", and then select all of the independent variables that you wrote down from the last step. Run the tool, then click "View Details", select "Messages", and copy-paste the output to a notepad to reference it later in your report. 
 
 ```{r 05-arcgis-ols, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/05-arcgis-ols.png")
