@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2024-09-04" />
+<meta name="date" content="2025-02-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -470,7 +470,7 @@ S2 Stream (it is barely visible)</p>
 <li>Dissolve: Dissolve all output features into a single feature</li>
 </ul>
 <p>Inspect the output.</p>
-<p>Repeat the Buffer step for the Management Zone widths.</p>
+<p>Repeat the Buffer step for the Management Zone widths. That is, first create a new field that captures the Management Zone widths in the table above. Then calculate a new field that represents the total of the stream + reserve + management buffer and create a new buffer that uses this value.</p>
 <p><strong>Step 3:</strong> Next, we will map watersheds. A watershed is an area of land where all the water that falls or flows into it converges to a common outlet, such as a river, lake, or ocean. It is bounded by a drainage divide, which is a boundary that separates water flowing into different watersheds.</p>
 <p>The watershed tool uses flow direction and stream links to delineate watershed boundaries. The watershed boundaries will be defined such that water flows into each of the stream links.</p>
 <p>Open the “Watershed” tool and parameterize it as follows:</p>
