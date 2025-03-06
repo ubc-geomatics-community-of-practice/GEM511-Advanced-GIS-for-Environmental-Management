@@ -151,13 +151,13 @@ The data have been processed ahead of time so that you may focus more on machine
 
 Next, we are going to use Exploratory Regression to determine which of our rasters will be most effective in predicting our variables of interest.
 
-**Step 5:** Open the "Exploratory Regression" tool and set the VRI feature class as your "Input Features". Select "CROWN_CLOS" as your "Dependent Variable". Remember that as part of the pre-processing, all raster data were extracted at the VRI points. Select the fields corresponding to the rasters in the VRI feature class as your "Candidate Explanatory Variables". Leave out the original Landsat bands. Save the "Output Report File" as "regression_results.txt". This will create a text file in your default folder with the results of the tool, which can also be viewed under "View Details". Leave the rest of the tool parameters as the default values and run the tool.
+**Step 5:** Open the "Exploratory Regression" tool and set the VRI feature class as your "Input Features". Select "CROWN_CLOS" as your "Dependent Variable". Remember that as part of the pre-processing, all raster data were extracted at the VRI points. Select the fields corresponding to the rasters in the VRI feature class as your "Candidate Explanatory Variables". Leave out the original Landsat bands. Save the "Output Report File" as "regression_results.txt". This will create a text file in your default folder with the results of the tool, which can also be viewed under "View Details". Leave the rest of the tool parameters as the default values and run the tool. Repeat this step for "FUEL_TYPE".
 
 ```{r 04-exploratory-regression, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/04-exploratory-regression.png")
 ```
 
-**Step 6:** Select the equation you think will work best. Remember to look at all the different measures of model "goodness" (R^2^, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
+**Step 6:** Select the equation you think will work best for both "CROWN_CLOS" and "FUEL_TYPE". Remember to look at all the different measures of model "goodness" (R^2^, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
 
 ------------------------------------------------------------------------
 
