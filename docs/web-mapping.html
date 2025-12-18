@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Lab 6 Web Mapping | GEM 511: Advanced GIS for Environmental Management</title>
   <meta name="description" content="Open Educational Resources for GEM 511 course at the University of British Columbia" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Lab 6 Web Mapping | GEM 511: Advanced GIS for Environmental Management" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2025-03-06" />
+<meta name="date" content="2025-12-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -144,7 +144,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-these-resources"><i class="fa fa-check"></i>How to use these resources</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-get-involved"><i class="fa fa-check"></i>How to get involved</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html"><i class="fa fa-check"></i><b>1</b> Spatial interpolation and visualization of LiDAR</a>
+<li class="chapter" data-level="1" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html"><i class="fa fa-check"></i><b>1</b> Spatial interpolation and visualization of LiDAR Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html#lab-overview"><i class="fa fa-check"></i>Lab Overview</a></li>
 <li class="chapter" data-level="" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html#learning-objectives"><i class="fa fa-check"></i>Learning Objectives</a></li>
@@ -295,10 +295,10 @@ Paul Pickell</p>
 Try ArcGIS Online: <a href="https://learn.arcgis.com/en/paths/try-arcgis-online/" class="uri">https://learn.arcgis.com/en/paths/try-arcgis-online/</a>
 Try the New Map Viewer: <a href="https://learn.arcgis.com/en/paths/try-the-new-map-viewer/" class="uri">https://learn.arcgis.com/en/paths/try-the-new-map-viewer/</a></p>
 <p><strong>Step 1:</strong> Open ArcGIS Pro and load in one vector layer from your project. Ensure that the layer has a Geographic Coordinate System of WGS 1984 and is not projected. Symbolize it however you like and remove all other layers from the map.</p>
-<p><img src="images/06-ubc_buildings-map.PNG" width="100%" /></p>
-<p><img src="images/06-share-tab.PNG" width="25%" /></p>
+<p><img src="images/06-ubc_buildings-map.png" width="100%" /></p>
+<p><img src="images/06-share-tab.png" width="25%" /></p>
 <p><strong>Step 2:</strong> Under the Share tab on the top ribbon, you will see two options: “Web Map” and “Web Layer”. Select “Web Layer” and “Publish Web Layer” under the Share tab. The default name will be the name of your map, but give the layer a meaningful name, add a few words of summary, and add some relevant tags. Select “Feature” as your “Layer Type”, then click “Analyze”. If you do not get any warnings, then click “Publish”. You must be connected to the internet in order to publish the content to your ArcGIS Online profile.</p>
-<p><img src="images/06-share-as-web-layer.PNG" width="50%" /></p>
+<p><img src="images/06-share-as-web-layer.png" width="50%" /></p>
 <p>If you get warnings saying “24078 Layer’s data source is not supported” then ensure that you have removed the default basemap and hillshade from your map. Also ensure that your feature layer is in the WGS 1984 coordinate system and not projected.</p>
 <p><strong>Step 3:</strong> Repeat Step 2 with a raster layer from your project, but change the “Layer Type” to “Tile”. Again, ensure that the layer is in the WGS 1984 Geographic Coordinate System and is not projected. “Analyze” and then “Publish” the layer if there are no warnings.</p>
 <p><strong>Step 4:</strong> After completing Steps 2 and 3, a green message should appear with a URL saying “Manage the web layer”. You can click the URL to take you to the hosted feature/tile layer on ArcGIS Online or you can <a href="https://ubc.maps.arcgis.com/">click here to log in to your ArcGIS Online account</a>. Navigate to the Content tab. You should see both your vector and raster layers listed there as “Feature Layer (hosted)” and “Tile Layer (hosted)”.</p>
@@ -370,42 +370,42 @@ Try the New Map Viewer: <a href="https://learn.arcgis.com/en/paths/try-the-new-m
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

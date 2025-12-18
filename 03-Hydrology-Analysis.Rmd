@@ -140,7 +140,7 @@ Leave all other fields blank then run the tool.
 To see how different thresholds impact stream identification, change the symbology of the flow accumulation raster and use the **Manual Interval** symbology to set two classes. See the example below for a stream network with a flow accumulation threshold of 100 (cells with flow accumulation \< 100 are set to no color). Note that in the example below the threshold is likely too small, and results in many small streams that are not evident in the ArcGIS basemap. 
 
 ```{r 03-streams, out.width= "100%", echo = FALSE}
-  knitr::include_graphics("images/03-streams.JPG")
+  knitr::include_graphics("images/03-streams.jpg")
 ```
 
 Compare your stream network to the streams visible in the ArcGIS satellite basemap and the filled DEM (use the shaded relief symbology for a better visualization). Experiment with different flow accumulation thresholds. What other features could be misclassified as a stream using this method? Find a threshold that captures a realisitc stream network visible in the basemap and DEM, without too many misclassified features.
@@ -150,7 +150,7 @@ Once you have selected a threshold, open the "Reclassify (Spatial Analyst Tools)
 Use the threshold you have selected as the Start and End values. Set the cells representing streams to a "New value" of 1 and all other cells to `NODATA`. Save the new raster as "Stream_reclass".
 
 ```{r 03-reclassify, out.width= "50%", echo = FALSE}
-  knitr::include_graphics("images/03-reclassify.JPG")
+  knitr::include_graphics("images/03-reclassify.jpg")
 ```
 
 Zoom into the reclassified flow accumulation raster to see your stream network.
@@ -230,17 +230,17 @@ Create a new field called "PercentGradient" and use the "Calculate Field" tool t
 Stream width is defined using the entire channel width, not just the part with water currently flowing through it. Use the examples below to guide you with your mapping. You should be able to see channels for streams in orders 2-4, but order 1 streams will likely not be visible. We will assign these streams an average width of 1 m. Note that there are more sophisticated methods to calculate stream width from a DEM!
 
 ```{r 03-s4-stream, out.width= "100%", echo = FALSE}
-  knitr::include_graphics("images/03-s4-stream.JPG")
+  knitr::include_graphics("images/03-s4-stream.jpg")
 ```
 S4 Stream
 
 ```{r 03-s3-stream, out.width= "100%", echo = FALSE}
-knitr::include_graphics("images/03-s3-stream.JPG")
+knitr::include_graphics("images/03-s3-stream.jpg")
 ```
 S3 Stream
 
 ```{r 03-s2-stream, out.width= "100%", echo = FALSE}
-knitr::include_graphics("images/03-s2-stream.JPG")
+knitr::include_graphics("images/03-s2-stream.jpg")
 ```
 S2 Stream (it is barely visible)
 
@@ -279,7 +279,7 @@ If you get an "Invalid Field" error it is because the variable in the "Expressio
 **Step 1:** Use the following table to assign a **stream class** (S1-S6) based on average channel width and fish bearing potential. Once a stream class is assigned, the Reserve Zone defines the region around the stream where harvest is prohibited and the Management Zone defines the region where limited harvest is permitted. Note that not all stream classes may be present in the dataset. (We do not have the S1 large rivers class in the study area so no need to include it.)
 
 ```{r 03-stream-class, out.width= "100%", echo = FALSE}
-  knitr::include_graphics("images/03-stream-class.PNG")
+  knitr::include_graphics("images/03-stream-class.png")
 ```
 
 In the **StreamNetwork_join** layer, create a new attribute called "Reserve_BufferDist" and set the "Number Format" to "Numeric".
@@ -337,7 +337,7 @@ Open the "Watershed" tool and parameterize it as follows:
 The output will be a new raster where the cell values correspond to each unique watershed catchment. You should have something like the following (do not worry if it is not exactly the same as the screenshot):
 
 ```{r 03-map-layers, out.width= "100%", echo = FALSE}
-  knitr::include_graphics("images/03-map-layers.JPG")
+  knitr::include_graphics("images/03-map-layers.jpg")
 ```
 
 **Step 4:** Finally, we will create contour lines to help interpret the the DEM. Open the "Contour" tool and parameterize it as follows:

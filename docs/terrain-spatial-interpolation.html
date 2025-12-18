@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Lab 1 Spatial interpolation and visualization of LiDAR | GEM 511: Advanced GIS for Environmental Management</title>
+  <title>Lab 1 Spatial interpolation and visualization of LiDAR Data | GEM 511: Advanced GIS for Environmental Management</title>
   <meta name="description" content="Open Educational Resources for GEM 511 course at the University of British Columbia" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lab 1 Spatial interpolation and visualization of LiDAR | GEM 511: Advanced GIS for Environmental Management" />
+  <meta property="og:title" content="Lab 1 Spatial interpolation and visualization of LiDAR Data | GEM 511: Advanced GIS for Environmental Management" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Open Educational Resources for GEM 511 course at the University of British Columbia" />
   <meta name="github-repo" content="github.com/ubc-geomatics-community-of-practice/GEM511-Advanced-GIS-for-Environmental-Management/book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lab 1 Spatial interpolation and visualization of LiDAR | GEM 511: Advanced GIS for Environmental Management" />
+  <meta name="twitter:title" content="Lab 1 Spatial interpolation and visualization of LiDAR Data | GEM 511: Advanced GIS for Environmental Management" />
   
   <meta name="twitter:description" content="Open Educational Resources for GEM 511 course at the University of British Columbia" />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2025-03-06" />
+<meta name="date" content="2025-12-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -144,7 +144,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-these-resources"><i class="fa fa-check"></i>How to use these resources</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-get-involved"><i class="fa fa-check"></i>How to get involved</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html"><i class="fa fa-check"></i><b>1</b> Spatial interpolation and visualization of LiDAR</a>
+<li class="chapter" data-level="1" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html"><i class="fa fa-check"></i><b>1</b> Spatial interpolation and visualization of LiDAR Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html#lab-overview"><i class="fa fa-check"></i>Lab Overview</a></li>
 <li class="chapter" data-level="" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html#learning-objectives"><i class="fa fa-check"></i>Learning Objectives</a></li>
@@ -253,7 +253,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="terrain-spatial-interpolation" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Lab 1</span> Spatial interpolation and visualization of LiDAR<a href="terrain-spatial-interpolation.html#terrain-spatial-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Lab 1</span> Spatial interpolation and visualization of LiDAR Data<a href="terrain-spatial-interpolation.html#terrain-spatial-interpolation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Written by
 Paul Pickell</p>
 <div id="lab-overview" class="section level2 unnumbered hasAnchor">
@@ -273,37 +273,9 @@ Paul Pickell</p>
 </div>
 <div id="lab1-deliverables" class="section level2 unnumbered hasAnchor">
 <h2>Deliverables<a href="terrain-spatial-interpolation.html#lab1-deliverables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Lab report with the following specification:</p>
-<p><input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input></p>
-<p><input type="checkbox" unchecked> Introduction should address the following questions and requirements (10 points):</input></p>
-<ul>
-<li><p>What is spatial interpolation? Why is it useful?</p></li>
-<li><p>Describe the different spatial interpolation methods that were tested.</p></li>
-<li><p>What are the parameters of each corresponding tool in ArcGIS Pro and how do they impact the algorithm?</p></li>
-<li><p>Reference to at least 3 peer review sources.</p></li>
-</ul>
-<p><input type="checkbox" unchecked> Methods should address the following requirements (10 points):</input></p>
-<ul>
-<li><p>Brief study area description and study area map (Note: there is an orthophoto of the research forest that was acquired at the same time as the LiDAR point cloud that you can reference and map).</p></li>
-<li><p>Outline all primary steps included in the lab (no need to include exact ArcGIS Pro tool parameters).</p></li>
-<li><p>Justify the use of specific methodological choices indicated in the lab.</p></li>
-</ul>
-<p><input type="checkbox" unchecked> Results should address the following questions and requirements (15 points):</input></p>
-<ul>
-<li><p>Statistics of the LiDAR point cloud in the AOI. What is the true, measured range of elevation by LiDAR within the AOI?</p></li>
-<li><p>Table of summary statistics of the binned DEM.</p></li>
-<li><p>A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach.</p></li>
-<li><p>Tables that show zonal statistics of the difference rasters across elevation and slope ranges. Which zones has the largest differences?</p></li>
-<li><p>Additional maps and/or 3D scenes that illustrate any local observations you made about the magnitude of differences or comparisons between interpolation algorithms</p></li>
-</ul>
-<p><input type="checkbox" unchecked> Discussion should address the following questions and requirements (10 points):</input></p>
-<ul>
-<li><p>How did each spatial interpolation algorithm perform relative to the binned DEM and the raw point cloud?</p></li>
-<li><p>Interpret the results using your observations of the point cloud and other available data, statistics and metadata.</p></li>
-<li><p>Strengths and limitations of each spatial interpolation algorithm in this study area.</p></li>
-<li><p>Which spatial interpolation algorithm would you recommend the research forest use? Defend and justify your choice.</p></li>
-<li><p>Reference to at least 3 peer review sources (can be the same sources as introduction).</p></li>
-</ul>
+<p><input type="checkbox" unchecked> Responses to the questions posed throughout the lab on the course management system (25 points)</input></p>
+<p><input type="checkbox" unchecked> Table that shows zonal statistics of the difference rasters across elevation and slope ranges of the binned DEM (10 points)</input></p>
+<p><input type="checkbox" unchecked> A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach (15 points)</input></p>
 <hr />
 </div>
 <div id="data" class="section level2 unnumbered hasAnchor">
@@ -318,7 +290,7 @@ Paul Pickell</p>
 <p><strong>Step 1:</strong> Navigate to the MGEM Data Store and inspect the UBC MKRF 2016 LiDAR collection: <a href="https://206-12-122-94.cloud.computecanada.ca/UBC_MKRF_LiDAR_2016/" class="uri">https://206-12-122-94.cloud.computecanada.ca/UBC_MKRF_LiDAR_2016/</a></p>
 <p>At the top, you will see some generic metadata for the collection. Below that, you will see a web map showing the tiles. If you click on one of the tiles, it gives the direct download universal resource locator (URL) and file size. If you scroll down, all the tiles are listed in a table along with a metadata file that provides some more specific information about each individual tile-file.</p>
 <p><strong>Step 2:</strong> Click to open one of the metadata txt files in your browser. This is json-formatted metadata for the associated LiDAR tile. Scrolling through it you will find summary statistics over a number of different dimensions. What attributes describe these LiDAR data?</p>
-<p><img src="images/01-metadata.PNG" width="50%" /></p>
+<p><img src="images/01-metadata.png" width="50%" /></p>
 <p>Suppose that we have some AOI within the research forest that we need to retrieve the LiDAR data from. How could we figure out which tiles we need without downloading all of them from the server? In most cases, you should have a polygon tile index available to assist you with this task. The tile index is another form of metadata, albeit spatial metadata.</p>
 <p><strong>Step 3:</strong> Right-click on the <strong>tile_index.geojson</strong> file at the top of the file listing and select “Copy Link”. Open QGIS and click the “Open Data Source Manager” button (Layer &gt; Data Source Manager).</p>
 <p>On the left of the Data Source Manager dialogue, select “Vector”, toggle on “Protocol: HTTP(S), cloud, etc”, then paste the URL you copied into the “URI” field (uniform resource identifier). “Add” the layer to your map view then “Close” the dialogue and inspect the result.</p>
@@ -327,7 +299,7 @@ Paul Pickell</p>
 <p>Now that we have spatial tile metadata, we can perform spatial intersection to find the right tiles. Our AOI is going to be the following longitude-latitude bounding box:</p>
 <p>Lower left (LL): -122.55275, 49.32325</p>
 <p>Upper right (UR): -122.52506, 49.34135</p>
-<p><strong>Step 4:</strong> Open a notepad text editor (<strong>Notepad ++</strong>) and convert this bounding box into a geojson polygon feature with the following syntax:</p>
+<p><strong>Step 4:</strong> Open a notepad text editor and convert this bounding box into a geojson polygon feature with the following syntax:</p>
 <pre><code>{
   &quot;type&quot;: &quot;Polygon&quot;,
   &quot;coordinates&quot;: [
@@ -342,8 +314,8 @@ Paul Pickell</p>
 }</code></pre>
 <p>Replace with the correct longitude/latitude values. Note that this creates a square polygon and the fifth coordinate is the same as the first, which topologically encloses the polygon. Save the geojson in your QGIS project folder as <strong>“mkrf_aoi.geojson”</strong> then open the file in QGIS. You should see that our AOI spans 16 total tiles.</p>
 <p><strong>Step 4:</strong> Click the “Select by Location” tool and “Select features from” the <strong>ubc_mkrf_lidar_2016_tile_index</strong> layer by intersecting with the <strong>mkrf_aoi</strong> you just made. Now the intersecting tiles are selected. Turn off <strong>mkrf_aoi</strong> layer so that you can see the selection.</p>
-<p><img src="images/01-selectbylocation.png" width="75%" />
-<img src="images/01-qgis-intersect-aoi-tiles.png" width="75%" /></p>
+<p><img src="images/01-selectbylocation.png" width="75%" /></p>
+<p><img src="images/01-qgis-intersect-aoi-tiles.png" width="75%" /></p>
 <p><strong>Step 5:</strong> Click the “Identify Features” tool and click on one of the selected tiles, which will highlight it in red and open the attributes for the polygon. Expand “ubc_mkrf_lidar_2016_tile_index”, “url”, “(Actions)”, and “url”. Click the hyperlinked URL to download the tile to your QGIS project folder. Repeat this step for all 16 tiles.</p>
 <p><img src="images/01-identifyfeatures.png" width="75%" /></p>
 <p><strong>Step 6:</strong> Add all of the downloaded tiles to your QGIS map canvas. The default symbology is the classification attribute, but only ground returns have been classified for the research forest.</p>
@@ -409,17 +381,20 @@ Paul Pickell</p>
                 &quot;filename&quot;:&quot;mkrf_aoi_lidar.las&quot;
             }</code></pre>
 <p><strong>Step 8:</strong> Copy the contents of the pipeline to a text editor and save the file as “process-lidar.json” in your QGIS project folder. It should be in the same place as the .laz tiles you just downloaded. The output will also be written to this folder.</p>
-<p><img src="images/01-json.PNG" width="100%" /></p>
-<p><strong>Step 9:</strong> Return to the OSGeo4W shell and run the pipeline using the following command: <code>pdal pipeline process-lidar.json</code>. It may take several minutes for this step to complete, but in the end you should have a file called “mkrf_aoi_lidar.las” in your QGIS project folder. Drag it into QGIS and inspect it. The processed file should be ~90000KB when finished. If you get an error at this step make sure you have downloaded the correct tiles and the filenames match what is being loaded into the pipeline.</p>
+<p><img src="images/01-json.png" width="100%" /></p>
+<p><strong>Step 9:</strong> Return to the OSGeo4W shell and run the pipeline using the following command: <code>pdal pipeline process-lidar.json</code>. It may take several minutes for this step to complete, but in the end you should have a file called “mkrf_aoi_lidar.las” in your QGIS project folder. Drag it into QGIS and inspect it. The processed file should be ~90000KB when finished. If you get an error at this step make sure you have downloaded the correct tiles and the filenames match what is being loaded into the pipeline. Once it completes, you can get the summary statistics of the points using the <code>pdal info</code> subcommand.</p>
+<div id="q1.-what-is-the-measured-range-of-elevation-by-lidar-within-the-aoi-1-point" class="section level5 hasAnchor" number="1.0.0.0.1">
+<h5><span class="header-section-number">1.0.0.0.1</span> Q1. What is the measured range of elevation by LiDAR within the AOI? (1 point)<a href="terrain-spatial-interpolation.html#q1.-what-is-the-measured-range-of-elevation-by-lidar-within-the-aoi-1-point" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p><strong>Step 10</strong>: Finally, we will create a thinned point cloud to compare different interpolation methods in Task 3. In the OSGeo4w shell run the following command:</p>
-<p><code>pdal translate mkrf_aoi_lidar.las thinned.las sample --filters.sample.radius=5</code></p>
-<p>This will thin the point cloud by selecting a random point within a sphere with 5m radius. The output will be called “thinned.las” and will be written to the current working directory.</p>
+<pre><code>pdal translate mkrf_aoi_lidar.las thinned.las sample --filters.sample.radius=5</code></pre>
+<p>This will thin the point cloud by selecting a random point within a sphere with 5 m radius. The output will be called “thinned.las” and will be written to the current working directory.</p>
 <hr />
+</div>
 </div>
 <div id="task-2-visualize-lidar-data-in-qgis" class="section level2 unnumbered hasAnchor">
 <h2>Task 2: Visualize LiDAR data in QGIS<a href="terrain-spatial-interpolation.html#task-2-visualize-lidar-data-in-qgis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The default symbology of LiDAR data in QGIS will be the classification, but we only have ground returns in our file, so everything will appear brown. Try symbolizing some of the other attributes like Intensity, ReturnNumber, and ScanAngleRank.</p>
-<p><img src="images/01-ground.PNG" width="75%" /></p>
+<p><img src="images/01-ground.png" width="75%" /></p>
 <p><strong>Step 1:</strong> Right-click the <strong>mkrf_aoi_lidar</strong> layer, open “Properties”, select “Symbology” from the left, and then select “Attribute by Ramp” from the very top drop-down menu. Then choose your attribute and apply your symbology parameters. Make some notes of your observations for these attributes that you can reference in your report.</p>
 <p>2D is a very boring way to visualize point cloud data, so let’s create a 3D map view in QGIS.</p>
 <p><strong>Step 2:</strong> From the top menu, select “View”, then “3D map views”, and click “New 3D Map View”. A small window will appear. Click and drag it to the top of your map canvas to dock it and make it larger.</p>
@@ -430,22 +405,22 @@ Paul Pickell</p>
 <div id="hold-shift-orbit-camera-around-fixed-position" class="section level3 unnumbered hasAnchor">
 <h3>Hold SHIFT: Orbit camera around fixed position<a href="terrain-spatial-interpolation.html#hold-shift-orbit-camera-around-fixed-position" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you want to pan around a fixed position, then hold the <code>SHIFT</code> key and drag your cursor. The point cloud will rotate in the opposite direction. As you can see from the animation below, dragging your cursor in a circular pattern rotates the point cloud around a stationary imaginary point. If you continuously drag your cursor to the right, you will rotate around the fixed point counter-clockwise.</p>
-<p><img src="images/01-qgis-shift.gif" width="75%" /></p>
+<p><img src="images/01-qgis-shift.gif" width="100%" /></p>
 </div>
 <div id="hold-ctrl-maintain-camera-position-and-change-camera-angle" class="section level3 unnumbered hasAnchor">
 <h3>Hold CTRL: Maintain camera position and change camera angle<a href="terrain-spatial-interpolation.html#hold-ctrl-maintain-camera-position-and-change-camera-angle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you want to pan your camera angle up, down, left or right, then hold the <code>CTRL</code> key and drag your cursor in the direction you want to look. This only changes the camera angle, not the camera elevation or position.</p>
-<p><img src="images/01-qgis-ctrl.gif" width="75%" /></p>
+<p><img src="images/01-qgis-ctrl.gif" width="100%" /></p>
 </div>
 <div id="hold-alt-move-camera-position-on-the-x-y-plane" class="section level3 unnumbered hasAnchor">
 <h3>Hold ALT: Move camera position on the X-Y plane<a href="terrain-spatial-interpolation.html#hold-alt-move-camera-position-on-the-x-y-plane" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you find yourself wanting to move around, then hold the <code>ALT</code> key and drag your cursor in the direction that you want to move the camera. Think of this as sliding along an X-Y plane that is fixed at the camera elevation and angle.</p>
-<p><img src="images/01-qgis-alt.gif" width="75%" /></p>
+<p><img src="images/01-qgis-alt.gif" width="100%" /></p>
 </div>
 <div id="scroll-move-camera-position-tofrom-the-cursor-location" class="section level3 unnumbered hasAnchor">
 <h3>Scroll: Move camera position to/from the cursor location<a href="terrain-spatial-interpolation.html#scroll-move-camera-position-tofrom-the-cursor-location" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you want to move towards some feature, then simply point your cursor at it and scroll without clicking. This movement is akin to traversing a ray that connects your current camera position with a look direction angle (relative to X-Y-Z). Scrolling therefore changes the camera position and elevation. Scrolling down has the effect of “zooming in” while scrolling up has the effect of “zooming out”. Be careful, though, because scrolling will always follow the current position of the cursor, so if you scroll down on one position and then move your cursor and scroll up, your camera position will not be where it started.</p>
-<p><img src="images/01-qgis-scroll.gif" width="75%" /></p>
+<p><img src="images/01-qgis-scroll.gif" width="100%" /></p>
 <p><strong>Step 4:</strong> Practice navigating in 3D and observing the different attributes across the ground surface. Make some notes of your observations for your report. There is a button on the top of the 3D map view to save an image of any given view.</p>
 <hr />
 </div>
@@ -457,13 +432,12 @@ Paul Pickell</p>
 <p><strong>Step 2:</strong> We can now add our LAS Datasets to the map. Depending on the zoom extent, you may only see the red bounding box of the LAS Dataset file; this is not an error, you just need to zoom in to see the actual points. Alternatively, you can open the dataset in a Local Scene, although due to the size of the point cloud this might cause some lag. Compare the full and thinned point clouds.</p>
 <p><img src="images/01-arcgis-lasd.png" width="75%" /></p>
 <p><strong>Step 3:</strong> Another way to explore the dataset is to view the properties. Right-click the LAS Dataset and open the “Properties”. Here we can see some statistics of the point cloud, such as information regarding the Classification Codes and Return Number. You can get more detailed metadata from a Catalog view. From the top ribbon, select the View tab and then click “Catalog View”. Navigate to where you saved the LAS Dataset, right-click it, and open the “Properties” again.</p>
-<p>Record and compare these values for the full and thinned datasets:</p>
-<ul>
-<li><p>How many points are in the dataset?</p></li>
-<li><p>What is the average point spacing?</p></li>
-<li><p>What is the range of elevation?</p></li>
-</ul>
+<div id="q2.-what-differences-do-you-observe-between-the-thinned-and-non-thinned-datasets-in-terms-of-number-of-points-average-point-spacing-and-the-measured-range-of-elevation-3-points" class="section level5 hasAnchor" number="1.0.0.0.2">
+<h5><span class="header-section-number">1.0.0.0.2</span> Q2. What differences do you observe between the thinned and non-thinned datasets in terms of number of points, average point spacing, and the measured range of elevation? (3 points)<a href="terrain-spatial-interpolation.html#q2.-what-differences-do-you-observe-between-the-thinned-and-non-thinned-datasets-in-terms-of-number-of-points-average-point-spacing-and-the-measured-range-of-elevation-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p><strong>Step 4:</strong> Search for the “LAS Dataset to Raster” tool, and use “mkrf_aoi_lidar.las” (not thinned) as the input. Since we are interested in creating a terrain surface model, we want to use the “Binning” “Interpolation Type”, and make sure that we use the “Minimum” (i.e., the lowest “Elevation”) points in each “Cell Assignment” of the output raster. “Sampling Value” refers to the resolution of the raster that we are creating, in other words, the spacing of our raster cell samples. Set the “Sampling Value” to <strong>1</strong> (meters), name the output raster “MKRF_DEM” and run the tool.</p>
+</div>
+<div id="q3.-how-might-changing-the-parameters-of-this-tool-interpolation-type-cell-assignment-and-sampling-value-affect-the-statistical-qualities-of-the-output-dem-6-points" class="section level5 hasAnchor" number="1.0.0.0.3">
+<h5><span class="header-section-number">1.0.0.0.3</span> Q3. How might changing the parameters of this tool (“Interpolation Type”, “Cell Assignment”, and “Sampling Value”) affect the statistical qualities of the output DEM? (6 points)<a href="terrain-spatial-interpolation.html#q3.-how-might-changing-the-parameters-of-this-tool-interpolation-type-cell-assignment-and-sampling-value-affect-the-statistical-qualities-of-the-output-dem-6-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p><img src="images/01-arcgis-lasd-to-raster.png" width="50%" /></p>
 <p>The tool above is the most straight-forward way to create a DEM from a LiDAR point cloud in ArcGIS Pro. Because this DEM was fit using all available lidar points we will consider it to be our “ground-truth” dataset.</p>
 <p>In the following steps you will create a 2D point dataset using the <strong>thinned LiDAR point cloud</strong>. We will use this to test and compare three interpolation methods in the next task.</p>
@@ -475,15 +449,16 @@ Paul Pickell</p>
 <p>We now have a 2D point feature class that we can use to compare different spatial interpolation algorithms!</p>
 <hr />
 </div>
+</div>
 <div id="task-4-apply-and-evaluate-spatial-interpolation-algorithms-in-arcgis-pro" class="section level2 unnumbered hasAnchor">
 <h2>Task 4: Apply and evaluate spatial interpolation algorithms in ArcGIS Pro<a href="terrain-spatial-interpolation.html#task-4-apply-and-evaluate-spatial-interpolation-algorithms-in-arcgis-pro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Since we now have points representing height values, we can use the raster interpolation toolset to experiment with three different interpolation methods: Natural Neighbor, Inverse Distance Weighting (IDW), and Spline. You can read more about the tools we will be using from the <a href="https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/an-overview-of-the-interpolation-tools.htm">ArcGIS Pro documentation</a>.</p>
 <p>Search for each of the interpolation tools listed above individually (for IDW, the tool is called “IDW”) and explore their parameters. Natural Neighbor can be found within the “LAS Dataset to Raster” tool, change the “Interpolation Type” to “Triangulation”, and “Interpolation Method” to “Natural Neighbor”.</p>
-<p><strong>Step 1:</strong> Create three rasters for each interpolation method: Natural Neighbor, IDW, and Spline. We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want. For each tool, keep the default settings, but make sure that you generate the rasters at 1 m resolution or whatever resolution you decided to run. Note that the Spline tool will take several minutes to run. If you have trouble running this step try generating the rasters at a slightly coarser resolution (5 or 10m).</p>
+<p><strong>Step 1:</strong> Create three rasters for each interpolation method: Natural Neighbor, IDW, and Spline. We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want. For each tool, keep the default settings, but make sure that you generate the rasters at 1 m resolution. Note that the Spline tool will take several minutes to run. If you have trouble running this step try generating the rasters at a slightly coarser resolution (5 m).</p>
 <p>Take some time to inspect each raster, and look at their similarities and differences (make sure that you are using a common symbology when comparing). We can compare the differences between our interpolated rasters with the binned DEM that we created in the last task.</p>
 <p><strong>Step 2:</strong> In order to compare the rasters, we will make a raster of the differences between the interpolated surface and the binned DEM. You will use the “Raster Calculator” tool to do this. Subtract each interpolated surface from <strong>MKRF_DEM</strong>. Name each difference raster according to the interpolation method: “spline_diff”, “nn_diff”, and “idw_diff”. We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want.</p>
-<p>Next, we are going to quantitatively evaluate the differences and calculate statistics over different zones to see if there are any patterns or relationships with other variables.</p>
-<p><strong>Step 3:</strong> Change the Symbology of the <strong>MKRF_DEM</strong> to Classify and set the number of Classes to 3 with the method of your choice. Use the “Reclassify (Spatial Analyst)” tool to reclassify the binned <strong>MKRF_DEM</strong> into “high”, “medium”, and “low” areas using this classification scheme. (If you symbolize first, then open the Reclassify tool it should popukate the start and end fields with the symbolized values.)</p>
+<p>Next, we are going to quantitatively evaluate the differences and calculate statistics over different elevation and slope classes to examine how the interpolation methods perform.</p>
+<p><strong>Step 3:</strong> Change the Symbology of the <strong>MKRF_DEM</strong> to Classify and set the number of Classes to 3 with the method of your choice. Use the “Reclassify (Spatial Analyst)” tool to reclassify the binned <strong>MKRF_DEM</strong> into “high”, “medium”, and “low” areas using this classification scheme. (If you symbolize first, then open the Reclassify tool it should populate the start and end fields with the symbolized values.)</p>
 <p><strong>Step 4:</strong> Use the “Slope (Spatial Analyst)” tool to create a raster called “mkrf_slope” using degrees. Then, use the “Reclassify” tool to reclassify the degree slope values into three classes using the same method.</p>
 <p>We will use these reclassified areas as zones to calculate statistics about the difference between the interpolated surfaces and the binned DEM.</p>
 <p><strong>Step 5:</strong> Search for the “Zonal Statistics as Table (Spatial Analyst)” tool. The “Input Raster or Feature Zone Data” are the reclassified zone rasters you just made. “Zone Field” should be “Value”. The “Input Value Raster” is the raster that we want to summarize over the zones, which are all of the difference rasters we calculated in the earlier step. Run this tool for both each combination of the two topography zonations and the three difference rasters for the different interpolation methods. You should finish with six tables:</p>
@@ -495,17 +470,29 @@ Paul Pickell</p>
 <li><p>spline_diff_elev</p></li>
 <li><p>spline_diff_slope</p></li>
 </ul>
-<p><strong>Step 6:</strong> Create a final map with the following elements and include it in the Results:</p>
+<div id="q4.-summarize-and-describe-how-the-interpolation-methods-differ-from-the-binned-dem-across-elevation-and-slope-classes.-which-zonesmethods-are-most-similar-or-dissimilar-10-points" class="section level5 hasAnchor" number="1.0.0.0.4">
+<h5><span class="header-section-number">1.0.0.0.4</span> Q4. Summarize and describe how the interpolation methods differ from the binned DEM across elevation and slope classes. Which zones/methods are most similar or dissimilar? (10 points)<a href="terrain-spatial-interpolation.html#q4.-summarize-and-describe-how-the-interpolation-methods-differ-from-the-binned-dem-across-elevation-and-slope-classes.-which-zonesmethods-are-most-similar-or-dissimilar-10-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="table-that-shows-zonal-statistics-of-the-difference-rasters-across-elevation-and-slope-ranges-of-the-binned-dem-10-points" class="section level5 hasAnchor" number="1.0.0.0.5">
+<h5><span class="header-section-number">1.0.0.0.5</span> Table that shows zonal statistics of the difference rasters across elevation and slope ranges of the binned DEM (10 points)<a href="terrain-spatial-interpolation.html#table-that-shows-zonal-statistics-of-the-difference-rasters-across-elevation-and-slope-ranges-of-the-binned-dem-10-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p><strong>Step 6:</strong> Create a final map with the following elements:</p>
 <ul>
 <li>Each of the interpolated surfaces and difference rasters (6 total)
 <ul>
 <li>The interpolated surfaces should be symbolized using <strong>Shaded Relief</strong> symbology</li>
 </ul></li>
 <li>Summary statistics showing the mean and standard deviation across slope and elevation zones</li>
-<li>North arrow and appropriate labels for each map panel (no need for name, date and title as this figure will be embedded in your report)</li>
+<li>North arrow and appropriate labels for each map panel</li>
 </ul>
+</div>
+<div id="a-panel-of-maps-that-symbolizes-the-dems-produced-and-the-difference-rasters-that-were-produced-by-the-comparison-to-the-binning-approach-15-points" class="section level5 hasAnchor" number="1.0.0.0.6">
+<h5><span class="header-section-number">1.0.0.0.6</span> A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach (15 points)<a href="terrain-spatial-interpolation.html#a-panel-of-maps-that-symbolizes-the-dems-produced-and-the-difference-rasters-that-were-produced-by-the-comparison-to-the-binning-approach-15-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Note that you can add standalone tables to your Map Layout by first clicking on the table in the Contents pane then Insert &gt; Table Frame. Click and drag to set the extent of the table on the map, (similar to how you add a Map Frame).</p>
+</div>
+<div id="q5.-which-spatial-interpolation-algorithm-would-you-recommend-the-research-forest-use-defend-and-justify-your-choice.-5-points" class="section level5 hasAnchor" number="1.0.0.0.7">
+<h5><span class="header-section-number">1.0.0.0.7</span> Q5. Which spatial interpolation algorithm would you recommend the research forest use? Defend and justify your choice. (5 points)<a href="terrain-spatial-interpolation.html#q5.-which-spatial-interpolation-algorithm-would-you-recommend-the-research-forest-use-defend-and-justify-your-choice.-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <hr />
+</div>
 </div>
 <div id="task-5-visualize-3d-data-in-arcgis-pro" class="section level2 unnumbered hasAnchor">
 <h2>Task 5: Visualize 3D data in ArcGIS Pro<a href="terrain-spatial-interpolation.html#task-5-visualize-3d-data-in-arcgis-pro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -519,7 +506,6 @@ Paul Pickell</p>
 <p><strong>Step 5:</strong> Toggle on each pair of DEM (under “Ground”) and difference raster (under “2D Layers”). The ground source adds elevation to the difference raster that you symbolized, but does not impact or change the point cloud because it is inherently 3D data. Since we are using our own custom ground source, we can actually pan and observe a cross-section of the point cloud sitting on, above, or below the ground source and then observe local deviations between the point cloud and the derived DEM surface.</p>
 <p>The white background might make it difficult to observe the differences. You can change the background color of the scene by left-clicking on “Scene” in the Contents Pane, open the “Properties”, and then select the background color. We suggest using a light grey. There are other options for illumination that you can also modify in the “Properties”, if you want. The image below shows an example of what the IDW might look like:</p>
 <p><img src="images/01-arcgis-idw-diff.png" width="100%" /></p>
-<p>Explore all of the DEM surfaces and export some examples that could help you interpret and illustrate your observations in your report.</p>
 <hr />
 </div>
 <div id="summary" class="section level2 unnumbered hasAnchor">
@@ -552,42 +538,42 @@ You also practiced evaluating different spatial interpolation algorithms, which 
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

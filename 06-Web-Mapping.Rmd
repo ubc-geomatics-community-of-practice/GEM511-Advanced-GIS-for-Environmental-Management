@@ -60,17 +60,17 @@ Try the New Map Viewer: https://learn.arcgis.com/en/paths/try-the-new-map-viewer
 **Step 1:** Open ArcGIS Pro and load in one vector layer from your project. Ensure that the layer has a Geographic Coordinate System of WGS 1984 and is not projected. Symbolize it however you like and remove all other layers from the map.
 
 ```{r 06-ubc_buildings-map, out.width= "100%", echo = FALSE}
-    knitr::include_graphics("images/06-ubc_buildings-map.PNG")
+    knitr::include_graphics("images/06-ubc_buildings-map.png")
 ```
 
 ```{r 06-share-tab, out.width= "25%", echo = FALSE}
-    knitr::include_graphics("images/06-share-tab.PNG")
+    knitr::include_graphics("images/06-share-tab.png")
 ```
 
 **Step 2:** Under the Share tab on the top ribbon, you will see two options: "Web Map" and "Web Layer". Select "Web Layer" and "Publish Web Layer" under the Share tab. The default name will be the name of your map, but give the layer a meaningful name, add a few words of summary, and add some relevant tags. Select "Feature" as your "Layer Type", then click "Analyze". If you do not get any warnings, then click "Publish". You must be connected to the internet in order to publish the content to your ArcGIS Online profile.
 
 ```{r 06-share-as-web-layer, out.width= "50%", echo = FALSE}
-    knitr::include_graphics("images/06-share-as-web-layer.PNG")
+    knitr::include_graphics("images/06-share-as-web-layer.png")
 ```
 
 If you get warnings saying “24078 Layer’s data source is not supported” then ensure that you have removed the default basemap and hillshade from your map. Also ensure that your feature layer is in the WGS 1984 coordinate system and not projected.

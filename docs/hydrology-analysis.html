@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Lab 3 Terrain Analysis and Riparian Area Management | GEM 511: Advanced GIS for Environmental Management</title>
   <meta name="description" content="Open Educational Resources for GEM 511 course at the University of British Columbia" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Lab 3 Terrain Analysis and Riparian Area Management | GEM 511: Advanced GIS for Environmental Management" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2025-03-06" />
+<meta name="date" content="2025-12-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -144,7 +144,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-these-resources"><i class="fa fa-check"></i>How to use these resources</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-get-involved"><i class="fa fa-check"></i>How to get involved</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html"><i class="fa fa-check"></i><b>1</b> Spatial interpolation and visualization of LiDAR</a>
+<li class="chapter" data-level="1" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html"><i class="fa fa-check"></i><b>1</b> Spatial interpolation and visualization of LiDAR Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html#lab-overview"><i class="fa fa-check"></i>Lab Overview</a></li>
 <li class="chapter" data-level="" data-path="terrain-spatial-interpolation.html"><a href="terrain-spatial-interpolation.html#learning-objectives"><i class="fa fa-check"></i>Learning Objectives</a></li>
@@ -354,11 +354,11 @@ Figure 3.1: Flow Direction.
 <p>Leave all other fields blank then run the tool.</p>
 <p><strong>Step 4:</strong> Next, we will create a raster-based stream network using a threshold in the flow accumulation raster. For example, if the threshold is 100, then only cells with flow accumulation greater than 100 will be counted as a stream. Cells with flow accumulation less than 100 will be set to a background value of 0.</p>
 <p>To see how different thresholds impact stream identification, change the symbology of the flow accumulation raster and use the <strong>Manual Interval</strong> symbology to set two classes. See the example below for a stream network with a flow accumulation threshold of 100 (cells with flow accumulation &lt; 100 are set to no color). Note that in the example below the threshold is likely too small, and results in many small streams that are not evident in the ArcGIS basemap.</p>
-<p><img src="images/03-streams.JPG" width="100%" /></p>
+<p><img src="images/03-streams.jpg" width="100%" /></p>
 <p>Compare your stream network to the streams visible in the ArcGIS satellite basemap and the filled DEM (use the shaded relief symbology for a better visualization). Experiment with different flow accumulation thresholds. What other features could be misclassified as a stream using this method? Find a threshold that captures a realisitc stream network visible in the basemap and DEM, without too many misclassified features.</p>
 <p>Once you have selected a threshold, open the “Reclassify (Spatial Analyst Tools)” tool.</p>
 <p>Use the threshold you have selected as the Start and End values. Set the cells representing streams to a “New value” of 1 and all other cells to <code>NODATA</code>. Save the new raster as “Stream_reclass”.</p>
-<p><img src="images/03-reclassify.JPG" width="50%" /></p>
+<p><img src="images/03-reclassify.jpg" width="50%" /></p>
 <p>Zoom into the reclassified flow accumulation raster to see your stream network.</p>
 <p><strong>Step 5:</strong> Next, we will assign a stream order to each segment in the stream network. Stream ordering is a system to classify streams based on the number of tributaries (smaller streams) that flow into it. First order streams have no tributaries and higher order streams may have multiple levels of tributaries flowing into it.</p>
 <p>Open the “Stream Order” tool and parameterize it as follows:</p>
@@ -414,11 +414,11 @@ Figure 3.1: Flow Direction.
 <p>Create a new field called “PercentGradient” and use the “Calculate Field” tool to calculate the gradient for each stream segment using the change in elevation and the length of the stream segment. Streams with gradient &lt; 20% will be considered as “fish bearing”.</p>
 <p><strong>Step 6:</strong> Next, we will use the ESRI basemaps to measure stream width for a sample of streams stratified by order. We will use the average stream width per order to approximate the width for all streams in the study area. (For example, if the average width of streams in order 1 is 30 m, all streams in order 1 will be assigned that width).</p>
 <p>Stream width is defined using the entire channel width, not just the part with water currently flowing through it. Use the examples below to guide you with your mapping. You should be able to see channels for streams in orders 2-4, but order 1 streams will likely not be visible. We will assign these streams an average width of 1 m. Note that there are more sophisticated methods to calculate stream width from a DEM!</p>
-<p><img src="images/03-s4-stream.JPG" width="100%" />
+<p><img src="images/03-s4-stream.jpg" width="100%" />
 S4 Stream</p>
-<p><img src="images/03-s3-stream.JPG" width="100%" />
+<p><img src="images/03-s3-stream.jpg" width="100%" />
 S3 Stream</p>
-<p><img src="images/03-s2-stream.JPG" width="100%" />
+<p><img src="images/03-s2-stream.jpg" width="100%" />
 S2 Stream (it is barely visible)</p>
 <p>Measure 10-15 stream widths per order using the “Measure” tool on your toolbar and record these measurements in an excel document. When you are satisfied with your measurements calculate average width of each stream order. Use the shaded relief DEM and the stream network polyline to help you find some of the smaller order 2 streams.</p>
 <p><strong>Step 7:</strong> In the <strong>StreamNetwork_join</strong> layer, create a new field called “StreamWidth”. We will use an <code>ifelse</code> statement to conditionally assign values to the stream width attribute depending on stream order. Select the “StreamWidth” column in the attribute table and click “Calculate”. In the “Calculate Field” tool, change the “Expression Type” to “Python”.</p>
@@ -441,7 +441,7 @@ S2 Stream (it is barely visible)</p>
 <div id="task-3-mapping-watersheds-and-riparian-management-areas" class="section level2 unnumbered hasAnchor">
 <h2>Task 3: Mapping Watersheds and Riparian Management Areas<a href="hydrology-analysis.html#task-3-mapping-watersheds-and-riparian-management-areas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Step 1:</strong> Use the following table to assign a <strong>stream class</strong> (S1-S6) based on average channel width and fish bearing potential. Once a stream class is assigned, the Reserve Zone defines the region around the stream where harvest is prohibited and the Management Zone defines the region where limited harvest is permitted. Note that not all stream classes may be present in the dataset. (We do not have the S1 large rivers class in the study area so no need to include it.)</p>
-<p><img src="images/03-stream-class.PNG" width="100%" /></p>
+<p><img src="images/03-stream-class.png" width="100%" /></p>
 <p>In the <strong>StreamNetwork_join</strong> layer, create a new attribute called “Reserve_BufferDist” and set the “Number Format” to “Numeric”.</p>
 <p>Select the “Reserve_BufferDist” field in the attribute table and open the “Calculate Field” tool. Change the “Expression Type” to “Python”.</p>
 <p>This time we will combine the <code>ifelse</code> syntax from the previous task with conditional statements using stream gradient and width to assign buffer distances for each stream class. The example below defines the Reserve Zone buffer distance of 0m for the S1 class using the stream gradient and stream width attributes.</p>
@@ -480,7 +480,7 @@ S2 Stream (it is barely visible)</p>
 <li>Output raster: <strong>Nahmint_watersheds</strong></li>
 </ul>
 <p>The output will be a new raster where the cell values correspond to each unique watershed catchment. You should have something like the following (do not worry if it is not exactly the same as the screenshot):</p>
-<p><img src="images/03-map-layers.JPG" width="100%" /></p>
+<p><img src="images/03-map-layers.jpg" width="100%" /></p>
 <p><strong>Step 4:</strong> Finally, we will create contour lines to help interpret the the DEM. Open the “Contour” tool and parameterize it as follows:</p>
 <ul>
 <li>Raster: <strong>Nahmint_DEM</strong></li>
@@ -521,42 +521,42 @@ S2 Stream (it is barely visible)</p>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

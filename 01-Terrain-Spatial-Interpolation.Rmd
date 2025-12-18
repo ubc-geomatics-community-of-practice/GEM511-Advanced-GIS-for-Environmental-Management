@@ -3,7 +3,7 @@ yml_content <- yaml::read_yaml("chapterauthors.yml")
 author <- yml_content[["terrain-spatial-interpolation"]][["author"]]
 ```
 
-# Spatial interpolation and visualization of LiDAR {#terrain-spatial-interpolation}
+# Spatial interpolation and visualization of LiDAR Data {#terrain-spatial-interpolation}
 
 Written by
 ```{r results='asis', echo=FALSE}
@@ -30,51 +30,11 @@ The aim of this lab is to use LiDAR data from the University of British Columbia
 
 ## Deliverables {#lab1-deliverables .unnumbered}
 
-Lab report with the following specification:
+<input type="checkbox" unchecked> Responses to the questions posed throughout the lab on the course management system (25 points)</input>
 
-<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
+<input type="checkbox" unchecked> Table that shows zonal statistics of the difference rasters across elevation and slope ranges of the binned DEM (10 points)</input>
 
-<input type="checkbox" unchecked> Introduction should address the following questions and requirements (10 points):</input>
-
--   What is spatial interpolation? Why is it useful? 
-
--   Describe the different spatial interpolation methods that were tested.
-
--   What are the parameters of each corresponding tool in ArcGIS Pro and how do they impact the algorithm?
-
--   Reference to at least 3 peer review sources.
-
-<input type="checkbox" unchecked> Methods should address the following requirements (10 points):</input>
-
--   Brief study area description and study area map (Note: there is an orthophoto of the research forest that was acquired at the same time as the LiDAR point cloud that you can reference and map).
-
--   Outline all primary steps included in the lab (no need to include exact ArcGIS Pro tool parameters).
-
--   Justify the use of specific methodological choices indicated in the lab.
-
-<input type="checkbox" unchecked> Results should address the following questions and requirements (15 points):</input>
-
--   Statistics of the LiDAR point cloud in the AOI. What is the true, measured range of elevation by LiDAR within the AOI?
-
--   Table of summary statistics of the binned DEM.
-
--   A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach.
-
--   Tables that show zonal statistics of the difference rasters across elevation and slope ranges. Which zones has the largest differences?
-
--   Additional maps and/or 3D scenes that illustrate any local observations you made about the magnitude of differences or comparisons between interpolation algorithms
-
-<input type="checkbox" unchecked> Discussion should address the following questions and requirements (10 points):</input>
-
--   How did each spatial interpolation algorithm perform relative to the binned DEM and the raw point cloud?
-
--   Interpret the results using your observations of the point cloud and other available data, statistics and metadata.
-
--   Strengths and limitations of each spatial interpolation algorithm in this study area.
-
--   Which spatial interpolation algorithm would you recommend the research forest use? Defend and justify your choice.
-
--   Reference to at least 3 peer review sources (can be the same sources as introduction).
+<input type="checkbox" unchecked> A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach (15 points)</input>
 
 ------------------------------------------------------------------------
 
@@ -97,7 +57,7 @@ At the top, you will see some generic metadata for the collection. Below that, y
 **Step 2:** Click to open one of the metadata txt files in your browser. This is json-formatted metadata for the associated LiDAR tile. Scrolling through it you will find summary statistics over a number of different dimensions. What attributes describe these LiDAR data?
 
 ```{r 01-metadata, out.width= "50%", echo = FALSE}
-    knitr::include_graphics("images/01-metadata.PNG")
+    knitr::include_graphics("images/01-metadata.png")
 ```
 
 Suppose that we have some AOI within the research forest that we need to retrieve the LiDAR data from. How could we figure out which tiles we need without downloading all of them from the server? In most cases, you should have a polygon tile index available to assist you with this task. The tile index is another form of metadata, albeit spatial metadata.
@@ -118,7 +78,7 @@ Lower left (LL): -122.55275, 49.32325
 
 Upper right (UR): -122.52506, 49.34135
 
-**Step 4:** Open a notepad text editor (**Notepad ++**) and convert this bounding box into a geojson polygon feature with the following syntax:
+**Step 4:** Open a notepad text editor and convert this bounding box into a geojson polygon feature with the following syntax:
 
 ```         
 {
@@ -142,6 +102,7 @@ Replace with the correct longitude/latitude values. Note that this creates a squ
 ```{r 01-selectbylocation, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-selectbylocation.png")
 ```
+
 ```{r 01-qgis-intersect-aoi-tiles, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/01-qgis-intersect-aoi-tiles.png")
 ```
@@ -241,16 +202,20 @@ This next filter stage [merges](https://pdal.io/en/2.6.0/stages/filters.merge.ht
 **Step 8:** Copy the contents of the pipeline to a text editor and save the file as "process-lidar.json" in your QGIS project folder. It should be in the same place as the .laz tiles you just downloaded. The output will also be written to this folder. 
 
 ```{r 01-json, out.width= "100%", echo = FALSE}
-    knitr::include_graphics("images/01-json.PNG")
+    knitr::include_graphics("images/01-json.png")
 ```
 
-**Step 9:** Return to the OSGeo4W shell and run the pipeline using the following command: `pdal pipeline process-lidar.json`. It may take several minutes for this step to complete, but in the end you should have a file called "mkrf_aoi_lidar.las" in your QGIS project folder. Drag it into QGIS and inspect it. The processed file should be ~90000KB when finished. If you get an error at this step make sure you have downloaded the correct tiles and the filenames match what is being loaded into the pipeline.  
+**Step 9:** Return to the OSGeo4W shell and run the pipeline using the following command: `pdal pipeline process-lidar.json`. It may take several minutes for this step to complete, but in the end you should have a file called "mkrf_aoi_lidar.las" in your QGIS project folder. Drag it into QGIS and inspect it. The processed file should be ~90000KB when finished. If you get an error at this step make sure you have downloaded the correct tiles and the filenames match what is being loaded into the pipeline. Once it completes, you can get the summary statistics of the points using the `pdal info` subcommand.
+
+##### Q1. What is the measured range of elevation by LiDAR within the AOI? (1 point)
 
 **Step 10**: Finally, we will create a thinned point cloud to compare different interpolation methods in Task 3. In the OSGeo4w shell run the following command:
 
-```pdal translate mkrf_aoi_lidar.las thinned.las sample --filters.sample.radius=5```
+```
+pdal translate mkrf_aoi_lidar.las thinned.las sample --filters.sample.radius=5
+```
 
-This will thin the point cloud by selecting a random point within a sphere with 5m radius. The output will be called "thinned.las" and will be written to the current working directory.   
+This will thin the point cloud by selecting a random point within a sphere with 5 m radius. The output will be called "thinned.las" and will be written to the current working directory.
 
 ------------------------------------------------------------------------
 
@@ -259,7 +224,7 @@ This will thin the point cloud by selecting a random point within a sphere with 
 The default symbology of LiDAR data in QGIS will be the classification, but we only have ground returns in our file, so everything will appear brown. Try symbolizing some of the other attributes like Intensity, ReturnNumber, and ScanAngleRank.
 
 ```{r 01-ground, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-ground.PNG")
+    knitr::include_graphics("images/01-ground.png")
 ```
 
 **Step 1:** Right-click the **mkrf_aoi_lidar** layer, open "Properties", select "Symbology" from the left, and then select "Attribute by Ramp" from the very top drop-down menu. Then choose your attribute and apply your symbology parameters. Make some notes of your observations for these attributes that you can reference in your report.
@@ -269,13 +234,21 @@ The default symbology of LiDAR data in QGIS will be the classification, but we o
 **Step 2:** From the top menu, select "View", then "3D map views", and click "New 3D Map View". A small window will appear. Click and drag it to the top of your map canvas to dock it and make it larger.
 
 ```{r 01-qgis-dock-3d-map-view, out.width= "100%", echo = FALSE}
-    knitr::include_graphics("images/01-qgis-dock-3d-map-view.gif")
+if (knitr:::is_latex_output()) {
+  knitr::include_graphics("images/01-qgis-dock-3d-map-view.png")
+} else {
+  knitr::include_graphics("images/01-qgis-dock-3d-map-view.gif")
+}
 ```
 
 **Step 3:** From the 3D map view menu bar, click the tool icon and toggle on "Show Eye Dome Lighting". Then, holding the `SHIFT` key, left-click and drag your cursor from top-to-bottom then release both buttons. This will give you an oblique shaded 3D perspective of the terrain.
 
 ```{r 01-qgis-shift-up-down, out.width= "100%", echo = FALSE}
-    knitr::include_graphics("images/01-qgis-shift-up-down.gif")
+if (knitr:::is_latex_output()) {
+  knitr::include_graphics("images/01-qgis-shift-up-down.png")
+} else {
+  knitr::include_graphics("images/01-qgis-shift-up-down.gif")
+}
 ```
 
 Navigating 3D data can be challenging using a 2D input device like a mouse, so we need to use different keyboard keys to control how we want to change our view:
@@ -284,32 +257,48 @@ Navigating 3D data can be challenging using a 2D input device like a mouse, so w
 
 If you want to pan around a fixed position, then hold the `SHIFT` key and drag your cursor. The point cloud will rotate in the opposite direction. As you can see from the animation below, dragging your cursor in a circular pattern rotates the point cloud around a stationary imaginary point. If you continuously drag your cursor to the right, you will rotate around the fixed point counter-clockwise.
 
-```{r 01-qgis-shift, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-qgis-shift.gif")
+```{r 01-qgis-shift, out.width= "100%", echo = FALSE}
+if (knitr:::is_latex_output()) {
+  knitr::include_graphics("images/01-qgis-shift.png")
+} else {
+  knitr::include_graphics("images/01-qgis-shift.gif")
+}
 ```
 
 ### Hold CTRL: Maintain camera position and change camera angle {.unnumbered}
 
 If you want to pan your camera angle up, down, left or right, then hold the `CTRL` key and drag your cursor in the direction you want to look. This only changes the camera angle, not the camera elevation or position.
 
-```{r 01-qgis-ctrl, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-qgis-ctrl.gif")
+```{r 01-qgis-ctrl, out.width= "100%", echo = FALSE}
+if (knitr:::is_latex_output()) {
+  knitr::include_graphics("images/01-qgis-ctrl.png")
+} else {
+  knitr::include_graphics("images/01-qgis-ctrl.gif")
+}
 ```
 
 ### Hold ALT: Move camera position on the X-Y plane {.unnumbered}
 
 If you find yourself wanting to move around, then hold the `ALT` key and drag your cursor in the direction that you want to move the camera. Think of this as sliding along an X-Y plane that is fixed at the camera elevation and angle.
 
-```{r 01-qgis-alt, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-qgis-alt.gif")
+```{r 01-qgis-alt, out.width= "100%", echo = FALSE}
+if (knitr:::is_latex_output()) {
+  knitr::include_graphics("images/01-qgis-alt.png")
+} else {
+  knitr::include_graphics("images/01-qgis-alt.gif")
+}
 ```
 
 ### Scroll: Move camera position to/from the cursor location {.unnumbered}
 
 If you want to move towards some feature, then simply point your cursor at it and scroll without clicking. This movement is akin to traversing a ray that connects your current camera position with a look direction angle (relative to X-Y-Z). Scrolling therefore changes the camera position and elevation. Scrolling down has the effect of "zooming in" while scrolling up has the effect of "zooming out". Be careful, though, because scrolling will always follow the current position of the cursor, so if you scroll down on one position and then move your cursor and scroll up, your camera position will not be where it started.
 
-```{r 01-qgis-scroll, out.width= "75%", echo = FALSE}
-    knitr::include_graphics("images/01-qgis-scroll.gif")
+```{r 01-qgis-scroll, out.width= "100%", echo = FALSE}
+if (knitr:::is_latex_output()) {
+  knitr::include_graphics("images/01-qgis-scroll.png")
+} else {
+  knitr::include_graphics("images/01-qgis-scroll.gif")
+}
 ```
 
 **Step 4:** Practice navigating in 3D and observing the different attributes across the ground surface. Make some notes of your observations for your report. There is a button on the top of the 3D map view to save an image of any given view.
@@ -330,15 +319,11 @@ For this task, we will switch to ArcGIS Pro and practice manipulating the LiDAR 
 
 **Step 3:** Another way to explore the dataset is to view the properties. Right-click the LAS Dataset and open the "Properties". Here we can see some statistics of the point cloud, such as information regarding the Classification Codes and Return Number. You can get more detailed metadata from a Catalog view. From the top ribbon, select the View tab and then click "Catalog View". Navigate to where you saved the LAS Dataset, right-click it, and open the "Properties" again. 
 
-Record and compare these values for the full and thinned datasets:
-
-- How many points are in the dataset? 
-
-- What is the average point spacing?
-
-- What is the range of elevation?
+##### Q2. What differences do you observe between the thinned and non-thinned datasets in terms of number of points, average point spacing, and the measured range of elevation? (3 points)
 
 **Step 4:** Search for the "LAS Dataset to Raster" tool, and use "mkrf_aoi_lidar.las" (not thinned) as the input. Since we are interested in creating a terrain surface model, we want to use the "Binning" "Interpolation Type", and make sure that we use the "Minimum" (i.e., the lowest "Elevation") points in each "Cell Assignment" of the output raster. "Sampling Value" refers to the resolution of the raster that we are creating, in other words, the spacing of our raster cell samples. Set the "Sampling Value" to **1** (meters), name the output raster "MKRF_DEM" and run the tool.
+
+##### Q3. How might changing the parameters of this tool ("Interpolation Type", "Cell Assignment", and "Sampling Value") affect the statistical qualities of the output DEM? (6 points)
 
 ```{r 01-arcgis-lasd-to-raster, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/01-arcgis-lasd-to-raster.png")
@@ -371,15 +356,15 @@ Since we now have points representing height values, we can use the raster inter
 
 Search for each of the interpolation tools listed above individually (for IDW, the tool is called "IDW") and explore their parameters. Natural Neighbor can be found within the "LAS Dataset to Raster" tool, change the "Interpolation Type" to "Triangulation", and "Interpolation Method" to "Natural Neighbor". 
 
-**Step 1:** Create three rasters for each interpolation method: Natural Neighbor, IDW, and Spline. We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want. For each tool, keep the default settings, but make sure that you generate the rasters at 1 m resolution or whatever resolution you decided to run. Note that the Spline tool will take several minutes to run. If you have trouble running this step try generating the rasters at a slightly coarser resolution (5 or 10m). 
+**Step 1:** Create three rasters for each interpolation method: Natural Neighbor, IDW, and Spline. We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want. For each tool, keep the default settings, but make sure that you generate the rasters at 1 m resolution. Note that the Spline tool will take several minutes to run. If you have trouble running this step try generating the rasters at a slightly coarser resolution (5 m). 
 
 Take some time to inspect each raster, and look at their similarities and differences (make sure that you are using a common symbology when comparing). We can compare the differences between our interpolated rasters with the binned DEM that we created in the last task.
 
 **Step 2:** In order to compare the rasters, we will make a raster of the differences between the interpolated surface and the binned DEM. You will use the "Raster Calculator" tool to do this. Subtract each interpolated surface from **MKRF_DEM**. Name each difference raster according to the interpolation method: "spline_diff", "nn_diff", and "idw_diff". We suggest writing these rasters out to GeoTiffs so that you can also view them in QGIS, if you want.
 
-Next, we are going to quantitatively evaluate the differences and calculate statistics over different zones to see if there are any patterns or relationships with other variables.
+Next, we are going to quantitatively evaluate the differences and calculate statistics over different elevation and slope classes to examine how the interpolation methods perform.
 
-**Step 3:** Change the Symbology of the **MKRF_DEM** to Classify and set the number of Classes to 3 with the method of your choice. Use the "Reclassify (Spatial Analyst)" tool to reclassify the binned **MKRF_DEM** into "high", "medium", and "low" areas using this classification scheme.  (If you symbolize first, then open the Reclassify tool it should popukate the start and end fields with the symbolized values.)
+**Step 3:** Change the Symbology of the **MKRF_DEM** to Classify and set the number of Classes to 3 with the method of your choice. Use the "Reclassify (Spatial Analyst)" tool to reclassify the binned **MKRF_DEM** into "high", "medium", and "low" areas using this classification scheme. (If you symbolize first, then open the Reclassify tool it should populate the start and end fields with the symbolized values.)
 
 **Step 4:** Use the "Slope (Spatial Analyst)" tool to create a raster called "mkrf_slope" using degrees. Then, use the "Reclassify" tool to reclassify the degree slope values into three classes using the same method. 
 
@@ -399,14 +384,22 @@ We will use these reclassified areas as zones to calculate statistics about the 
 
 -   spline_diff_slope
 
-**Step 6:** Create a final map with the following elements and include it in the Results: 
+##### Q4. Summarize and describe how the interpolation methods differ from the binned DEM across elevation and slope classes. Which zones/methods are most similar or dissimilar? (10 points)
+
+##### Table that shows zonal statistics of the difference rasters across elevation and slope ranges of the binned DEM (10 points)
+
+**Step 6:** Create a final map with the following elements: 
 
 - Each of the interpolated surfaces and difference rasters (6 total)
      - The interpolated surfaces should be symbolized using **Shaded Relief** symbology
 - Summary statistics showing the mean and standard deviation across slope and elevation zones
-- North arrow and appropriate labels for each map panel (no need for name, date and title as this figure will be embedded in your report)
+- North arrow and appropriate labels for each map panel
 
-Note that you can add standalone tables to your Map Layout by first clicking on the table in the Contents pane then Insert > Table Frame. Click and drag to set the extent of the table on the map, (similar to how you add a Map Frame).  
+##### A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach (15 points)
+
+Note that you can add standalone tables to your Map Layout by first clicking on the table in the Contents pane then Insert > Table Frame. Click and drag to set the extent of the table on the map, (similar to how you add a Map Frame).
+
+##### Q5. Which spatial interpolation algorithm would you recommend the research forest use? Defend and justify your choice. (5 points)
 
 ------------------------------------------------------------------------
 
@@ -419,7 +412,11 @@ In this last brief task are some instructions for visualizing the point cloud an
 **Step 2:** Add the "mkrf_aoi_lidar.las" file to the scene. Navigating an ArcGIS Pro scene is nearly the same as it is in QGIS. Though, instead of using keys on the keyboard to toggle between the different camera axes to manipulate, ArcGIS Pro provides an on-screen navigator in the bottom left. In this way, you can manipulate an ArcGIS Pro scene using just your mouse.
 
 ```{r 01-arcgis-scene-navigation, out.width= "100%", echo = FALSE}
-    knitr::include_graphics("images/01-arcgis-scene-navigation.gif")
+if (knitr:::is_latex_output()) {
+  knitr::include_graphics("images/01-arcgis-scene-navigation.png")
+} else {
+  knitr::include_graphics("images/01-arcgis-scene-navigation.gif")
+}
 ```
 
 By default, ArcGIS Pro uses its own "WorldElevation3D/Terrain3D" source for the "Ground" in the Contents Pane. You can change the ground source to any DEM or really any other raster that you want to use the values of to create a "ground" surface. We are going to use this feature to explore the differences between the surface models we derived and the actual point cloud.
@@ -435,8 +432,6 @@ The white background might make it difficult to observe the differences. You can
 ```{r 01-arcgis-idw-diff, out.width= "100%", echo = FALSE}
     knitr::include_graphics("images/01-arcgis-idw-diff.png")
 ```
-
-Explore all of the DEM surfaces and export some examples that could help you interpret and illustrate your observations in your report.
 
 ------------------------------------------------------------------------
 
