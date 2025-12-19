@@ -1,0 +1,10 @@
+fig:03-flow-direction
+terrain-spatial-interpolation
+network-analysis
+hydrology-analysis
+q6.-how-much-forest-area-is-retained-within-the-riparian-reserve-and-management-zones-2-points
+q7.-use-the-watershed-map-contour-lines-and-flow-direction-layers-to-assess-how-runoff-from-harvesting-may-impact-stream-networks.-reference-specific-areasexamples-from-the-maps-you-created.-do-you-think-the-mapped-rmas-provide-adequate-protection-to-streams-in-this-area-why-or-why-not-5-points
+machine-learning
+geographically-weighted-regression
+web-mapping
+writing-metadata-documentation
