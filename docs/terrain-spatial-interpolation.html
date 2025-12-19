@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2025-12-18" />
+<meta name="date" content="2025-12-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -383,8 +383,8 @@ Paul Pickell</p>
 <p><strong>Step 8:</strong> Copy the contents of the pipeline to a text editor and save the file as “process-lidar.json” in your QGIS project folder. It should be in the same place as the .laz tiles you just downloaded. The output will also be written to this folder.</p>
 <p><img src="images/01-json.png" width="100%" /></p>
 <p><strong>Step 9:</strong> Return to the OSGeo4W shell and run the pipeline using the following command: <code>pdal pipeline process-lidar.json</code>. It may take several minutes for this step to complete, but in the end you should have a file called “mkrf_aoi_lidar.las” in your QGIS project folder. Drag it into QGIS and inspect it. The processed file should be ~90000KB when finished. If you get an error at this step make sure you have downloaded the correct tiles and the filenames match what is being loaded into the pipeline. Once it completes, you can get the summary statistics of the points using the <code>pdal info</code> subcommand.</p>
-<div id="q1.-what-is-the-measured-range-of-elevation-by-lidar-within-the-aoi-1-point" class="section level5 hasAnchor" number="1.0.0.0.1">
-<h5><span class="header-section-number">1.0.0.0.1</span> Q1. What is the measured range of elevation by LiDAR within the AOI? (1 point)<a href="terrain-spatial-interpolation.html#q1.-what-is-the-measured-range-of-elevation-by-lidar-within-the-aoi-1-point" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q1.-what-is-the-measured-range-of-elevation-by-lidar-within-the-aoi-1-point" class="section level5 unnumbered hasAnchor">
+<h5>Q1. What is the measured range of elevation by LiDAR within the AOI? (1 point)<a href="terrain-spatial-interpolation.html#q1.-what-is-the-measured-range-of-elevation-by-lidar-within-the-aoi-1-point" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p><strong>Step 10</strong>: Finally, we will create a thinned point cloud to compare different interpolation methods in Task 3. In the OSGeo4w shell run the following command:</p>
 <pre><code>pdal translate mkrf_aoi_lidar.las thinned.las sample --filters.sample.radius=5</code></pre>
 <p>This will thin the point cloud by selecting a random point within a sphere with 5 m radius. The output will be called “thinned.las” and will be written to the current working directory.</p>
@@ -432,12 +432,12 @@ Paul Pickell</p>
 <p><strong>Step 2:</strong> We can now add our LAS Datasets to the map. Depending on the zoom extent, you may only see the red bounding box of the LAS Dataset file; this is not an error, you just need to zoom in to see the actual points. Alternatively, you can open the dataset in a Local Scene, although due to the size of the point cloud this might cause some lag. Compare the full and thinned point clouds.</p>
 <p><img src="images/01-arcgis-lasd.png" width="75%" /></p>
 <p><strong>Step 3:</strong> Another way to explore the dataset is to view the properties. Right-click the LAS Dataset and open the “Properties”. Here we can see some statistics of the point cloud, such as information regarding the Classification Codes and Return Number. You can get more detailed metadata from a Catalog view. From the top ribbon, select the View tab and then click “Catalog View”. Navigate to where you saved the LAS Dataset, right-click it, and open the “Properties” again.</p>
-<div id="q2.-what-differences-do-you-observe-between-the-thinned-and-non-thinned-datasets-in-terms-of-number-of-points-average-point-spacing-and-the-measured-range-of-elevation-3-points" class="section level5 hasAnchor" number="1.0.0.0.2">
-<h5><span class="header-section-number">1.0.0.0.2</span> Q2. What differences do you observe between the thinned and non-thinned datasets in terms of number of points, average point spacing, and the measured range of elevation? (3 points)<a href="terrain-spatial-interpolation.html#q2.-what-differences-do-you-observe-between-the-thinned-and-non-thinned-datasets-in-terms-of-number-of-points-average-point-spacing-and-the-measured-range-of-elevation-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q2.-what-differences-do-you-observe-between-the-thinned-and-non-thinned-datasets-in-terms-of-number-of-points-average-point-spacing-and-the-measured-range-of-elevation-3-points" class="section level5 unnumbered hasAnchor">
+<h5>Q2. What differences do you observe between the thinned and non-thinned datasets in terms of number of points, average point spacing, and the measured range of elevation? (3 points)<a href="terrain-spatial-interpolation.html#q2.-what-differences-do-you-observe-between-the-thinned-and-non-thinned-datasets-in-terms-of-number-of-points-average-point-spacing-and-the-measured-range-of-elevation-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p><strong>Step 4:</strong> Search for the “LAS Dataset to Raster” tool, and use “mkrf_aoi_lidar.las” (not thinned) as the input. Since we are interested in creating a terrain surface model, we want to use the “Binning” “Interpolation Type”, and make sure that we use the “Minimum” (i.e., the lowest “Elevation”) points in each “Cell Assignment” of the output raster. “Sampling Value” refers to the resolution of the raster that we are creating, in other words, the spacing of our raster cell samples. Set the “Sampling Value” to <strong>1</strong> (meters), name the output raster “MKRF_DEM” and run the tool.</p>
 </div>
-<div id="q3.-how-might-changing-the-parameters-of-this-tool-interpolation-type-cell-assignment-and-sampling-value-affect-the-statistical-qualities-of-the-output-dem-6-points" class="section level5 hasAnchor" number="1.0.0.0.3">
-<h5><span class="header-section-number">1.0.0.0.3</span> Q3. How might changing the parameters of this tool (“Interpolation Type”, “Cell Assignment”, and “Sampling Value”) affect the statistical qualities of the output DEM? (6 points)<a href="terrain-spatial-interpolation.html#q3.-how-might-changing-the-parameters-of-this-tool-interpolation-type-cell-assignment-and-sampling-value-affect-the-statistical-qualities-of-the-output-dem-6-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q3.-how-might-changing-the-parameters-of-this-tool-interpolation-type-cell-assignment-and-sampling-value-affect-the-statistical-qualities-of-the-output-dem-6-points" class="section level5 unnumbered hasAnchor">
+<h5>Q3. How might changing the parameters of this tool (“Interpolation Type”, “Cell Assignment”, and “Sampling Value”) affect the statistical qualities of the output DEM? (6 points)<a href="terrain-spatial-interpolation.html#q3.-how-might-changing-the-parameters-of-this-tool-interpolation-type-cell-assignment-and-sampling-value-affect-the-statistical-qualities-of-the-output-dem-6-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p><img src="images/01-arcgis-lasd-to-raster.png" width="50%" /></p>
 <p>The tool above is the most straight-forward way to create a DEM from a LiDAR point cloud in ArcGIS Pro. Because this DEM was fit using all available lidar points we will consider it to be our “ground-truth” dataset.</p>
 <p>In the following steps you will create a 2D point dataset using the <strong>thinned LiDAR point cloud</strong>. We will use this to test and compare three interpolation methods in the next task.</p>
@@ -470,11 +470,11 @@ Paul Pickell</p>
 <li><p>spline_diff_elev</p></li>
 <li><p>spline_diff_slope</p></li>
 </ul>
-<div id="q4.-summarize-and-describe-how-the-interpolation-methods-differ-from-the-binned-dem-across-elevation-and-slope-classes.-which-zonesmethods-are-most-similar-or-dissimilar-10-points" class="section level5 hasAnchor" number="1.0.0.0.4">
-<h5><span class="header-section-number">1.0.0.0.4</span> Q4. Summarize and describe how the interpolation methods differ from the binned DEM across elevation and slope classes. Which zones/methods are most similar or dissimilar? (10 points)<a href="terrain-spatial-interpolation.html#q4.-summarize-and-describe-how-the-interpolation-methods-differ-from-the-binned-dem-across-elevation-and-slope-classes.-which-zonesmethods-are-most-similar-or-dissimilar-10-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q4.-summarize-and-describe-how-the-interpolation-methods-differ-from-the-binned-dem-across-elevation-and-slope-classes.-which-zonesmethods-are-most-similar-or-dissimilar-10-points" class="section level5 unnumbered hasAnchor">
+<h5>Q4. Summarize and describe how the interpolation methods differ from the binned DEM across elevation and slope classes. Which zones/methods are most similar or dissimilar? (10 points)<a href="terrain-spatial-interpolation.html#q4.-summarize-and-describe-how-the-interpolation-methods-differ-from-the-binned-dem-across-elevation-and-slope-classes.-which-zonesmethods-are-most-similar-or-dissimilar-10-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 </div>
-<div id="table-that-shows-zonal-statistics-of-the-difference-rasters-across-elevation-and-slope-ranges-of-the-binned-dem-10-points" class="section level5 hasAnchor" number="1.0.0.0.5">
-<h5><span class="header-section-number">1.0.0.0.5</span> Table that shows zonal statistics of the difference rasters across elevation and slope ranges of the binned DEM (10 points)<a href="terrain-spatial-interpolation.html#table-that-shows-zonal-statistics-of-the-difference-rasters-across-elevation-and-slope-ranges-of-the-binned-dem-10-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="table-that-shows-zonal-statistics-of-the-difference-rasters-across-elevation-and-slope-ranges-of-the-binned-dem-10-points" class="section level5 unnumbered hasAnchor">
+<h5>Table that shows zonal statistics of the difference rasters across elevation and slope ranges of the binned DEM (10 points)<a href="terrain-spatial-interpolation.html#table-that-shows-zonal-statistics-of-the-difference-rasters-across-elevation-and-slope-ranges-of-the-binned-dem-10-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p><strong>Step 6:</strong> Create a final map with the following elements:</p>
 <ul>
 <li>Each of the interpolated surfaces and difference rasters (6 total)
@@ -485,12 +485,12 @@ Paul Pickell</p>
 <li>North arrow and appropriate labels for each map panel</li>
 </ul>
 </div>
-<div id="a-panel-of-maps-that-symbolizes-the-dems-produced-and-the-difference-rasters-that-were-produced-by-the-comparison-to-the-binning-approach-15-points" class="section level5 hasAnchor" number="1.0.0.0.6">
-<h5><span class="header-section-number">1.0.0.0.6</span> A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach (15 points)<a href="terrain-spatial-interpolation.html#a-panel-of-maps-that-symbolizes-the-dems-produced-and-the-difference-rasters-that-were-produced-by-the-comparison-to-the-binning-approach-15-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="a-panel-of-maps-that-symbolizes-the-dems-produced-and-the-difference-rasters-that-were-produced-by-the-comparison-to-the-binning-approach-15-points" class="section level5 unnumbered hasAnchor">
+<h5>A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach (15 points)<a href="terrain-spatial-interpolation.html#a-panel-of-maps-that-symbolizes-the-dems-produced-and-the-difference-rasters-that-were-produced-by-the-comparison-to-the-binning-approach-15-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Note that you can add standalone tables to your Map Layout by first clicking on the table in the Contents pane then Insert &gt; Table Frame. Click and drag to set the extent of the table on the map, (similar to how you add a Map Frame).</p>
 </div>
-<div id="q5.-which-spatial-interpolation-algorithm-would-you-recommend-the-research-forest-use-defend-and-justify-your-choice.-5-points" class="section level5 hasAnchor" number="1.0.0.0.7">
-<h5><span class="header-section-number">1.0.0.0.7</span> Q5. Which spatial interpolation algorithm would you recommend the research forest use? Defend and justify your choice. (5 points)<a href="terrain-spatial-interpolation.html#q5.-which-spatial-interpolation-algorithm-would-you-recommend-the-research-forest-use-defend-and-justify-your-choice.-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q5.-which-spatial-interpolation-algorithm-would-you-recommend-the-research-forest-use-defend-and-justify-your-choice.-5-points" class="section level5 unnumbered hasAnchor">
+<h5>Q5. Which spatial interpolation algorithm would you recommend the research forest use? Defend and justify your choice. (5 points)<a href="terrain-spatial-interpolation.html#q5.-which-spatial-interpolation-algorithm-would-you-recommend-the-research-forest-use-defend-and-justify-your-choice.-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <hr />
 </div>
 </div>
@@ -514,8 +514,6 @@ Paul Pickell</p>
 You also practiced evaluating different spatial interpolation algorithms, which can have a large impact on subsequent analyses with those surfaces. When choosing an interpolation algorithm, you must always consider how dense your data are (i.e., how long will it take for me to produce this surface), what properties you want the output surface to have (i.e., statistical intervals, reproducing the true ranges, etc.), and what the surface will be used for (i.g., hydrology mapping, suitability analysis, etc.). Finally, you also practiced visualizing 3D data to augment and enhance your interpretations of these 2D interpolated surfaces.</p>
 <p>Return to the <a href="terrain-spatial-interpolation.html#lab1-deliverables"><strong>Deliverables</strong></a> section to check off everything you need to submit for credit in the course management system.</p>
 
-<pre><code>## Warning in readLines(file, warn = readLines.warn): incomplete final line found
-## on &#39;chapterauthors.yml&#39;</code></pre>
 </div>
 </div>
             </section>
@@ -566,7 +564,7 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": null,
+  "download": ["open-geomatics-community-of-practice.pdf"],
   "search": {
     "engine": "fuse",
     "options": null

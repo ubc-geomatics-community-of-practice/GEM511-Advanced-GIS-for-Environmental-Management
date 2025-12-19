@@ -19,7 +19,7 @@ In this lab you will take on the role of a forest manager with the following tas
 
 ## Learning Objectives {.unnumbered}
 
--   Practice characterizing riparian areas using hydrologic toolsets
+-   Characterize riparian areas using hydrological toolsets
 -   Execute tasks using Python scripting
 -   Evaluate harvestable areas near riparian management areas
 
@@ -39,49 +39,19 @@ More background information on riparian forest management in British Columbia ca
 
 ## Deliverables {#lab3-deliverables .unnumbered}
 
-Lab report with the following specification:
+<input type="checkbox" unchecked> Responses to the questions posed throughout the lab on the course management system (25 points)</input>
 
-<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (5 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
+<input type="checkbox" unchecked> Table of summary statistics of number of stream links, average stream length, width and percent gradient grouped by stream order (10 points)</input>
 
-<input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input>
+<input type="checkbox" unchecked> A map including the following layers and requirements: (15 points)</input>
 
--   Table of summary statistics of number of stream links, average stream length, width and percent gradient grouped by stream order. 
+- Watersheds, contour lines
 
--   Report the flow accumulation threshold value that you used to create **Stream_reclass**.
+- Stream networks symbolized by stream class
 
--   How many streams have fish bearing potential? What is the total length of these streams?
-
--   How much forest area is retained within the Riparian Reserve and Management Zones?
-
--   Average area of watersheds and number of watersheds in study area.
-
--   A map including the following spatial layers:
-
-    -   Watersheds, contour lines
-
-    -   Stream networks symbolized by stream class
-
-    -   Inset map showing example stream network and Riparian Management Areas
+- Inset map showing example stream network and Riparian Management Areas
     
-    -   Text showing the total area in the Reserve and Management Zone and the length of the stream network
-    
--  Any additional figures or example areas that illustrate the points in the Disucssion.
-
-<input type="checkbox" unchecked> Discussion should address the following questions and requirements (20 points):</input>
-
--   Briefly describe what a Riparian Management Area is and how they are defined in BC? 
-
--   Comment on the accuracy of stream networks compared to basemaps. Discuss potential sources of error and how they could be improved.   
-
--   Compare and contrast the Strahler and Shreve methods for stream ordering.
-
--   How did stream characteristics change across stream order? Is this what you expected? 
-
--   Use the watershed map, contour lines and flow direction layers to assess how runoff from harvesting may impact stream networks. Reference specific areas/examples from the maps you created. Do you think the mapped RMAs provide adequate protection to streams in this area? Why or why not?
-
--   Discuss strengths and limitations of this workflow for determining riparian reserve and management zones. 
-
--   Reference peer review sources as needed
+- Text showing the total area in the Reserve and Management Zone and the length of the stream network
 
 ------------------------------------------------------------------------
 
@@ -137,13 +107,15 @@ Leave all other fields blank then run the tool.
 
 **Step 4:** Next, we will create a raster-based stream network using a threshold in the flow accumulation raster. For example, if the threshold is 100, then only cells with flow accumulation greater than 100 will be counted as a stream. Cells with flow accumulation less than 100 will be set to a background value of 0.
 
-To see how different thresholds impact stream identification, change the symbology of the flow accumulation raster and use the **Manual Interval** symbology to set two classes. See the example below for a stream network with a flow accumulation threshold of 100 (cells with flow accumulation \< 100 are set to no color). Note that in the example below the threshold is likely too small, and results in many small streams that are not evident in the ArcGIS basemap. 
+To see how different thresholds impact stream identification, change the symbology of the flow accumulation raster and use the **Manual Interval** symbology to set two classes. See the example below for a stream network with a flow accumulation threshold of 100 (cells with flow accumulation \< 100 are set to no color). Note that in the example below the threshold is likely too small, and results in many small streams that are not evident in the ArcGIS basemap.
 
 ```{r 03-streams, out.width= "100%", echo = FALSE}
   knitr::include_graphics("images/03-streams.jpg")
 ```
 
-Compare your stream network to the streams visible in the ArcGIS satellite basemap and the filled DEM (use the shaded relief symbology for a better visualization). Experiment with different flow accumulation thresholds. What other features could be misclassified as a stream using this method? Find a threshold that captures a realisitc stream network visible in the basemap and DEM, without too many misclassified features.
+Compare your stream network to the streams visible in the ArcGIS satellite basemap and the filled DEM (use the shaded relief symbology for a better visualization). Experiment with different flow accumulation thresholds. What other features could be misclassified as a stream using this method? Find a threshold that captures a realistic stream network visible in the basemap and DEM, without too many misclassified features.
+
+##### Q1. Comment on the accuracy of stream networks compared to basemaps. Discuss potential sources of error and how they could be improved. (5 points) {.unnumbered}
 
 Once you have selected a threshold, open the "Reclassify (Spatial Analyst Tools)" tool.
 
@@ -152,6 +124,8 @@ Use the threshold you have selected as the Start and End values. Set the cells r
 ```{r 03-reclassify, out.width= "50%", echo = FALSE}
   knitr::include_graphics("images/03-reclassify.jpg")
 ```
+
+##### Q2. Report the flow accumulation threshold value that you used to create Stream_reclass. (1 point) {.unnumbered}
 
 Zoom into the reclassified flow accumulation raster to see your stream network.
 
@@ -163,6 +137,8 @@ Open the "Stream Order" tool and parameterize it as follows:
 -   Input flow direction raster: **Nahmint_FlowDir**
 -   Method of stream ordering: **Strahler**
 -   Output raster: **StreamOrder**
+
+##### Q3. Compare and contrast the Strahler and Shreve methods for stream ordering. (5 points) {.unnumbered}
 
 Zoom in to see the **StreamOrder** output. The value of each pixel corresponds to the order of each stream segment. Now re-run the tool using the Shreve method and compare the two outputs (You will compare these two outputs in the Discussion section of your report).
 
@@ -225,6 +201,8 @@ You can change the field names in both layers so you don't get confused after jo
 
 Create a new field called "PercentGradient" and use the "Calculate Field" tool to calculate the gradient for each stream segment using the change in elevation and the length of the stream segment. Streams with gradient \< 20% will be considered as "fish bearing".
 
+##### Q4. How many streams have fish bearing potential? What is the total length of these streams? (2 points) {.unnumbered}
+
 **Step 6:** Next, we will use the ESRI basemaps to measure stream width for a sample of streams stratified by order. We will use the average stream width per order to approximate the width for all streams in the study area. (For example, if the average width of streams in order 1 is 30 m, all streams in order 1 will be assigned that width).
 
 Stream width is defined using the entire channel width, not just the part with water currently flowing through it. Use the examples below to guide you with your mapping. You should be able to see channels for streams in orders 2-4, but order 1 streams will likely not be visible. We will assign these streams an average width of 1 m. Note that there are more sophisticated methods to calculate stream width from a DEM!
@@ -270,13 +248,17 @@ def reclass(Order):
           return [average stream width here]
 ```
 
-If you get an "Invalid Field" error it is because the variable in the "Expression Field" (between the two !) does not match a field in the attribute table. So make sure to match the name of the appropriate field. You can use the pre-generated Field names to generate your expression to make sure this step works, just double-click on one to add it to your expression.
+If you get an "Invalid Field" error it is because the variable in the "Expression Field" (between the two `!`) does not match a field in the attribute table. So make sure to match the name of the appropriate field. You can use the pre-generated Field names to generate your expression to make sure this step works, just double-click on one to add it to your expression.
+
+##### Table of summary statistics of number of stream links, average stream length, width and percent gradient grouped by stream order. (10 points) {.unnumbered}
+
+##### Q5. How did stream characteristics change across stream order? Is this what you expected? (5 points) {.unnumbered}
 
 ------------------------------------------------------------------------
 
 ## Task 3: Mapping Watersheds and Riparian Management Areas {.unnumbered}
 
-**Step 1:** Use the following table to assign a **stream class** (S1-S6) based on average channel width and fish bearing potential. Once a stream class is assigned, the Reserve Zone defines the region around the stream where harvest is prohibited and the Management Zone defines the region where limited harvest is permitted. Note that not all stream classes may be present in the dataset. (We do not have the S1 large rivers class in the study area so no need to include it.)
+**Step 1:** Use the following table to assign a stream class (S1-S6) based on average channel width and fish bearing potential. Once a stream class is assigned, the Reserve Zone defines the region around the stream where harvest is prohibited and the Management Zone defines the region where limited harvest is permitted. Note that not all stream classes may be present in the dataset. (We do not have the S1 large rivers class in the study area so no need to include it.)
 
 ```{r 03-stream-class, out.width= "100%", echo = FALSE}
   knitr::include_graphics("images/03-stream-class.png")
@@ -286,11 +268,11 @@ In the **StreamNetwork_join** layer, create a new attribute called "Reserve_Buff
 
 Select the "Reserve_BufferDist" field in the attribute table and open the "Calculate Field" tool. Change the "Expression Type" to "Python".
 
-This time we will combine the `ifelse` syntax from the previous task with conditional statements using stream gradient and width to assign buffer distances for each stream class. The example below defines the Reserve Zone buffer distance of 0m for the S1 class using the stream gradient and stream width attributes.
+This time we will combine the `ifelse` syntax from the previous task with conditional statements using stream gradient and width to assign buffer distances for each stream class. The example below defines the Reserve Zone buffer distance of 0 m for the S1 class using the stream gradient and stream width attributes.
 
 The Reserve Zones and Management Zones are typically measured from the edge of the stream channel, however our streams are represented as lines down the centre of the stream channel. **Think of a way to modify the buffer distances given in the table to reflect the approximate width of the stream.**
 
-Your code should look something like the following. Make sure the highlighted attribute names in the Expression field match the names in your table, depending on how you named your columns they may look slightly different than this screenshot!:
+Your code should look something like the following. Make sure the highlighted attribute names in the Expression field match the names in your table, depending on how you named your columns they may look slightly different than this screenshot:
 
 ```{r 03-stream-network-python, out.width= "100%", echo = FALSE}
   knitr::include_graphics("images/03-stream-network-python.jpg")
@@ -324,6 +306,8 @@ Inspect the output.
 
 Repeat the Buffer step for the Management Zone widths. That is, first create a new field that captures the Management Zone widths in the table above. Then calculate a new field that represents the total of the stream + reserve + management buffer and create a new buffer that uses this value.
 
+##### Q6. How much forest area is retained within the Riparian Reserve and Management Zones? (2 points)
+
 **Step 3:** Next, we will map watersheds. A watershed is an area of land where all the water that falls or flows into it converges to a common outlet, such as a river, lake, or ocean. It is bounded by a drainage divide, which is a boundary that separates water flowing into different watersheds.
 
 The watershed tool uses flow direction and stream links to delineate watershed boundaries. The watershed boundaries will be defined such that water flows into each of the stream links.
@@ -348,6 +332,8 @@ The output will be a new raster where the cell values correspond to each unique 
 -   Base contour: [Set to the lowest elevation in the study area]
 -   Z factor: 1
 -   Contour type: Contour
+
+##### Q7. Use the watershed map, contour lines and flow direction layers to assess how runoff from harvesting may impact stream networks. Reference specific areas/examples from the maps you created. Do you think the mapped RMAs provide adequate protection to streams in this area? Why or why not? (5 points)
 
 ------------------------------------------------------------------------
 

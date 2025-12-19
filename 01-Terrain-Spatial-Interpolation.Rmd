@@ -207,7 +207,7 @@ This next filter stage [merges](https://pdal.io/en/2.6.0/stages/filters.merge.ht
 
 **Step 9:** Return to the OSGeo4W shell and run the pipeline using the following command: `pdal pipeline process-lidar.json`. It may take several minutes for this step to complete, but in the end you should have a file called "mkrf_aoi_lidar.las" in your QGIS project folder. Drag it into QGIS and inspect it. The processed file should be ~90000KB when finished. If you get an error at this step make sure you have downloaded the correct tiles and the filenames match what is being loaded into the pipeline. Once it completes, you can get the summary statistics of the points using the `pdal info` subcommand.
 
-##### Q1. What is the measured range of elevation by LiDAR within the AOI? (1 point)
+##### Q1. What is the measured range of elevation by LiDAR within the AOI? (1 point) {.unnumbered}
 
 **Step 10**: Finally, we will create a thinned point cloud to compare different interpolation methods in Task 3. In the OSGeo4w shell run the following command:
 
@@ -319,11 +319,11 @@ For this task, we will switch to ArcGIS Pro and practice manipulating the LiDAR 
 
 **Step 3:** Another way to explore the dataset is to view the properties. Right-click the LAS Dataset and open the "Properties". Here we can see some statistics of the point cloud, such as information regarding the Classification Codes and Return Number. You can get more detailed metadata from a Catalog view. From the top ribbon, select the View tab and then click "Catalog View". Navigate to where you saved the LAS Dataset, right-click it, and open the "Properties" again. 
 
-##### Q2. What differences do you observe between the thinned and non-thinned datasets in terms of number of points, average point spacing, and the measured range of elevation? (3 points)
+##### Q2. What differences do you observe between the thinned and non-thinned datasets in terms of number of points, average point spacing, and the measured range of elevation? (3 points) {.unnumbered}
 
 **Step 4:** Search for the "LAS Dataset to Raster" tool, and use "mkrf_aoi_lidar.las" (not thinned) as the input. Since we are interested in creating a terrain surface model, we want to use the "Binning" "Interpolation Type", and make sure that we use the "Minimum" (i.e., the lowest "Elevation") points in each "Cell Assignment" of the output raster. "Sampling Value" refers to the resolution of the raster that we are creating, in other words, the spacing of our raster cell samples. Set the "Sampling Value" to **1** (meters), name the output raster "MKRF_DEM" and run the tool.
 
-##### Q3. How might changing the parameters of this tool ("Interpolation Type", "Cell Assignment", and "Sampling Value") affect the statistical qualities of the output DEM? (6 points)
+##### Q3. How might changing the parameters of this tool ("Interpolation Type", "Cell Assignment", and "Sampling Value") affect the statistical qualities of the output DEM? (6 points) {.unnumbered}
 
 ```{r 01-arcgis-lasd-to-raster, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/01-arcgis-lasd-to-raster.png")
@@ -340,7 +340,6 @@ Note, for future reference you can use these methods to spatially interpolate al
 ```{r 01-arcgis-las-to-multipoint, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/01-arcgis-las-to-multipoint.png")
 ```
-
 
 **Step 6:** Search for the "Multipart to Singlepart" tool. The multipoint feature class from the previous step is the input then run the tool. ArcGIS Pro will attempt to draw the symbols for every single point in the multipart and singlepart feature classes, so keep them toggled off.
 
@@ -384,9 +383,9 @@ We will use these reclassified areas as zones to calculate statistics about the 
 
 -   spline_diff_slope
 
-##### Q4. Summarize and describe how the interpolation methods differ from the binned DEM across elevation and slope classes. Which zones/methods are most similar or dissimilar? (10 points)
+##### Q4. Summarize and describe how the interpolation methods differ from the binned DEM across elevation and slope classes. Which zones/methods are most similar or dissimilar? (10 points) {.unnumbered}
 
-##### Table that shows zonal statistics of the difference rasters across elevation and slope ranges of the binned DEM (10 points)
+##### Table that shows zonal statistics of the difference rasters across elevation and slope ranges of the binned DEM (10 points) {.unnumbered}
 
 **Step 6:** Create a final map with the following elements: 
 
@@ -395,11 +394,11 @@ We will use these reclassified areas as zones to calculate statistics about the 
 - Summary statistics showing the mean and standard deviation across slope and elevation zones
 - North arrow and appropriate labels for each map panel
 
-##### A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach (15 points)
+##### A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach (15 points) {.unnumbered}
 
 Note that you can add standalone tables to your Map Layout by first clicking on the table in the Contents pane then Insert > Table Frame. Click and drag to set the extent of the table on the map, (similar to how you add a Map Frame).
 
-##### Q5. Which spatial interpolation algorithm would you recommend the research forest use? Defend and justify your choice. (5 points)
+##### Q5. Which spatial interpolation algorithm would you recommend the research forest use? Defend and justify your choice. (5 points) {.unnumbered}
 
 ------------------------------------------------------------------------
 
