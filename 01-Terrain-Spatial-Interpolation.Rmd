@@ -121,7 +121,7 @@ However, the tiles are all still stored in separate files and some portions are 
 
 PDAL can run functions in two ways. First, as subcommands, much like you have used with GDAL in prior labs. For example, `pdal merge [filename1.laz] [filename2.las] output.copc.laz` will use the `merge` subcommand and the file names that follow to merge many different las/laz/copc files together into the named output. Subcommands are generally good for small or incidental tasks like converting a file format or re-projecting data, but if you want to apply a more complex workflow then you should use a pipeline.
 
-[Pipelines](https://pdal.io/en/2.6.0/pipeline.html#pipeline) are JSON-formatted files that give PDAL a set of instructions for reading, processing and writing point cloud data. With pipelines, you can define every step of the processing that you want and you can specify the finest level of detail at every stage. Pipelines are executed linearly, so we read the instructions from top-down. Below is an example of a pipeline that we are going to use, which is described in more detail below:
+[Pipelines](https://pdal.io/en/stable/pipeline.html#pipelines) are JSON-formatted files that give PDAL a set of instructions for reading, processing and writing point cloud data. With pipelines, you can define every step of the processing that you want and you can specify the finest level of detail at every stage. Pipelines are executed linearly, so we read the instructions from top-down. Below is an example of a pipeline that we are going to use, which is described in more detail below:
 
 ```         
 {
