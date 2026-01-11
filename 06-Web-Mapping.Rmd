@@ -77,7 +77,7 @@ If you get warnings saying “24078 Layer’s data source is not supported” th
 
 **Step 3:** Repeat Step 2 with a raster layer from your project, but change the "Layer Type" to "Tile". Again, ensure that the layer is in the WGS 1984 Geographic Coordinate System and is not projected. "Analyze" and then "Publish" the layer if there are no warnings.
 
-**Step 4:** After completing Steps 2 and 3, a green message should appear with a URL saying "Manage the web layer". You can click the URL to take you to the hosted feature/tile layer on ArcGIS Online or you can [click here to log in to your ArcGIS Online account](https://ubc.maps.arcgis.com/). Navigate to the Content tab. You should see both your vector and raster layers listed there as “Feature Layer (hosted)” and “Tile Layer (hosted)”.
+**Step 4:** After completing Steps 2 and 3, a green message should appear with a URL saying "Manage the web layer". You can click the URL to take you to the hosted feature/tile layer on ArcGIS Online or you can [click here to log in to your ArcGIS Online account](https://ubc.maps.arcgis.com/). Navigate to the Content tab. You should see both your vector and raster layers listed there as "Feature Layer (hosted)" and "Tile Layer (hosted)".
 
 **Step 5:** Click each of your hosted layers and explore their page. Under the Data tab for the Feature Layer, you can look at the attribute table for your layer. You will notice several options on the right side for exporting, updating, and sharing your data, amongst others. Click the "Open in Map Viewer" option. This will take you to ArcGIS Online’s web mapping tool. Take a moment to explore the ways you can process and visualize your data.
 

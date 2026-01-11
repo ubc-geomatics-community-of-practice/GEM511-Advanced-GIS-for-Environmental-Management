@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2025-12-19" />
+<meta name="date" content="2026-01-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -322,7 +322,7 @@ Paul Pickell</p>
 <p>However, the tiles are all still stored in separate files and some portions are outside our AOI. So next, we are going to filter, merge, and crop the point cloud, but we are going to do this outside of QGIS because it will be faster and more reliable. We are going to use the Point Data Abstraction Library (PDAL) command line utility to perform this processing. You can read more about the extensive PDAL functionality here: <a href="https://pdal.io/" class="uri">https://pdal.io/</a> Note that many of the functions we are going to use with PDAL are available as tools through QGIS, but you have less control over the options and parameters in QGIS.</p>
 <p><strong>Step 7:</strong> Open the OSGeo4W shell and navigate to your QGIS project folder where your LiDAR data are located. For example, <code>cd C:\users\paul\Documents\QGIS\mkrf_lidar</code>. Type the command <code>pdal --version</code> to make sure that PDAL was installed with your current version of QGIS. If a version number is returned in the console window, then continue to the next step, otherwise ask your instructor to help you install PDAL using the <a href="https://trac.osgeo.org/osgeo4w">OSGeo4W installer</a>.</p>
 <p>PDAL can run functions in two ways. First, as subcommands, much like you have used with GDAL in prior labs. For example, <code>pdal merge [filename1.laz] [filename2.las] output.copc.laz</code> will use the <code>merge</code> subcommand and the file names that follow to merge many different las/laz/copc files together into the named output. Subcommands are generally good for small or incidental tasks like converting a file format or re-projecting data, but if you want to apply a more complex workflow then you should use a pipeline.</p>
-<p><a href="https://pdal.io/en/2.6.0/pipeline.html#pipeline">Pipelines</a> are JSON-formatted files that give PDAL a set of instructions for reading, processing and writing point cloud data. With pipelines, you can define every step of the processing that you want and you can specify the finest level of detail at every stage. Pipelines are executed linearly, so we read the instructions from top-down. Below is an example of a pipeline that we are going to use, which is described in more detail below:</p>
+<p><a href="https://pdal.io/en/stable/pipeline.html#pipelines">Pipelines</a> are JSON-formatted files that give PDAL a set of instructions for reading, processing and writing point cloud data. With pipelines, you can define every step of the processing that you want and you can specify the finest level of detail at every stage. Pipelines are executed linearly, so we read the instructions from top-down. Below is an example of a pipeline that we are going to use, which is described in more detail below:</p>
 <pre><code>{
     &quot;pipeline&quot;: 
         [
