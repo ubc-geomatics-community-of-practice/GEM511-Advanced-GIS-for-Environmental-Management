@@ -293,8 +293,6 @@ Add a Short field to the event table called "GRADIENT" and calculate this field 
 
 **Q5: How can unfilled sinks and topological errors in the DEM affect the modeled stream network? (7 points)**
 
-**Q6: When zooming into Lake Cowichan, what artifact is observed in the stream network and why does it occur? (7 points)**
-
 
 ------------------------------------------------------------------------
 
@@ -363,6 +361,9 @@ After the tool has finished running, toggle off the stream trace network and tog
 -   If you are still having trouble, try deleting the Trace Network from the feature dataset and rebuilding it ("Create Trace Network" + "Enable Network Topology" + "Validate Network Topology").
 
 -   If you are unable to delete the trace network, your geodatabase may be corrupt. Try creating a new geodatabase and import or re-create the important feature classes. Then, re-create the feature dataset and rebuild the trace network.
+
+
+**Q6: When zooming into Lake Cowichan, what artifact is observed in the stream network and why does it occur? (7 points)**
 
 ------------------------------------------------------------------------
 
