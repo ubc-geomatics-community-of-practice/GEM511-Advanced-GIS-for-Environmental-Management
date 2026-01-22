@@ -34,7 +34,7 @@ In British Columbia, salmon are an important species for economic, cultural, and
 
 -   Land cover
 
-For this lab, you will identify the preferred habitat for salmon spawning based on proxy measures and how it corresponds to our stream network that we have derived from the DEM. This lab will walk you through how to measure stream order and slope. For your final report, you will also be expected to analyze an additional habitat requirement for salmon spawning. (Note: if you use some information that is not on the aforementioned list, please describe how it is a habitat requirement for salmon spawning in your report.)
+For this lab, you will identify the preferred habitat for salmon spawning based on proxy measures and how it corresponds to our stream network that we have derived from the DEM. This lab will walk you through how to measure stream order and slope. For this lab, you will also be expected to analyze an additional habitat requirement for salmon spawning. (Note: if you use some information that is not on the aforementioned list, please describe how it is a habitat requirement for salmon spawning.)
 
 In this lab, we will focus on Vancouver Island for a few reasons. First, islands make it possible to calculate flow accumulation exactly, which is important for creating a (nearly) topologically correct stream network. Second, Vancouver Island is large, which will enable us to look at natural sources of topological errors. Third, many species of Pacific salmon return to highly developed Vancouver Island to spawn and often come into conflict with human development.
 
@@ -54,45 +54,46 @@ In this lab, we will focus on Vancouver Island for a few reasons. First, islands
 
 ## Deliverables {#lab2-deliverables .unnumbered}
 
-Lab report with the following specification:
 
-<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (5 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
 
-<input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input>
+<input type="checkbox" unchecked> **Answer the following questions (25 points)**  
 
-- **You are only expected to comment on a single conservation unit.**
 
--   Map showing the reach of your streams from the ocean with dams as barriers
+**Q1: What is the maximum stream order observed on Vancouver Island? (2 points)**
 
--   How many dams/ocean outlets are in your conservation area? 
+**Q2: How many dams junctions are present in your selected conservation unit? (1 point)**
 
--   How much of the stream network is accessible and inaccessible? 
+**Q3: How many ocean junctions are present in your selected conservation unit? (1 point)**
 
--   How well do the streams you created line up with the mapped streams in the ArcGIS basemap?
+**Q4: How would the stream network change if a 5 m DEM were used instead of a 100 m DEM? (7 points)**
 
--   Zoom to Lake Cowichan. What is going on here? What could you do to automatically fix this for all large lakes?
+**Q5: How can unfilled sinks and topological errors in the DEM affect the modeled stream network? (7 points)**
 
--   Report any other metrics that you calculated that might be useful for making your arguments in the Discussion section.
+**Q6: When zooming into Lake Cowichan, what artifact is observed in the stream network and why does it occur? (7 points)**
+ 
 
--   Comment on both small and large scale observations that you made throughout the process. Small scale observations would be investigating the behavior/structure of individual routes, while large scale observations would be the overall differences between total salmon habitat (all streams) and habitat that can actually be reached unimpeded from the ocean.
+---
 
-<input type="checkbox" unchecked> Discussion should address the following questions and requirements (20 points):</input>
+<input type="checkbox" unchecked> **Map panel (PDF or image) (15 points)**  
+Submit a panel of maps for **one conservation unit only**, including:
 
--   Why are reach and connectivity important for salmon conservation? 
+- Stream routes symbolized by reachability from the ocean 
+- Dams represented as barriers  
+- Accessible vs inaccessible salmon habitat segments  
+- A zoomed-in map highlighting Lake Cowichan  
+- Basic map elements (title, legend, scale bar)
 
--   What are some approaches to modelling reach within networks? Connectivity?
+---
 
--   Consider how you might model the other salmon habitat requirements laid out at the beginning of the lab. Give brief examples for how you would model at least [three of the criteria]{.underline} that we [did not]{.underline} consider in the lab (i.e., do not discuss stream order, stream gradient). Assume that you have access to any typical data source (e.g., LiDAR, optical satellite, RADAR, land inventory, gauge stations, weather stations, etc).
+<input type="checkbox" unchecked> **Summary table (PDF, image, or text) (10 points)**  
 
--   How would you expect the stream network to change if you used a raster with a cell size of 5 m or 100 m?
 
--   How might additional topological errors and unidentified/unfilled sinks in the DEM impact your analysis?
+- Total number of accessible Streams
+- Total number of inaccessible Streams
+- Total number of dam junctions 
+- Total number of ocean junctions
 
--   Discuss any limitations to the analysis based on your observations and suggest how the modelling process might be improved further. 
 
--   What are your final recommendations to the province for conservation of spawning salmon habitat in Vancouver Island streams?
-
--   Reference any peer reviewed sources as needed.
 
 ------------------------------------------------------------------------
 
@@ -100,7 +101,7 @@ Lab report with the following specification:
 
 All data for this lab are accessible via the UBC PostgreSQL server. Instructions for connecting to the server are given in prior labs. We will be using data from the `salmon` database. To save time for this lab, the data have already been assembled and pre-processed for you, but below are some details about how that was achieved.
 
-**vancouver_island_dem**
+**vancouver_island_dem:**
 
 This was the general process applied to create the DEM in case you want to reproduce it or apply the same method for another project:
 
@@ -127,11 +128,11 @@ The DEM above was filtered several times for sinks. Generally, you can use the "
 
 The original DEM contained >3,000 sinks. After iterating the above 12 times, there were fewer than 300 sinks. You can subtract the DEM from the filled DEM to observe where fill was added. Notice any patterns for where sinks are located on the island?
 
-**dams**
+**dams:**
 
 The dams were acquired from the BC Government [here](https://catalogue.data.gov.bc.ca/dataset/bc-dams). These data were clipped to Vancouver Island and represent dam structures as polyline features.
 
-**Salmon conservation units (CU)**
+**c) Salmon conservation units (CU):**
 
 Conservation units for Chinook, Chum, and Coho were acquired from Oceans and Fisheries Canada [here](https://open.canada.ca/data/en/dataset/1ac00a39-4770-443d-8a6b-9656c06df6a3#wb-auto-6). These polygon areas were mapped considering ecology, life history, and molecular genetics ([Waples et al 2001](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1095-8649.2001.tb01376.x)).
 
@@ -143,13 +144,13 @@ Conservation units for Chinook, Chum, and Coho were acquired from Oceans and Fis
 
 Open QGIS and connect to the `salmon` PostgreSQL server. Expand the `salmon` database in the Browser pane and right-click on "vancouver_island_dem" > Add Layer to Project. 
 
-Right click on the DEM layer in the Layers pane >  Export > Save as. Save the file as a GeoTiff in your Lab 2 project folder. Leave the default settings. Close QGIS. 
+Right click on the DEM layer in the Layers pane >  Export > Save as. Save the file as a GeoTiff in your Lab 2 project folder as **vancouver_island_dem**. Leave the default settings. Close QGIS. 
 
-**Step 2:** In ArcGIS Pro, add the Vancouver Island DEM to your map project. Clip the DEM to the"vancouver_island_boundary" using the clip raster tool, toggle on "use input features for clipping geometry".  
+**Step 2:** In ArcGIS Pro, add the Vancouver Island DEM to your map project. Clip the DEM to the "salmon.public.vancouver_island_boundary" using the clip raster tool, toggle on "use input features for clipping geometry".  
 
 You should save all of your outputs from the tools in this lab directly into your ArcGIS Pro project geodatabase. The reasoning for this is because we will only be working in ArcGIS Pro for this lab and also because the ArcGIS Pro topology tools only work with data inside an ArcGIS Pro geodatabase.
 
-Calculate the flow direction of the filled DEM, using the "Flow Direction" tool. The flow direction tool determines which raster cells flow into other cells based on the elevation difference the immediate neighborhood. Keep the defaults of the tool. Ensure that "Force all edge cells to flow outward" is toggled on and leave all other parameters with the default value. The cell values in the output raster represent the steepest down slope direction of each pixel. 
+Calculate the flow direction of the DEM, using the "Flow Direction" tool. The flow direction tool determines which raster cells flow into other cells based on the elevation difference the immediate neighborhood. Keep the defaults of the tool. Ensure that "Force all edge cells to flow outward" is toggled on and leave all other parameters with the default value. The cell values in the output raster represent the steepest down slope direction of each pixel. 
 
 ```{r 02-flow-direction, out.width= "50%", echo = FALSE}
     knitr::include_graphics("images/02-flow-direction.png")
@@ -168,7 +169,6 @@ Calculate the flow direction of the filled DEM, using the "Flow Direction" tool.
 **Step 6:** You will also use the "Stream Order" tool using the same inputs as in step 4 and the default parameters. The "Stream Order" tool assigns a numeric order to segments of the raster, essentially classifying branches of the stream network. The lowest order streams do not have any other streams that flow into it, while higher order streams can have multiple levels of tributaries that flow into it. This tool will take some time to run on the whole island. Take a moment to stretch and hydrate!
 
 
-
 **Step 7:** You will also convert your raster into polylines using the stream links raster and flow direction raster as inputs for the "Stream to Feature" tool. Toggle off "Simplify polylines". 
 
 Below is a useful flowchart of the process of creating a stream network from a DEM ([ArcGIS Pro](https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/deriving-runoff-characteristics.htm)).
@@ -176,6 +176,8 @@ Below is a useful flowchart of the process of creating a stream network from a D
 ```{r 02-flow-chart, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/02-flow-chart.png")
 ```
+
+**Q1: What is the maximum number of stream orders observed on Vancouver Island? (2 points)**
 
 ------------------------------------------------------------------------
 
@@ -191,7 +193,7 @@ At this point, you have only created polyline features representing streams. Nex
 
 **Step 2:** Convert your stream features into routes using the "Create routes" tool. Set the Route ID field to "arcid". The coordinate Priority parameter can be set to any corner. When you go to save your output, navigate into your feature dataset (it "feels" like entering another folder from the Catalog view), and save the output as "vancouver_island_stream_routes".
 
-**Step 3:** Right-click on the feature dataset, select "Import", and then navigate to the **dams** layer on the UBC PostgreSQL server and import this layer into your feeature dataset.
+**Step 3:** Right-click on the feature dataset, select "Import", and then navigate to the **dams** layer on the UBC PostgreSQL server and import this layer into your feature dataset.
 
 The dams are modelled as polylines. We need to identify where these dams intersect the stream routes. We want to return a single point for that location so that we can properly model the dams in our network, which act as barriers to salmon as they travel through the stream network. We will use topology to achieve this.
 
@@ -239,6 +241,10 @@ Next, we will use the same topology process to identify where the island boundar
     knitr::include_graphics("images/02-ocean-stream-junctions.png")
 ```
 
+**Q2: How many dams junctions are present in your selected conservation unit? (1 point)**
+
+**Q3: How many ocean junctions are present in your selected conservation unit? (1 point)**
+
 ------------------------------------------------------------------------
 
 ## Task 3: Record stream attributes with linear referencing {.unnumbered}
@@ -281,7 +287,12 @@ grid_code in the event table represents the classified stream gradient (0 is ≥
 
 Add a Short field to the event table called "GRADIENT" and calculate this field as !grid_code! to transfer the grid_code values to a more meaningful field name.
 
-**Step 6:** Repeat steps 4 and 5 above for the stream order raster that you generated in Task 1. Ensure that the stream_order raster is used as the "Input stream raster" and "Simplify polygons" is toggled off. In the end, you should have a second event table where the grid_code (values between 1 and 6) indicates the stream order for each route. Again, add a Short field to the event table called "SORDER" and calculate this field as !grid_code! to transfer the grid_code values to a more meaningful field name.
+**Step 6:** Repeat steps 4 and 5 above for the stream order raster that you generated in Task 1. Ensure that the stream_order raster is used as the "Input stream raster" and "Simplify polygons" is toggled off. In the end, you should have a second event table where the grid_code indicates the stream order for each route. Again, add a Short field to the event table called "SORDER" and calculate this field as !grid_code! to transfer the grid_code values to a more meaningful field name.
+
+**Q4: How would the stream network change if a 5 m DEM were used instead of a 100 m DEM? (7 points)**
+
+**Q5: How can unfilled sinks and topological errors in the DEM affect the modeled stream network? (7 points)**
+
 
 ------------------------------------------------------------------------
 
@@ -350,6 +361,9 @@ After the tool has finished running, toggle off the stream trace network and tog
 -   If you are still having trouble, try deleting the Trace Network from the feature dataset and rebuilding it ("Create Trace Network" + "Enable Network Topology" + "Validate Network Topology").
 
 -   If you are unable to delete the trace network, your geodatabase may be corrupt. Try creating a new geodatabase and import or re-create the important feature classes. Then, re-create the feature dataset and rebuild the trace network.
+
+
+**Q6: When zooming into Lake Cowichan, what artifact is observed in the stream network and why does it occur? (7 points)**
 
 ------------------------------------------------------------------------
 
@@ -431,7 +445,7 @@ If everything goes *swimmingly*, then the selected stream segments that meet the
     knitr::include_graphics("images/02-selected-streams.png")
 ```
 
-**For your final report, you will clip these layers to one of the salmon conservation units.**
+**For your final map, you will clip these layers to one of the salmon conservation units.**
 
 ------------------------------------------------------------------------
 
