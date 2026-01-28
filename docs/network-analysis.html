@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2026-01-21" />
+<meta name="date" content="2026-01-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -287,15 +287,8 @@ Paul Pickell</p>
 </div>
 <div id="lab2-deliverables" class="section level2 unnumbered hasAnchor">
 <h2>Deliverables<a href="network-analysis.html#lab2-deliverables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><input type="checkbox" unchecked> <strong>Answer the following questions (25 points)</strong></p>
-<p><strong>Q1: What is the maximum stream order observed on Vancouver Island? (2 points)</strong></p>
-<p><strong>Q2: How many dams junctions are present in your selected conservation unit? (1 point)</strong></p>
-<p><strong>Q3: How many ocean junctions are present in your selected conservation unit? (1 point)</strong></p>
-<p><strong>Q4: How would the stream network change if a 5 m DEM were used instead of a 100 m DEM? (7 points)</strong></p>
-<p><strong>Q5: How can unfilled sinks and topological errors in the DEM affect the modeled stream network? (7 points)</strong></p>
-<p><strong>Q6: When zooming into Lake Cowichan, what artifact is observed in the stream network and why does it occur? (7 points)</strong></p>
-<hr />
-<p><input type="checkbox" unchecked> <strong>Map panel (PDF or image) (15 points)</strong><br />
+<p><input type="checkbox" unchecked> Responses to the questions posed throughout the lab on the course management system (25 points)</p>
+<p><input type="checkbox" unchecked> Map panel (PDF or image) (15 points)
 Submit a panel of maps for <strong>one conservation unit only</strong>, including:</p>
 <ul>
 <li>Stream routes symbolized by reachability from the ocean</li>
@@ -307,8 +300,7 @@ Submit a panel of maps for <strong>one conservation unit only</strong>, includin
 </li>
 <li>Basic map elements (title, legend, scale bar)</li>
 </ul>
-<hr />
-<p><input type="checkbox" unchecked> <strong>Summary table (PDF, image, or text) (10 points)</strong></p>
+<p><input type="checkbox" unchecked> Summary table (PDF, image, or text) (10 points)</p>
 <ul>
 <li>Total number of accessible Streams</li>
 <li>Total number of inaccessible Streams</li>
@@ -365,8 +357,10 @@ Submit a panel of maps for <strong>one conservation unit only</strong>, includin
 <p><strong>Step 7:</strong> You will also convert your raster into polylines using the stream links raster and flow direction raster as inputs for the “Stream to Feature” tool. Toggle off “Simplify polylines”.</p>
 <p>Below is a useful flowchart of the process of creating a stream network from a DEM (<a href="https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/deriving-runoff-characteristics.htm">ArcGIS Pro</a>).</p>
 <p><img src="images/02-flow-chart.png" width="75%" /></p>
-<p><strong>Q1: What is the maximum number of stream orders observed on Vancouver Island? (2 points)</strong></p>
+<div id="q1.-what-is-the-maximum-number-of-stream-orders-observed-on-vancouver-island-2-points" class="section level5 hasAnchor" number="2.0.0.0.1">
+<h5><span class="header-section-number">2.0.0.0.1</span> Q1. What is the maximum number of stream orders observed on Vancouver Island? (2 points)**<a href="network-analysis.html#q1.-what-is-the-maximum-number-of-stream-orders-observed-on-vancouver-island-2-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <hr />
+</div>
 </div>
 <div id="task-2-create-routes-and-apply-topology" class="section level2 unnumbered hasAnchor">
 <h2>Task 2: Create routes and apply topology<a href="network-analysis.html#task-2-create-routes-and-apply-topology" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -393,9 +387,13 @@ Submit a panel of maps for <strong>one conservation unit only</strong>, includin
 <p><strong>Step 11:</strong> Right-click the network topology in the Catalog and select “Properties”. This will open the topology wizard dialogue again. On the left, select “Feature Class” and toggle on the nibbled Vancouver island boundary that you created in step 10 and the stream routes. Toggle everything else off. On the left, select “Rules”. Highlight the previous rule and click the “Remove” button at the top. Then, add a rule so that the stream routes must not intersect with the nibbled island boundary. Refer to steps 5 and 6 above if you need clarification.</p>
 <p><strong>Step 12:</strong> Again, validate the topology, add the topology to the map view, and export the Point Errors to a point feature class in your feature dataset. Name it “stream_ocean_junctions”. Refer to steps 7 and 8 if you need clarification.</p>
 <p><img src="images/02-ocean-stream-junctions.png" width="100%" /></p>
-<p><strong>Q2: How many dams junctions are present in your selected conservation unit? (1 point)</strong></p>
-<p><strong>Q3: How many ocean junctions are present in your selected conservation unit? (1 point)</strong></p>
+<div id="q2.-how-many-dams-junctions-are-present-in-your-selected-conservation-unit-1-point" class="section level5 hasAnchor" number="2.0.0.0.2">
+<h5><span class="header-section-number">2.0.0.0.2</span> Q2. How many dams junctions are present in your selected conservation unit? (1 point)**<a href="network-analysis.html#q2.-how-many-dams-junctions-are-present-in-your-selected-conservation-unit-1-point" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q3.-how-many-ocean-junctions-are-present-in-your-selected-conservation-unit-1-point" class="section level5 hasAnchor" number="2.0.0.0.3">
+<h5><span class="header-section-number">2.0.0.0.3</span> Q3. How many ocean junctions are present in your selected conservation unit? (1 point)**<a href="network-analysis.html#q3.-how-many-ocean-junctions-are-present-in-your-selected-conservation-unit-1-point" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <hr />
+</div>
 </div>
 <div id="task-3-record-stream-attributes-with-linear-referencing" class="section level2 unnumbered hasAnchor">
 <h2>Task 3: Record stream attributes with linear referencing<a href="network-analysis.html#task-3-record-stream-attributes-with-linear-referencing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -419,9 +417,13 @@ Submit a panel of maps for <strong>one conservation unit only</strong>, includin
 <p>grid_code in the event table represents the classified stream gradient (0 is ≥20%, 1 is &lt;20%). Note that you have more records in this table than you have routes, because many routes are being segmented based on the gradient. Thus, you see repeating route id”s (RID).</p>
 <p>Add a Short field to the event table called “GRADIENT” and calculate this field as !grid_code! to transfer the grid_code values to a more meaningful field name.</p>
 <p><strong>Step 6:</strong> Repeat steps 4 and 5 above for the stream order raster that you generated in Task 1. Ensure that the stream_order raster is used as the “Input stream raster” and “Simplify polygons” is toggled off. In the end, you should have a second event table where the grid_code indicates the stream order for each route. Again, add a Short field to the event table called “SORDER” and calculate this field as !grid_code! to transfer the grid_code values to a more meaningful field name.</p>
-<p><strong>Q4: How would the stream network change if a 5 m DEM were used instead of a 100 m DEM? (7 points)</strong></p>
-<p><strong>Q5: How can unfilled sinks and topological errors in the DEM affect the modeled stream network? (7 points)</strong></p>
+<div id="q4.-how-would-the-stream-network-change-if-a-5-m-dem-were-used-instead-of-a-100-m-dem-7-points" class="section level5 hasAnchor" number="2.0.0.0.4">
+<h5><span class="header-section-number">2.0.0.0.4</span> Q4. How would the stream network change if a 5 m DEM were used instead of a 100 m DEM? (7 points)**<a href="network-analysis.html#q4.-how-would-the-stream-network-change-if-a-5-m-dem-were-used-instead-of-a-100-m-dem-7-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q5.-how-can-unfilled-sinks-and-topological-errors-in-the-dem-affect-the-modeled-stream-network-7-points" class="section level5 hasAnchor" number="2.0.0.0.5">
+<h5><span class="header-section-number">2.0.0.0.5</span> Q5. How can unfilled sinks and topological errors in the DEM affect the modeled stream network? (7 points)**<a href="network-analysis.html#q5.-how-can-unfilled-sinks-and-topological-errors-in-the-dem-affect-the-modeled-stream-network-7-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <hr />
+</div>
 </div>
 <div id="task-4-trace-the-network" class="section level2 unnumbered hasAnchor">
 <h2>Task 4: Trace the network<a href="network-analysis.html#task-4-trace-the-network" class="anchor-section" aria-label="Anchor link to header"></a></h2>
