@@ -65,14 +65,7 @@ Submit a panel of maps for **one conservation unit only**, including:
 - A zoomed-in map highlighting Lake Cowichan  
 - Basic map elements (title, legend, scale bar)
 
-<<<<<<< HEAD
 <input type="checkbox" unchecked> Summary table (PDF, image, or text) (10 points)  
-=======
----
-
-<input type="checkbox" unchecked> **Summary table of your Conservation Unit (PDF, image, or text) (10 points)**  
-
->>>>>>> 2be541b99e41de67b5194354c84ec95fc183ca0e
 
 - Total number of accessible Streams
 - Total number of inaccessible Streams
@@ -170,7 +163,7 @@ Below is a useful flowchart of the process of creating a stream network from a D
     knitr::include_graphics("images/02-flow-chart.png")
 ```
 
-##### Q1. What is the maximum number of stream orders observed on Vancouver Island? (2 points)**
+##### Q1. What is the maximum number of stream orders observed on Vancouver Island? (2 points) {-}
 
 ------------------------------------------------------------------------
 
@@ -227,7 +220,6 @@ At this point, take a moment to appreciate where we are in this problem. We have
     knitr::include_graphics("images/02-vancouver_island_nibble.png")
 ```
 
-
 **Step 10:** Convert the nibbled Vancouver Island boundary to a polyline using the "Polygon to line" tool. Be sure to toggle off "Identify and store polygon neighboring information". **Save the result to your feature dataset with the stream links and dams.**
 
 Next, we will use the same topology process to identify where the island boundary intersects the stream routes, representing where salmon enter the stream network from the ocean.
@@ -240,9 +232,9 @@ Next, we will use the same topology process to identify where the island boundar
     knitr::include_graphics("images/02-ocean-stream-junctions.png")
 ```
 
-##### Q2. How many dams junctions are present in your selected conservation unit? (1 point)**
+##### Q2. How many dams junctions are present in your selected conservation unit? (1 point) {-}
 
-##### Q3. How many ocean junctions are present in your selected conservation unit? (1 point)**
+##### Q3. How many ocean junctions are present in your selected conservation unit? (1 point) {-}
 
 ------------------------------------------------------------------------
 
@@ -288,13 +280,9 @@ Add a Short field to the event table called "GRADIENT" and calculate this field 
 
 **Step 6:** Repeat steps 4 and 5 above for the stream order raster that you generated in Task 1. Ensure that the stream_order raster is used as the "Input stream raster" and "Simplify polygons" is toggled off. In the end, you should have a second event table where the grid_code indicates the stream order for each route. Again, add a Short field to the event table called "SORDER" and calculate this field as !grid_code! to transfer the grid_code values to a more meaningful field name.
 
-##### Q4. How would the stream network change if a 5 m DEM were used instead of a 100 m DEM? (7 points)**
+##### Q4. How would the stream network change if a 5 m DEM were used instead of a 100 m DEM? (7 points) {-}
 
-<<<<<<< HEAD
-##### Q5. How can unfilled sinks and topological errors in the DEM affect the modeled stream network? (7 points)**
-=======
-**Q6: When zooming into Lake Cowichan, what artifact is observed in the stream network and why does it occur? (7 points)**
->>>>>>> 2be541b99e41de67b5194354c84ec95fc183ca0e
+##### Q5. How can unfilled sinks and topological errors in the DEM affect the modeled stream network? (7 points) {-}
 
 ------------------------------------------------------------------------
 
@@ -360,9 +348,6 @@ After the tool has finished running, toggle off the stream trace network and tog
 -   If you are still having trouble, try deleting the Trace Network from the feature dataset and rebuilding it ("Create Trace Network" + "Enable Network Topology" + "Validate Network Topology").
 
 -   If you are unable to delete the trace network, your geodatabase may be corrupt. Try creating a new geodatabase and import or re-create the important feature classes. Then, re-create the feature dataset and rebuild the trace network.
-
-
-
 
 ------------------------------------------------------------------------
 
