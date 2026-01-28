@@ -349,11 +349,11 @@ Submit a panel of maps for <strong>one conservation unit only</strong>, includin
 <p><img src="images/02-vancouver_island_clip.png" width="50%" /></p>
 <p>You should save all of your outputs from the tools in this lab directly into your ArcGIS Pro project geodatabase. The reasoning for this is because we will only be working in ArcGIS Pro for this lab and also because the ArcGIS Pro topology tools only work with data inside an ArcGIS Pro geodatabase.</p>
 <p>Calculate the flow direction of the DEM, using the “Flow Direction” tool. The flow direction tool determines which raster cells flow into other cells based on the elevation difference the immediate neighborhood. Keep the defaults of the tool. Ensure that “Force all edge cells to flow outward” is toggled on and leave all other parameters with the default value. Save the output as <strong>vancouver_island_flow_direction</strong>. The cell values in the output raster represent the steepest down slope direction of each pixel.</p>
-<p><img src="images/02-vancouver_island_flow_direction.png" width="50%" /></p>
+<p><img src="images/02-vancouver_island_flow_direction.png" width="100%" /></p>
 <p><strong>Step 3:</strong> Use the output from the “Flow Direction” tool as an input into the “Flow Accumulation” tool. Again, use the defaults within the tool, but select integer as the output data type because the output of this tool is a count. Save it as <strong>vancouver_island_flow_accumulation</strong> This tool will create a raster that represents the number of pixels that will accumulate into any given pixel. You may need to zoom into the output to be able to see these streams. Play around with the symbology to visualize the stream network. (Hint: try using classify and various methods within symbology).</p>
-<p><img src="images/02-vancouver_island_flow_accumulation.png" width="50%" /></p>
+<p><img src="images/02-vancouver_island_flow_accumulation.png" width="100%" /></p>
 <p><strong>Step 4:</strong> To define streams, you need to set a threshold for the flow accumulation. Open “Con”(Image Analyst Tools). This tool allows you to set a true/false condition and assign values to a new raster based on whether the condition is met. Set the expression so that a pixel that has a count equal to or more than 1000 will be assigned a value of 1. For “Input true raster or constant value”, use value 1. For “Input false raster or constant value”, use value 0. Save it as <strong>vancouver_island_con</strong>.</p>
-<p><img src="images/02-vancouver_island_con.png" width="50%" /></p>
+<p><img src="images/02-vancouver_island_con.png" width="100%" /></p>
 <p><strong>Step 5:</strong> Next, you will create a grid of stream links, which assigns unique values to each stream segment, so that the user can see how the streams are connected. Open the “Stream Link” tool and use the output from the “Con” tool and the flow direction raster here.</p>
 <p><strong>Step 6:</strong> You will also use the “Stream Order” tool using the same inputs as in step 5 and the default parameters. The “Stream Order” tool assigns a numeric order to segments of the raster, essentially classifying branches of the stream network. The lowest order streams do not have any other streams that flow into it, while higher order streams can have multiple levels of tributaries that flow into it. This tool will take some time to run on the whole island. Take a moment to stretch and hydrate!</p>
 <p><strong>Step 7:</strong> You will also convert your raster into polylines using the stream links raster and flow direction raster as inputs for the “Stream to Feature” tool. Toggle off “Simplify polylines”.</p>
@@ -369,7 +369,7 @@ Submit a panel of maps for <strong>one conservation unit only</strong>, includin
 <p>At this point, you have only created polyline features representing streams. Next will convert those segments to routes and apply topology for our streams, as well as incorporate dams into the network.</p>
 <p><strong>Step 1:</strong> Create a blank feature dataset and name it “stream_routes_dams”. To do this, right-click the geodatabase in the Catalog pane and select New Feature Dataset. For the projection, use NAD 1983 BC Environment Albers (EPSG: 3005).</p>
 <p><strong>Step 2:</strong> Convert your stream features into routes using the “Create routes” tool. Use you Stream Features output as the Input Line. Set the Route ID field to “arcid”. The coordinate Priority parameter can be set to any corner. When you go to save your output, navigate into your feature dataset (it “feels” like entering another folder from the Catalog view), and save the output as “vancouver_island_stream_routes”.</p>
-<p><img src="images/02-vancouver_island_stream_routes.png" width="75%" /></p>
+<p><img src="images/02-vancouver_island_stream_routes.png" width="100%" /></p>
 <p><strong>Step 3:</strong> Right-click on the feature dataset, select “Import”, then Feature Class(es). Navigate to the <strong>salmon.publi.dams</strong> layer on the UBC PostgreSQL server, and use it as Input Features. Click Run and import this layer into your feature dataset.</p>
 <p>The dams are modelled as polylines. We need to identify where these dams intersect the stream routes. We want to return a single point for that location so that we can properly model the dams in our network, which act as barriers to salmon as they travel through the stream network. We will use topology to achieve this.</p>
 <p><img src="images/02-example-dam.png" width="100%" /></p>
@@ -380,11 +380,11 @@ Submit a panel of maps for <strong>one conservation unit only</strong>, includin
 <p><img src="images/02-create_topology_wizard-2.png" width="100%" /></p>
 <p>Once done, click “Finish”. Refresh the feature dataset in the Catalog pane to see the new Topology.</p>
 <p><strong>Step 7:</strong> Validate the topology by right-clicking the topology in the feature dataset and clicking “Validate”.</p>
-<p><img src="images/02-create_topology_errors.png" width="25%" /></p>
+<p><img src="images/02-create_topology_errors.png" width="50%" /></p>
 <p><strong>Step 8:</strong> You can click and drag the topology into the map to view any errors. We expect there to be errors because we know that the dams should intersect with our stream routes. You should see red squares all over the island. In the Contents Pane, right-click the “Point Errors” layer, select “Data”, and select “Export Features”. Save the points to your feature dataset as “stream_dam_junctions”.</p>
 <p>At this point, take a moment to appreciate where we are in this problem. We have modelled streams as routes and we now know where dams intersect with those routes. Salmon are diadromous species, they swim from the saltwater ocean up the freshwater streams to spawn. Therefore, we need one more piece of information in order to model how salmon swim upstream. We need to know where the streams meet the ocean.</p>
 <p><strong>Step 9:</strong> Take the Vancouver Island boundary polygon provided and perform a negative buffer, called a nibble. Open the Buffet tool, and use -25 meters for the buffer distance. We are doing a negative buffer because we want to ensure that this edge intersects with the streams that terminate at the ocean. Remember that the streams were generated by an imperfect and imprecise DEM, therefore this process will ensure that every stream that reaches the ocean will intersect this boundary.</p>
-<p><img src="images/02-vancouver_island_nibble.png" width="25%" /></p>
+<p><img src="images/02-vancouver_island_nibble.png" width="75%" /></p>
 <p><strong>Step 10:</strong> Convert the nibbled Vancouver Island boundary to a polyline using the “Polygon to line” tool. Be sure to toggle off “Identify and store polygon neighboring information”. <strong>Save the result to your feature dataset with the stream links and dams.</strong></p>
 <p>Next, we will use the same topology process to identify where the island boundary intersects the stream routes, representing where salmon enter the stream network from the ocean.</p>
 <p><strong>Step 11:</strong> Right-click the network topology in the Catalog and select “Properties”. This will open the topology wizard dialogue again. On the left, select “Feature Class” and toggle on the nibbled Vancouver island boundary that you created in step 10 and the stream routes. Toggle everything else off. On the left, select “Rules”. Highlight the previous rule and click the “Remove” button at the top. Then, add a rule so that the stream routes must not intersect with the nibbled island boundary. Refer to steps 5 and 6 above if you need clarification.</p>
@@ -439,7 +439,7 @@ Submit a panel of maps for <strong>one conservation unit only</strong>, includin
 <li><p>Input Junctions should contain both the “stream_dams_junction” and “stream_ocean_junctions” from the Topology geodatabase.</p></li>
 <li><p>Input Edges should contain the stream routes and set the Connectivity Policy to “Complex edge”</p></li>
 </ul>
-<p><img src="images/02-create_trace_network.png" width="50%" /></p>
+<p><img src="images/02-create_trace_network.png" width="75%" /></p>
 <p><strong>Step 2:</strong> Run the “Enable Network Topology” tool on the trace network you just created.</p>
 <p><strong>Step 3:</strong> Run the “Validate Network Topology” tool on the trace network you just created. You might receive a warning: "A dirty area is not present within the specific extent." Ignore it.</p>
 <p><strong>Step 4:</strong> Open the “Trace” tool. This tool traces a path along a network the meets specified criteria. It also supports modelling barriers, so that the tracing terminates when a barrier feature is reached. Here is how we will parameterize this tool:</p>
@@ -510,7 +510,7 @@ Submit a panel of maps for <strong>one conservation unit only</strong>, includin
 <p>Export the selected features to a new feature class called “inaccessible_salmon_habitat”.</p>
 <p>If everything goes <em>swimmingly</em>, then the selected stream segments that meet the habitat criteria and can be reached from the ocean will look something like this:</p>
 <p><img src="images/02-selected-streams.png" width="100%" /></p>
-<p><strong>For your final map, you will clip these layers to one of the salmon conservation units.</strong></p>
+<p>For your final map, you will clip these layers to one of the salmon conservation units.</p>
 <hr />
 </div>
 <div id="summary-1" class="section level2 unnumbered hasAnchor">
