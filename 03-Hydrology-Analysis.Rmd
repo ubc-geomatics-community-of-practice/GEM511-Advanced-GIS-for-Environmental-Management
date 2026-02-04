@@ -63,7 +63,7 @@ The data for this lab are a Digital Elevation Model (DEM) of the Nahmint watersh
 
 ## Task 1: Prepare the DEM and Map Stream Networks {.unnumbered}
 
-**Step 1:** The following steps should largely be review from the previous terrain modelling assignment! First, you will need to open QGIS and connect to the `nahmint` database on the UBC PostgreSQL server and export the **Nahmint_DEM** layer as a GeoTiff to work with in ArcGIS Pro. **Set the NoData values as -9999 to 0 and the CRS as EPSG:3005**. 
+**Step 1:** Open QGIS and connect to the `nahmint` database on the UBC PostgreSQL server and export the **nahmint_dem** layer as a GeoTiff to work with in ArcGIS Pro.
 
 Open ArcGIS Pro and import the **Nahmint_DEM** GeoTiff you just created. We will do a few pre-processing steps before generating a stream network.
 

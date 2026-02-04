@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2026-01-28" />
+<meta name="date" content="2026-02-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -298,7 +298,7 @@ Hana Travers-Smith</p>
 </div>
 <div id="task-1-prepare-the-dem-and-map-stream-networks" class="section level2 unnumbered hasAnchor">
 <h2>Task 1: Prepare the DEM and Map Stream Networks<a href="hydrology-analysis.html#task-1-prepare-the-dem-and-map-stream-networks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Step 1:</strong> The following steps should largely be review from the previous terrain modelling assignment! First, you will need to open QGIS and connect to the <code>nahmint</code> database on the UBC PostgreSQL server and export the <strong>Nahmint_DEM</strong> layer as a GeoTiff to work with in ArcGIS Pro. <strong>Set the NoData values as -9999 to 0 and the CRS as EPSG:3005</strong>.</p>
+<p><strong>Step 1:</strong> Open QGIS and connect to the <code>nahmint</code> database on the UBC PostgreSQL server and export the <strong>nahmint_dem</strong> layer as a GeoTiff to work with in ArcGIS Pro.</p>
 <p>Open ArcGIS Pro and import the <strong>Nahmint_DEM</strong> GeoTiff you just created. We will do a few pre-processing steps before generating a stream network.</p>
 <p>Use the <strong>Fill</strong> tool to remove any sinks from the DEM.</p>
 <p>Sinks are small imperfections in the DEM that create areas where water cannot flow out of. If sinks are not eliminated, water flow can get trapped within these depressions, leading to unrealistic pooling of water and incorrect delineation of watershed boundaries.</p>
