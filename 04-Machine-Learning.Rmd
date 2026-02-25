@@ -40,8 +40,7 @@ Our area of interest is a large rectangular area in southern British Columbia co
 
 **Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (4 points)**
 
-
-**Q3. Which model performed best for FUEL_TYPE and for CROWN_CLOS? Briefly justify your choice. Include one raster map for each. (5 points)**
+**Q3. Which model performed best for FUEL_TYPE and for CROWN_CLOS? Briefly justify your choice (5 points)**
 
 **Q4. How did model performance differ among the three sampling strategies for fuel type? What are the main advantages and limitations of each? (3 points)**
 
@@ -160,11 +159,11 @@ Next, we are going to use Exploratory Regression to determine which of our raste
 
 **Step 6:** Select the equation you think will work best for both "CROWN_CLOS" and "FUEL_TYPE". Remember to look at all the different measures of model "goodness" (R^2^, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
 
-**Q1. How many fuel types are in the VRI dataset? Which fuel type has the fewest points? (5 points)**
+**Q1. How many fuel types are in the VRI dataset? Which fuel type has the fewest points? (3 points)**
 
-**Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (7 points)**
+**Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (4 points)**
 
-**Q3. Create a summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models. Which model had the highest R² and which variables were selected for the final model? (8 points)**
+**Q3. Which model performed best for FUEL_TYPE and for CROWN_CLOS? Briefly justify your choice (5 points)**
 
 ------------------------------------------------------------------------
 
@@ -197,6 +196,7 @@ Double-check that your sub-samples have the correct number and fuel types in the
 **Step 6:** Using the "Merge" tool, combine your four sub-sample data sets and call the output "stratified_sample". This sample should have 500 points.
 
 **Step 7:** To make the fixed interval point (FIP) sampled dataset, we will create a regularly spaced grid from which to sample our points by creating a fishnet of polygons, converting those polygons into centroid points, and then sampling the closest VRI point to our fishnet points. Open the "Create Fishnet" tool and name your "Output Feature Class" "fishnet". Under "Template Extent" click "Browse" and select the vri shapefile. The X and Y Extents and Origin Coordinates should automatically populate. Set the “Number of Rows” to 20 and the “Number of Columns” to 25. This divides the extent into 20x25 (500!) identical segments. Change the “Geometry” to “Polygon” and run the tool. Your output feature class should look like the grid below. 
+
 
 ```{r 04-elephant-hill-fishnet, out.width= "75%", echo = FALSE}
     knitr::include_graphics("images/04-elephant-hill-fishnet.png")
@@ -282,15 +282,13 @@ When you are finished you should have 10 output rasters, 3 output confusion matr
 
 Your output rasters for FUEL_TYPE may be numbers, even though the variable was a string! If your fuel type prediction rasters show numbers, do the following: on each of your sample feature classes, open the attribute table and summarize the unique values in the FUEL_TYPE field using the same method as Task 2 Step 2. The OID in the summary table and the value in your corresponding output raster refer to the same fuel type, e.g., 0 is C-2, 1 is C-3, etc, as seen to the left. Change the labels for the legend in raster Symbology to the fuel type instead of the number when you make the map.
 
-**Q4. Which model performed best for FUEL_TYPE and for CROWN_CLOS? Briefly justify your choice. Include one raster map for each. (8 points)**
+**Q4. How did model performance differ among the three sampling strategies for fuel type? What are the main advantages and limitations of each? (3 points)**
 
-**Q5. How did model performance differ among the three sampling strategies for fuel type? What are the main advantages and limitations of each? (6 points)**
+**Q5. How did Random Forest parameter changes affect crown closure model performance? Which parameters should be optimized and why? (4 points)**
 
-**Q6. How did Random Forest parameter changes affect crown closure model performance? Which parameters should be optimized and why? (6 points)**
+**Q6. Why were the selected variables effective for predicting crown closure? What other variables might better predict fuel type? (3 points)**
 
-**Q7. Why were the selected variables effective for predicting crown closure? What other variables might better predict fuel type? (5 points)**
-
-**Q8. What are the strengths and limitations of using remote sensing, climate, and terrain data for predicting fuel types and crown closure? (5 points)**
+**Q7. What are the strengths and limitations of using remote sensing, climate, and terrain data for predicting fuel types and crown closure? (3 points)**
 
 
 ------------------------------------------------------------------------
