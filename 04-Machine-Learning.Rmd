@@ -34,12 +34,14 @@ Our area of interest is a large rectangular area in southern British Columbia co
 
 ## Deliverables {#lab4-deliverables .unnumbered}
 
+** Responses to the questions posed throughout the lab on the course management system (25 points)**
+
 
 **Q1. How many fuel types are in the VRI dataset? Which fuel type has the fewest points? (5 points)**
 
 **Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (7 points)**
 
-**Q3. a summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models. Which model had the highest R² and which variables were selected for the final model? (8 points)**
+**A summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models. Which model had the highest R² and which variables were selected for the final model? (8 points)**
 
 **Q4. Which model performed best for FUEL_TYPE and for CROWN_CLOS? Briefly justify your choice. Include one raster map for each. (8 points)**
 
