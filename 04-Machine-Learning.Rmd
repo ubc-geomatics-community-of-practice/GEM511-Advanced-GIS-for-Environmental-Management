@@ -34,31 +34,11 @@ Our area of interest is a large rectangular area in southern British Columbia co
 
 ## Deliverables {#lab4-deliverables .unnumbered}
 
-Lab report with the following specification:
+<input type="checkbox" unchecked> Responses to the questions posed throughout the lab on the course management system (25 points)</input>
 
-<input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point). All figures and tables should be properly captioned (1 point).</input>
+<input type="checkbox" unchecked> Summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models (5 points)</input>
 
-<input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input>
-
--   How many fuel types are there in the VRI dataset? Which fuel type has the fewest number of points?
-
--   What are the results of the spatial autocorrelation (SA) tool and what do they tell us? Why do we test CROWN_CLOS for spatial autocorrelation but not FUEL_TYPE?
-
--   Report the diagnostic results of the Exploratory Regression (R^2^, AIC, VIF, variable significance) **for three of best models**. What model had the highest R^2^? Based on this, what variables did you choose to include in your final model? Use the statistical terms in the results  to justify your choice.
-
--   Select the best model for FUEL_TYPE and CROWN_CLOS and briefly justify your choice. Map one of the FUEL_TYPE rasters and one of the CROWN_CLOS rasters. Be sure to specify in a caption or title what sampling design / parameter settings you are displaying in each. 
-
-<input type="checkbox" unchecked> Discussion should address the following questions and requirements (20 points):</input>
-
--  For the fuel type model discuss the performance of each model. Were there large differences in model performance among the three sampling strategies? What are the benefits and drawbacks of using each sampling design, both in terms of statistical power and the limits of field data acquisition?
-
-- For the crown closure model discuss the impact of changing the Random Forests parameters on the model performance. What parameters should be optimized and why?
-
--   We used the Exploratory Regression tool to select our input variables. Discuss why you think these variables were important in predicting crown closure. We used the same variables for both the crown closure and fuel type models, what variables might be better for predicting fuel type that we didn't include?  
-
--   What are the advantages and limitations of using remote sensing data to predict crown closure and fuel types? What about climate data? Terrain data? Why should we use these data for this problem?
-
--   Reference to any peer reviewed sources as needed.
+<input type="checkbox" unchecked> Map of your prediction for FUEL_TYPE and CROWN_CLOS (20 points)</input>
 
 ------------------------------------------------------------------------
 
@@ -101,7 +81,7 @@ The data for this lab comes from several different sources, including the Landsa
 |                                                              |                                                                                                                                 |                 |
 |                                                              | Source: ClimateNA                                                                                                               |                 |
 +--------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+-----------------+
-| Summer Heat Moisture Index (SHM)                             | $\frac{mean\text{ }warmest\text{ }month\text{ }temperature}{\frac{May\text{ }to\text{ }September\text{ }precipitation}{1000} }$ | CNA_SHMz        |
+| Summer Heat Moisture Index (SHM)                             | $\frac{mean\text{ }warmest\text{ }month\text{ }temperature}{\frac{May\text{ }to\text{ }September\text{ }precipitation}{1000} }$ | CNA_SHM        |
 |                                                              |                                                                                                                                 |                 |
 |                                                              | Source: ClimateNA                                                                                                               |                 |
 +--------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+-----------------+
@@ -147,7 +127,7 @@ The data have been processed ahead of time so that you may focus more on machine
 
 **Step 4:** Open the "Spatial Autocorrelation (Global Moran's I)" tool. Use the VRI feature class as the input and set the input field to "CROWN_CLOS". Change the "Conceptualization of Spatial Relationships" parameter to "K Nearest Neighbours" and set the "Number of Neighbors" to "20". Check the box that says "Generate Report". Leave the rest of the tool parameters with the default values and run the tool. Observe the results by viewing the generated report (found in your default folder/geodatabase) or by selecting "View Details".
 
-**HINT: Due to the constraint of completing this lab in ArcGIS Pro, we are unable adjust our sampling parameters to account for spatial autocorrelation. Fortunately, this is a learning exercise, so you will get to discuss this conundrum in your report!**
+**HINT: Due to the constraint of completing this lab in ArcGIS Pro, we are unable adjust our sampling parameters to account for spatial autocorrelation. Fortunately, this is a learning exercise, so you will have the opportunity to discuss this conundrum when interpreting your results!**
 
 Next, we are going to use Exploratory Regression to determine which of our rasters will be most effective in predicting our variables of interest.
 
@@ -158,6 +138,14 @@ Next, we are going to use Exploratory Regression to determine which of our raste
 ```
 
 **Step 6:** Select the equation you think will work best for both "CROWN_CLOS" and "FUEL_TYPE". Remember to look at all the different measures of model "goodness" (R^2^, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
+
+##### Q1. How many fuel types are in the VRI dataset? Which fuel type has the fewest points? (5 points) {.unnumbered}
+
+##### Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (7 points) {.unnumbered}
+
+##### Table 1. Create a summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models. (5 points) {.unnumbered}
+
+##### Q3. Which model had the highest R² and which variables were selected for the final model? (8 points) {.unnumbered}
 
 ------------------------------------------------------------------------
 
@@ -173,6 +161,7 @@ As noted earlier, the VRI feature class is enormous, and it is an outlier regard
 -   Non-vegetated -- "N"
 -   Vegetated non-forest -- all fuel types starting with "S" or "O" (as in octopus).
 -   Forest -- all fuel types starting with "M", "C", or "D".
+
 
 Open the attribute table for the VRI dataset, right-click on the "FUEL_TYPE" field, and select "Summarize". Set the "Field" to "FUEL_TYPE" and the "Statistic Type" to "Unique". Leave "Case Field" as is and select "OK". Inspect the output statistics table in your Contents Pane.
 
@@ -229,7 +218,7 @@ We will be running it a total of nine times (three with FUEL_TYPE, six with CROW
 -   **Validation Options \> Training Data Excluded for Validation:** set to 30%
 -   **Validation Options \> Number of Runs for Validation:** set to 2
 
-Leave all other parameters as the default value or blank. Run the tool. You may get a warning about low numbers of certain fuel types -- ignore it (for now...). When the tool finishes, click "View Details" and copy/paste the info under "Messages" into a text file. This is where you can find the regression statistics (R^2^, RMSE, etc) for the training and validation data for your report.
+Leave all other parameters as the default value or blank. Run the tool. You may get a warning about low numbers of certain fuel types -- ignore it (for now...). When the tool finishes, click "View Details" and copy/paste the info under "Messages" into a text file. This is where you can find the regression statistics (R^2^, RMSE, etc) for the training and validation data.
 
 **Step 2:** Run the tool again, but this time use "stratified_sample" as your "Input Training Features". Change the name of your outputs accordingly, but keep everything else the same. When this is finished, run the tool a third time with "FIP_sample" as the input. Remember to keep your regression results in a text file. If you do forget, just go to "History" under the "Analysis" tab and hover over the tool.
 
@@ -273,6 +262,18 @@ When you are finished you should have 10 output rasters, 3 output confusion matr
 **Step 5:** View all of your new rasters in your map and inspect the results. Symbolize them in a logical manner.
 
 Your output rasters for FUEL_TYPE may be numbers, even though the variable was a string! If your fuel type prediction rasters show numbers, do the following: on each of your sample feature classes, open the attribute table and summarize the unique values in the FUEL_TYPE field using the same method as Task 2 Step 2. The OID in the summary table and the value in your corresponding output raster refer to the same fuel type, e.g., 0 is C-2, 1 is C-3, etc, as seen to the left. Change the labels for the legend in raster Symbology to the fuel type instead of the number when you make the map.
+
+##### Q4. Which model performed best for FUEL_TYPE and for CROWN_CLOS? Briefly justify your choice. (8 points) {.unnumbered}
+
+##### Q5. How did model performance differ among the three sampling strategies for fuel type? What are the main advantages and limitations of each? (6 points) {.unnumbered}
+
+##### Q6. How did Random Forest parameter changes affect crown closure model performance? Which parameters should be optimized and why? (6 points) {.unnumbered}
+
+##### Q7. Why were the selected variables effective for predicting crown closure? What other variables might better predict fuel type? (5 points) {.unnumbered}
+
+##### Q8. What are the strengths and limitations of using remote sensing, climate, and terrain data for predicting fuel types and crown closure? (5 points) {.unnumbered}
+
+##### Map 1. Upload a map of your prediction for FUEL_TYPE and CROWN_CLOS (20 points) {.unnumbered}
 
 ------------------------------------------------------------------------
 
