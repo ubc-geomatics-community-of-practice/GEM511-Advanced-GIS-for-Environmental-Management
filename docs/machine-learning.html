@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2026-02-25" />
+<meta name="date" content="2026-02-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -398,17 +398,17 @@ Claire Armour</p>
 <p><strong>Step 5:</strong> Open the “Exploratory Regression” tool and set the VRI feature class as your “Input Features”. Select “CROWN_CLOS” as your “Dependent Variable”. Remember that as part of the pre-processing, all raster data were extracted at the VRI points. Select the fields corresponding to the rasters in the VRI feature class as your “Candidate Explanatory Variables”. Leave out the original Landsat bands. Save the “Output Report File” as “regression_results.txt”. This will create a text file in your default folder with the results of the tool, which can also be viewed under “View Details”. Leave the rest of the tool parameters as the default values and run the tool.</p>
 <p><img src="images/04-exploratory-regression.png" width="75%" /></p>
 <p><strong>Step 6:</strong> Select the equation you think will work best for both “CROWN_CLOS” and “FUEL_TYPE”. Remember to look at all the different measures of model “goodness” (R<sup>2</sup>, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.</p>
-<div id="q1.-how-many-fuel-types-are-in-the-vri-dataset-which-fuel-type-has-the-fewest-points-5-points" class="section level5 unnumbered hasAnchor">
-<h5>Q1. How many fuel types are in the VRI dataset? Which fuel type has the fewest points? (5 points)<a href="machine-learning.html#q1.-how-many-fuel-types-are-in-the-vri-dataset-which-fuel-type-has-the-fewest-points-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q1.-how-many-fuel-types-are-in-the-vri-dataset-2-points" class="section level5 unnumbered hasAnchor">
+<h5>Q1. How many fuel types are in the VRI dataset? (2 points)<a href="machine-learning.html#q1.-how-many-fuel-types-are-in-the-vri-dataset-2-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 </div>
-<div id="q2.-what-are-the-results-of-the-spatial-autocorrelation-sa-analysis-what-do-they-indicate-why-was-sa-tested-for-crown_clos-but-not-for-fuel_type-7-points" class="section level5 unnumbered hasAnchor">
-<h5>Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (7 points)<a href="machine-learning.html#q2.-what-are-the-results-of-the-spatial-autocorrelation-sa-analysis-what-do-they-indicate-why-was-sa-tested-for-crown_clos-but-not-for-fuel_type-7-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q2.-what-are-the-results-of-the-spatial-autocorrelation-sa-analysis-what-do-they-indicate-why-was-sa-tested-for-crown_clos-but-not-for-fuel_type-4-points" class="section level5 unnumbered hasAnchor">
+<h5>Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (4 points)<a href="machine-learning.html#q2.-what-are-the-results-of-the-spatial-autocorrelation-sa-analysis-what-do-they-indicate-why-was-sa-tested-for-crown_clos-but-not-for-fuel_type-4-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 </div>
 <div id="table-1.-create-a-summary-table-of-the-exploratory-regression-diagnostics-r²-aic-vif-significance-for-the-three-best-models.-5-points" class="section level5 unnumbered hasAnchor">
 <h5>Table 1. Create a summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models. (5 points)<a href="machine-learning.html#table-1.-create-a-summary-table-of-the-exploratory-regression-diagnostics-r²-aic-vif-significance-for-the-three-best-models.-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 </div>
-<div id="q3.-which-model-had-the-highest-r²-and-which-variables-were-selected-for-the-final-model-8-points" class="section level5 unnumbered hasAnchor">
-<h5>Q3. Which model had the highest R² and which variables were selected for the final model? (8 points)<a href="machine-learning.html#q3.-which-model-had-the-highest-r²-and-which-variables-were-selected-for-the-final-model-8-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q3.-which-model-had-the-highest-r²-and-which-variables-were-selected-for-the-final-model-4-points" class="section level5 unnumbered hasAnchor">
+<h5>Q3. Which model had the highest R² and which variables were selected for the final model? (4 points)<a href="machine-learning.html#q3.-which-model-had-the-highest-r²-and-which-variables-were-selected-for-the-final-model-4-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <hr />
 </div>
 </div>
@@ -490,20 +490,20 @@ Claire Armour</p>
 <p>When you are finished you should have 10 output rasters, 3 output confusion matrices, and 7 text files with your regression results.</p>
 <p><strong>Step 5:</strong> View all of your new rasters in your map and inspect the results. Symbolize them in a logical manner.</p>
 <p>Your output rasters for FUEL_TYPE may be numbers, even though the variable was a string! If your fuel type prediction rasters show numbers, do the following: on each of your sample feature classes, open the attribute table and summarize the unique values in the FUEL_TYPE field using the same method as Task 2 Step 2. The OID in the summary table and the value in your corresponding output raster refer to the same fuel type, e.g., 0 is C-2, 1 is C-3, etc, as seen to the left. Change the labels for the legend in raster Symbology to the fuel type instead of the number when you make the map.</p>
-<div id="q4.-which-model-performed-best-for-fuel_type-and-for-crown_clos-briefly-justify-your-choice.-8-points" class="section level5 unnumbered hasAnchor">
-<h5>Q4. Which model performed best for FUEL_TYPE and for CROWN_CLOS? Briefly justify your choice. (8 points)<a href="machine-learning.html#q4.-which-model-performed-best-for-fuel_type-and-for-crown_clos-briefly-justify-your-choice.-8-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q4.-which-model-performed-best-for-fuel_type-and-for-crown_clos-briefly-justify-your-choice.-4-points" class="section level5 unnumbered hasAnchor">
+<h5>Q4. Which model performed best for FUEL_TYPE and for CROWN_CLOS? Briefly justify your choice. (4 points)<a href="machine-learning.html#q4.-which-model-performed-best-for-fuel_type-and-for-crown_clos-briefly-justify-your-choice.-4-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 </div>
-<div id="q5.-how-did-model-performance-differ-among-the-three-sampling-strategies-for-fuel-type-what-are-the-main-advantages-and-limitations-of-each-6-points" class="section level5 unnumbered hasAnchor">
-<h5>Q5. How did model performance differ among the three sampling strategies for fuel type? What are the main advantages and limitations of each? (6 points)<a href="machine-learning.html#q5.-how-did-model-performance-differ-among-the-three-sampling-strategies-for-fuel-type-what-are-the-main-advantages-and-limitations-of-each-6-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q5.-how-did-model-performance-differ-among-the-three-sampling-strategies-for-fuel-type-what-are-the-main-advantages-and-limitations-of-each-3-points" class="section level5 unnumbered hasAnchor">
+<h5>Q5. How did model performance differ among the three sampling strategies for fuel type? What are the main advantages and limitations of each? (3 points)<a href="machine-learning.html#q5.-how-did-model-performance-differ-among-the-three-sampling-strategies-for-fuel-type-what-are-the-main-advantages-and-limitations-of-each-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 </div>
-<div id="q6.-how-did-random-forest-parameter-changes-affect-crown-closure-model-performance-which-parameters-should-be-optimized-and-why-6-points" class="section level5 unnumbered hasAnchor">
-<h5>Q6. How did Random Forest parameter changes affect crown closure model performance? Which parameters should be optimized and why? (6 points)<a href="machine-learning.html#q6.-how-did-random-forest-parameter-changes-affect-crown-closure-model-performance-which-parameters-should-be-optimized-and-why-6-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q6.-how-did-random-forest-parameter-changes-affect-crown-closure-model-performance-which-parameters-should-be-optimized-and-why-3-points" class="section level5 unnumbered hasAnchor">
+<h5>Q6. How did Random Forest parameter changes affect crown closure model performance? Which parameters should be optimized and why? (3 points)<a href="machine-learning.html#q6.-how-did-random-forest-parameter-changes-affect-crown-closure-model-performance-which-parameters-should-be-optimized-and-why-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 </div>
-<div id="q7.-why-were-the-selected-variables-effective-for-predicting-crown-closure-what-other-variables-might-better-predict-fuel-type-5-points" class="section level5 unnumbered hasAnchor">
-<h5>Q7. Why were the selected variables effective for predicting crown closure? What other variables might better predict fuel type? (5 points)<a href="machine-learning.html#q7.-why-were-the-selected-variables-effective-for-predicting-crown-closure-what-other-variables-might-better-predict-fuel-type-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q7.-why-were-the-selected-variables-effective-for-predicting-crown-closure-what-other-variables-might-better-predict-fuel-type-3-points" class="section level5 unnumbered hasAnchor">
+<h5>Q7. Why were the selected variables effective for predicting crown closure? What other variables might better predict fuel type? (3 points)<a href="machine-learning.html#q7.-why-were-the-selected-variables-effective-for-predicting-crown-closure-what-other-variables-might-better-predict-fuel-type-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 </div>
-<div id="q8.-what-are-the-strengths-and-limitations-of-using-remote-sensing-climate-and-terrain-data-for-predicting-fuel-types-and-crown-closure-5-points" class="section level5 unnumbered hasAnchor">
-<h5>Q8. What are the strengths and limitations of using remote sensing, climate, and terrain data for predicting fuel types and crown closure? (5 points)<a href="machine-learning.html#q8.-what-are-the-strengths-and-limitations-of-using-remote-sensing-climate-and-terrain-data-for-predicting-fuel-types-and-crown-closure-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="q8.-what-are-the-strengths-and-limitations-of-using-remote-sensing-climate-and-terrain-data-for-predicting-fuel-types-and-crown-closure-2-points" class="section level5 unnumbered hasAnchor">
+<h5>Q8. What are the strengths and limitations of using remote sensing, climate, and terrain data for predicting fuel types and crown closure? (2 points)<a href="machine-learning.html#q8.-what-are-the-strengths-and-limitations-of-using-remote-sensing-climate-and-terrain-data-for-predicting-fuel-types-and-crown-closure-2-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 </div>
 <div id="map-1.-upload-a-map-of-your-prediction-for-fuel_type-and-crown_clos-20-points" class="section level5 unnumbered hasAnchor">
 <h5>Map 1. Upload a map of your prediction for FUEL_TYPE and CROWN_CLOS (20 points)<a href="machine-learning.html#map-1.-upload-a-map-of-your-prediction-for-fuel_type-and-crown_clos-20-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
