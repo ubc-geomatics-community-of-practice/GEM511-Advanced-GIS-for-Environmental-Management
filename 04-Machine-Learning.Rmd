@@ -137,7 +137,7 @@ Next, we are going to use Exploratory Regression to determine which of our raste
     knitr::include_graphics("images/04-exploratory-regression.png")
 ```
 
-**Step 6:** Select the equation you think will work best for both "CROWN_CLOS" and "FUEL_TYPE". Remember to look at all the different measures of model "goodness" (R^2^, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
+**Step 6:** Select the equation you think will work best for "CROWN_CLOS". Remember to look at all the different measures of model "goodness" (R^2^, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
 
 ##### Q1. How many fuel types are in the VRI dataset? (2 points) {.unnumbered}
 
