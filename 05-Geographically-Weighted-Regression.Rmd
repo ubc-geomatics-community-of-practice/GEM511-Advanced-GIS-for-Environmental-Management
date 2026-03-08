@@ -172,7 +172,7 @@ The `alt_geo_code` is an identifier for every unique geographic division for cen
 
 -   `alt_geo_code = 5901003` represents the third `003` **Census Subdivision (CSD)** in the first CD
 
--   `alt_geo_code = 59010100` represents the 100th `0100` **Dissemination Area (DA)** in the third CSD, in the first CD
+-   `alt_geo_code = 59010100` represents the 100th `0100` **Dissemination Area (DA)** in the first CD
 
 Codes with 8 digits are therefore **Dissemination Area Unique Identifiers (DAUID)**, which you should recognize are the values we need to use to join the census data to the actual dissemination area polygons that we just extracted in QGIS.
 
