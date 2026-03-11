@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2026-02-26" />
+<meta name="date" content="2026-03-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -278,27 +278,9 @@ Paul Pickell</p>
 </div>
 <div id="lab5-deliverables" class="section level2 unnumbered hasAnchor">
 <h2>Deliverables<a href="geographically-weighted-regression.html#lab5-deliverables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Lab report with the following specification:</p>
-<p><input type="checkbox" unchecked> 6 pages maximum PDF including figures, tables and references (3 points). Single-spaced, 12-point Times New Roman font (1 point).</p>
-<p><input type="checkbox" unchecked> Results should address the following questions and requirements (25 points):</input></p>
-<ul>
-<li><p>Describe the qualities of the census data and the Landsat image.</p></li>
-<li><p>How did you evaluate your models and select your final model? Report any relevant statistics that you used in your judgement.</p></li>
-<li><p>Why did you select the 10 characteristics that you choose in Task 3?</p></li>
-<li><p>A table with the ordinary least squares and geographically weighted regression results for the models that used the best subsets of your 10 characteristics.</p></li>
-<li><p>Describe all of the terms, coefficients, and explanatory variables of your selected GWR model.</p></li>
-<li><p>Justify your choice of a final set of independent variables for your GWR model.</p></li>
-<li><p>Compare and contrast the different NDVI statistics. Which statistic had the best model? What evidence do you have for that conclusion? Why do you think that relationship was the strongest?</p></li>
-<li><p>Interpret one of your independent variables in one of your three NDVI statistics using the Std.Error and Coefficient map. What spatial patterns do you see? What do you think could be influencing this relationship?</p></li>
-<li><p>Maps illustrating the standardized residuals and local R^{2} for each of your three different NDVI statistics.</p></li>
-</ul>
-<p><input type="checkbox" unchecked> Discussion should address the following questions and requirements (20 points):</input></p>
-<ul>
-<li><p>What other factors (spatial or aspatial) might be contributing or confounding your analysis? In other words, what other data sources might you add/calculate or what methods might you change to improve your results?</p></li>
-<li><p>What can you conclude about green equity among dissemnination areas in Vancouver?</p></li>
-<li><p>What are your final recommendations to city council about green equity in Vancouver?</p></li>
-<li><p>Reference to any peer reviewed sources as needed.</p></li>
-</ul>
+<p><input type="checkbox" unchecked> Responses to the questions posed throughout the lab on the course management system (25 points)</p>
+<p><input type="checkbox" unchecked> A table comparing the Ordinary Least Squares (OLS) and Geographically Weighted Regression (GWR) models using the best subset of explanatory variables (10 points)</p>
+<p><input type="checkbox" unchecked> A map showing the standardized residuals and local <span class="math inline">\(R^2\)</span> for each of the three NDVI statistics (15 points)</p>
 <hr />
 </div>
 <div id="lab5-data" class="section level2 unnumbered hasAnchor">
@@ -372,7 +354,7 @@ Paul Pickell</p>
 <li><p><code>alt_geo_code = 59</code> represents British Columbia in the <strong>Provinces and Territories Unique Identifier (PRUID)</strong></p></li>
 <li><p><code>alt_geo_code = 5901</code> represents the first <code>01</code> <strong>Census Division (CD)</strong></p></li>
 <li><p><code>alt_geo_code = 5901003</code> represents the third <code>003</code> <strong>Census Subdivision (CSD)</strong> in the first CD</p></li>
-<li><p><code>alt_geo_code = 59010100</code> represents the 100th <code>0100</code> <strong>Dissemination Area (DA)</strong> in the third CSD, in the first CD</p></li>
+<li><p><code>alt_geo_code = 59010100</code> represents the 100th <code>0100</code> <strong>Dissemination Area (DA)</strong> in the first CD</p></li>
 </ul>
 <p>Codes with 8 digits are therefore <strong>Dissemination Area Unique Identifiers (DAUID)</strong>, which you should recognize are the values we need to use to join the census data to the actual dissemination area polygons that we just extracted in QGIS.</p>
 <p><strong>Step 6:</strong> We can modify our earlier query slightly to ensure we are only dealing with DAs:</p>
@@ -564,41 +546,55 @@ NDVI=\frac{Band5-Band4}{Band5+Band4}
 <p><img src="images/05-arcgis-zonal-statistics.png" width="75%" /></p>
 <p>This will produce a table that should look like the image below. The table contains summary statistics of NDVI calculated for each dissemination area. Now we need to join this table to the polygon feature class.</p>
 <p><img src="images/05-arcgis-zonal-statistics-table.png" width="75%" /></p>
+<div id="q1.-describe-the-main-characteristics-of-the-census-dataset-and-the-landsat-imagery-used-to-derive-the-ndvi-statistics.-2-points" class="section level5 unnumbered hasAnchor">
+<h5>Q1. Describe the main characteristics of the census dataset and the Landsat imagery used to derive the NDVI statistics. (2 points)<a href="geographically-weighted-regression.html#q1.-describe-the-main-characteristics-of-the-census-dataset-and-the-landsat-imagery-used-to-derive-the-ndvi-statistics.-2-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p><strong>Step 4:</strong> Right-click on the “vancouver_da_characteristics” layer in your Contents Pane and select “Joins and Relates”, then “Add Join”. The “Input Table” is “vancouver_da_characteristics” and the “Join Table” is “ndvi_zonal_statistics”. Select the correct keys to join the tables. This is a one-to-one join. Map the output, below is an example of average NDVI.</p>
 <p><img src="images/05-arcgis-ndvi-mean.png" width="100%" /></p>
 <p>It is important to initially analyze our census characteristics <span class="math inline">\(k\)</span> to determine which independent variables and combination of these variables have the strongest relationship with our dependent variable, NDVI <span class="math inline">\(y\)</span>. To conduct the initial analysis, we will use a tool called “Exploratory Regression”, which is part of the Spatial Statistics Toolbox.</p>
 <p><strong>Step 5:</strong> Open the “Exploratory Regression” tool. Select “vancouver_da_characteristics” as your “Input Features” and “ndvi_zonal_statistics.MEAN” as your dependent variable. Select all of the census characteristics as your “Candidate Explanatory Variables”, expand “Search Criteria” and change the “Maximum Number of Explanatory Variables” to 14 then run the tool with other fields as default.</p>
 <p><img src="images/05-arcgis-exploratory-regression.png" width="50%" /></p>
 <p><em>NOTE:</em> <em>Some fields were truncated when we saved the “vancouver_da_characteristics” shapefile. It should still be apparent which fields to select, but some of the original names will not perfectly match.</em></p>
-<p><strong>Step 6:</strong> When the tool has finished running, click “View Details” at the bottom and then click “Messages”. Under the heading “Highest adjusted R-squared results”, you can explore the modeled relationship between one or more independent variables and the dependent variable. You should see the adjusted R-squared plateau at 0.41 when using a model with seven independent variables. We can use the statistics like Akaike’s Information Criterion (AICc), Jarque-Bera p-value (JB), and Max Variance Inflation Factor (VIF) to choose between similar models with different sets of independent variables. Be sure to copy-paste this output message to a notepad so that you can reference it later in your report.</p>
+<p><strong>Step 6:</strong> When the tool has finished running, click “View Details” at the bottom and then click “Messages”. Under the heading “Highest adjusted R-squared results”, you can explore the modeled relationship between one or more independent variables and the dependent variable. You should see the adjusted R-squared plateau at 0.41 when using a model with seven independent variables. We can use the statistics like Akaike’s Information Criterion (AICc), Jarque-Bera p-value (JB), and Max Variance Inflation Factor (VIF) to choose between similar models with different sets of independent variables. Be sure to copy-paste this output message to a notepad so that you can reference it later in your deliverables.</p>
 <p><img src="images/05-arcgis-exploratory-regression-results.png" width="100%" /></p>
-<p><strong>Step 7:</strong> Once you have selected a model, write down the independent variables that are used in the model. Open the “Ordinary Least Squares (OLS)” tool. The “Input Feature Class” is “vancouver_da_characteristics”, “Unique ID Field” is “vancouver_da_characteristcs.alt_geo_co”, name the “Output Feature Class” as “ols_mean_ndvi”, set the “Dependent Variable” to “ndvi_zonal_statistics.MEAN”, and then select all of the independent variables that you wrote down from the last step. Run the tool, then click “View Details”, select “Messages”, and copy-paste the output to a notepad to reference it later in your report.</p>
+</div>
+<div id="q2.-how-did-you-evaluate-the-regression-models-and-select-your-final-model-describe-the-statistics-that-guided-your-decision.-3-points" class="section level5 unnumbered hasAnchor">
+<h5>Q2. How did you evaluate the regression models and select your final model? Describe the statistics that guided your decision. (3 points)<a href="geographically-weighted-regression.html#q2.-how-did-you-evaluate-the-regression-models-and-select-your-final-model-describe-the-statistics-that-guided-your-decision.-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p><strong>Step 7:</strong> Once you have selected a model, write down the independent variables that are used in the model. Open the “Ordinary Least Squares (OLS)” tool. The “Input Feature Class” is “vancouver_da_characteristics”, “Unique ID Field” is “vancouver_da_characteristcs.alt_geo_co”, name the “Output Feature Class” as “ols_mean_ndvi”, set the “Dependent Variable” to “ndvi_zonal_statistics.MEAN”, and then select all of the independent variables that you wrote down from the last step. Run the tool, then click “View Details”, select “Messages”, and copy-paste the output to a notepad to reference it later in your deliverables.</p>
 <p><img src="images/05-arcgis-ols.png" width="50%" /></p>
 <p><strong>Step 8:</strong> Open the “Geographically Weighted Regression (GWR)” tool and parameterize it the same as you did in the last step for OLS, but change “Neighborhood Type” to “Number of neighbors”, change “Neighborhood Selection Method” to “Golden search”, and set “Minimum Number of Neighbors” to 50 and “Maximum Number of Neighbors” to 250. Name the “Output Features” as “gwr_mean_ndvi”. Again, select all of the independent variables that you wrote down from earlier then run the tool. The output will automatically be added to your map along with several charts. Doubling-clicking on a chart will open it.</p>
 <p><img src="images/05-arcgis-variable-chart.png" width="100%" /></p>
 <p><strong>Step 9:</strong> Save you ArcGIS Pro project.</p>
 <hr />
 </div>
+</div>
 <div id="task-3-analyze-your-own-census-characteristics" class="section level2 unnumbered hasAnchor">
 <h2>Task 3: Analyze your own census characteristics<a href="geographically-weighted-regression.html#task-3-analyze-your-own-census-characteristics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Your final task for this lab is to repeat Steps 8 and 9 of Task 1, but this time, select 10 of your own census characteristics and then perform your own analysis using what you have learned in Task 2. We strongly recommend referring to the readme file and other metadata that are linked in the <a href="geographically-weighted-regression.html#lab5-data"><strong>Data section</strong></a> of the lab.</p>
-<p><strong>Step 1:</strong> Select 10 different census characteristics other than the 14 we worked with and repeat Steps 8 and 9 of Task 1. You will be expected to rationalize why you selected these 10 characteristics in your report.</p>
+<p><strong>Step 1:</strong> Select 10 different census characteristics other than the 14 we worked with and repeat Steps 8 and 9 of Task 1. You will be expected to rationalize why you selected these 10 characteristics in your deliverables.</p>
 <p><strong>Step 2:</strong> Run all 10 characteristics through the “Exploratory Regression” tool. Repeat this process with three different NDVI statistics (e.g., mean, max, min, standard deviation, etc.). Record the output message and refer to any statistics here to justify your choice of a final set of independent variables for your regressions.</p>
 <p><strong>Step 3:</strong> Using your selected subset of independent variables, run the “Ordinary Least Squares (OLS)” tool for each of the three dependent variables, NDVI statistics that you chose in Step 2. Record the output message and refer to these statistics when you compare your OLS results to your GWR results.</p>
 <p><strong>Step 4:</strong> Using your selected subset of independent variables, run the “Geographically Weighted Regression (GWR)” tool for each of the three dependent variables, NDVI statistics that you chose in Step 2. Record the output message and refer to these statistics when you compare your GWR results to your OLS results.</p>
-<p><strong>Step 5:</strong> Explore your GWR results and make maps of the following for each of the three different NDVI statistics that you will reference in your report:
+<p><strong>Step 5:</strong> Explore your GWR results and make maps of the following for each of the three different NDVI statistics that you will reference in your deliverables:
 - Standardized residuals
-- Local R^{2}</p>
-<p><strong>Step 6:</strong> Explore your GWR results and make a map of one “Coefficient” and one “Std.Error” for one of your independent variables. Reference these maps when you are explaining your results in your report.</p>
-<p><strong>Step 7:</strong> Answer the following questions in your report and refer to all the maps, tables, and figures you made in the previous steps:</p>
-<ul>
-<li>Compare and contrast the different NDVI statistics. Which statistic had the best model? What evidence do you have for that conclusion? Why do you think that relationship was the strongest?</li>
-<li>Interpret one of your independent variables in one of your three NDVI statistics using the Std.Error and Coefficient map. What spatial patterns do you see? What do you think could be influencing this relationship?</li>
-<li>What other factors (spatial or aspatial) might be contributing or confounding your analysis? In other words, what other data sources might you add/calculate or what methods might you change to improve your results?</li>
-<li>What can you conclude about green equity among dissemnination areas in Vancouver?</li>
-</ul>
-<p>You will be expected to rationalize why you selected these 10 characteristics in your report.</p>
+- Local <span class="math inline">\(R^2\)</span></p>
+<p><strong>Step 6:</strong> Explore your GWR results and make a map of one “Coefficient” and one “Std.Error” for one of your independent variables. Reference these maps when you are explaining your results in your deliverables.</p>
+<p><strong>Step 7:</strong> Answer the following and previous questions in Canvas. Include the maps, tables, and figures generated in the previous steps.</p>
+<div id="q3.-why-did-you-select-the-10-explanatory-variables-used-in-task-3-2-points" class="section level5 unnumbered hasAnchor">
+<h5>Q3. Why did you select the 10 explanatory variables used in Task 3? (2 points)<a href="geographically-weighted-regression.html#q3.-why-did-you-select-the-10-explanatory-variables-used-in-task-3-2-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q4.-compare-and-contrast-the-different-ndvi-statistics-used-in-this-analysis.-which-ndvi-statistic-produced-the-best-performing-model-and-what-evidence-supports-your-conclusion-3-points" class="section level5 unnumbered hasAnchor">
+<h5>Q4. Compare and contrast the different NDVI statistics used in this analysis. Which NDVI statistic produced the best-performing model and what evidence supports your conclusion? (3 points)<a href="geographically-weighted-regression.html#q4.-compare-and-contrast-the-different-ndvi-statistics-used-in-this-analysis.-which-ndvi-statistic-produced-the-best-performing-model-and-what-evidence-supports-your-conclusion-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q5.-using-the-coefficient-and-standard-error-maps-interpret-the-spatial-relationship-between-one-independent-variable-and-one-ndvi-statistic.-what-spatial-patterns-do-you-observe-and-what-factors-might-explain-them-5-points" class="section level5 unnumbered hasAnchor">
+<h5>Q5. Using the coefficient and standard error maps, interpret the spatial relationship between one independent variable and one NDVI statistic. What spatial patterns do you observe and what factors might explain them? (5 points)<a href="geographically-weighted-regression.html#q5.-using-the-coefficient-and-standard-error-maps-interpret-the-spatial-relationship-between-one-independent-variable-and-one-ndvi-statistic.-what-spatial-patterns-do-you-observe-and-what-factors-might-explain-them-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q6.-what-can-you-conclude-about-green-equity-among-dissemnination-areas-in-vancouver-5-points" class="section level5 unnumbered hasAnchor">
+<h5>Q6. What can you conclude about green equity among dissemnination areas in Vancouver? (5 points)<a href="geographically-weighted-regression.html#q6.-what-can-you-conclude-about-green-equity-among-dissemnination-areas-in-vancouver-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q7.-what-are-your-final-recommendations-to-city-council-about-green-equity-in-vancouver-5-points" class="section level5 unnumbered hasAnchor">
+<h5>Q7. What are your final recommendations to city council about green equity in Vancouver? (5 points)<a href="geographically-weighted-regression.html#q7.-what-are-your-final-recommendations-to-city-council-about-green-equity-in-vancouver-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <hr />
+</div>
 </div>
 <div id="summary-4" class="section level2 unnumbered hasAnchor">
 <h2>Summary<a href="geographically-weighted-regression.html#summary-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>

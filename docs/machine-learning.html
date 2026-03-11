@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Lab 4 Machine Learning with Geospatial Data | GEM 511: Advanced GIS for Environmental Management</title>
   <meta name="description" content="Open Educational Resources for GEM 511 course at the University of British Columbia" />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Lab 4 Machine Learning with Geospatial Data | GEM 511: Advanced GIS for Environmental Management" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2026-02-24" />
+<meta name="date" content="2026-03-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,70 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <style type="text/css">
   
@@ -210,14 +274,9 @@ Claire Armour</p>
 </div>
 <div id="lab4-deliverables" class="section level2 unnumbered hasAnchor">
 <h2>Deliverables<a href="machine-learning.html#lab4-deliverables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Q1. How many fuel types are in the VRI dataset? Which fuel type has the fewest points? (5 points)</strong></p>
-<p><strong>Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (7 points)</strong></p>
-<p><strong>Q3. a summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models. Which model had the highest R² and which variables were selected for the final model? (8 points)</strong></p>
-<p><strong>Q4. Which model performed best for FUEL_TYPE and for CROWN_CLOS? Briefly justify your choice. Include one raster map for each. (8 points)</strong></p>
-<p><strong>Q5. How did model performance differ among the three sampling strategies for fuel type? What are the main advantages and limitations of each? (6 points)</strong></p>
-<p><strong>Q6. How did Random Forest parameter changes affect crown closure model performance? Which parameters should be optimized and why? (6 points)</strong></p>
-<p><strong>Q7. Why were the selected variables effective for predicting crown closure? What other variables might better predict fuel type? (5 points)</strong></p>
-<p><strong>Q8. What are the strengths and limitations of using remote sensing, climate, and terrain data for predicting fuel types and crown closure? (5 points)</strong></p>
+<p><input type="checkbox" unchecked> Responses to the questions posed throughout the lab on the course management system (25 points)</input></p>
+<p><input type="checkbox" unchecked> Summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models (5 points)</input></p>
+<p><input type="checkbox" unchecked> Map of your prediction for FUEL_TYPE and CROWN_CLOS (20 points)</input></p>
 <hr />
 </div>
 <div id="lab4-data" class="section level2 unnumbered hasAnchor">
@@ -338,10 +397,18 @@ Claire Armour</p>
 <p>Next, we are going to use Exploratory Regression to determine which of our rasters will be most effective in predicting our variables of interest.</p>
 <p><strong>Step 5:</strong> Open the “Exploratory Regression” tool and set the VRI feature class as your “Input Features”. Select “CROWN_CLOS” as your “Dependent Variable”. Remember that as part of the pre-processing, all raster data were extracted at the VRI points. Select the fields corresponding to the rasters in the VRI feature class as your “Candidate Explanatory Variables”. Leave out the original Landsat bands. Save the “Output Report File” as “regression_results.txt”. This will create a text file in your default folder with the results of the tool, which can also be viewed under “View Details”. Leave the rest of the tool parameters as the default values and run the tool.</p>
 <p><img src="images/04-exploratory-regression.png" width="75%" /></p>
-<p><strong>Step 6:</strong> Select the equation you think will work best for both “CROWN_CLOS” and “FUEL_TYPE”. Remember to look at all the different measures of model “goodness” (R<sup>2</sup>, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.</p>
-<p><strong>Q1. How many fuel types are in the VRI dataset? Which fuel type has the fewest points? (5 points)</strong></p>
-<p><strong>Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (7 points)</strong></p>
-<p><strong>Q3. Create a summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models. Which model had the highest R² and which variables were selected for the final model? (8 points)</strong></p>
+<p><strong>Step 6:</strong> Select the equation you think will work best for “CROWN_CLOS”. Remember to look at all the different measures of model “goodness” (R<sup>2</sup>, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.</p>
+<div id="q1.-how-many-fuel-types-are-in-the-vri-dataset-2-points" class="section level5 unnumbered hasAnchor">
+<h5>Q1. How many fuel types are in the VRI dataset? (2 points)<a href="machine-learning.html#q1.-how-many-fuel-types-are-in-the-vri-dataset-2-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q2.-what-are-the-results-of-the-spatial-autocorrelation-sa-analysis-what-do-they-indicate-why-was-sa-tested-for-crown_clos-but-not-for-fuel_type-4-points" class="section level5 unnumbered hasAnchor">
+<h5>Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (4 points)<a href="machine-learning.html#q2.-what-are-the-results-of-the-spatial-autocorrelation-sa-analysis-what-do-they-indicate-why-was-sa-tested-for-crown_clos-but-not-for-fuel_type-4-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="table-1.-create-a-summary-table-of-the-exploratory-regression-diagnostics-r²-aic-vif-significance-for-the-three-best-models.-5-points" class="section level5 unnumbered hasAnchor">
+<h5>Table 1. Create a summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models. (5 points)<a href="machine-learning.html#table-1.-create-a-summary-table-of-the-exploratory-regression-diagnostics-r²-aic-vif-significance-for-the-three-best-models.-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q3.-which-model-had-the-highest-r²-and-which-variables-were-selected-for-the-final-model-4-points" class="section level5 unnumbered hasAnchor">
+<h5>Q3. Which model had the highest R² and which variables were selected for the final model? (4 points)<a href="machine-learning.html#q3.-which-model-had-the-highest-r²-and-which-variables-were-selected-for-the-final-model-4-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <hr />
 </div>
 </div>
@@ -374,7 +441,7 @@ Claire Armour</p>
 </div>
 <div id="task-3-forest-based-classification" class="section level2 unnumbered hasAnchor">
 <h2>Task 3: Forest-Based Classification<a href="machine-learning.html#task-3-forest-based-classification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Our last task will be using the “Forest-based Classification and Regression” tool to run our machine learning. ESRI provides a helpful overview of the tool <a href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/how-forest-works.htm">here</a>.</p>
+<p>Our last task will be using the “Forest-based and Boosted Classification and Regression” tool to run our machine learning. ESRI provides a helpful overview of the tool <a href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/how-forest-works.htm">here</a>.</p>
 <p>We will be running it a total of nine times (three with FUEL_TYPE, six with CROWN_CLOS) and it can be slow, so please be patient and leave yourself lots of time.</p>
 <p><strong>Step 1:</strong> Open the “Forest-based and Boosted Classification and Regression” tool. When you search for the tool, check that it is from the “Spatial Statistics” toolbox and NOT the “GeoAnalytics Desktop” toolbox as they have different inputs. Parameterize the tool as follows:</p>
 <ul>
@@ -395,9 +462,9 @@ Claire Armour</p>
 - random_output_FT
 - stratified_output_FT
 - FIP_output_FT</p>
-<p><strong>HINT: Under the “Analysis” tab, view your tool “History”. Double-click the “Forest-based Classification and Regression” tool and it will pop up in your geoprocessing pane with the same inputs and settings you used for that particular run – this way, you can just edit the inputs that are changing between runs rather than having to reenter the settings each time.</strong></p>
+<p><strong>HINT: Under the “Analysis” tab, view your tool “History”. Double-click the “Forest-based and Boosted Classification and Regression” tool and it will pop up in your geoprocessing pane with the same inputs and settings you used for that particular run – this way, you can just edit the inputs that are changing between runs rather than having to reenter the settings each time.</strong></p>
 <p><strong>Step 3:</strong> For CROWN_CLOS, instead of changing the sampling design, we are going to experiment with different parameter settings on the tool for a total of <strong>6 runs</strong> (three different parameters, two settings each).</p>
-<p>Open the “Forest-based Boosted Classification and Regression” tool again and set these inputs which will act as our control:</p>
+<p>Open the “Forest-based and Boosted Classification and Regression” tool again and set these inputs which will act as our control:</p>
 <ul>
 <li><strong>Prediction Type:</strong> Predict to Raster</li>
 <li><strong>Input Training Features:</strong> random_sample</li>
@@ -410,7 +477,7 @@ Claire Armour</p>
 <li><strong>Validation Options &gt; Training Data Excluded for Validation:</strong> set to 30%</li>
 </ul>
 <p>Leave all other parameters as the default value or blank. Run the tool. When it is finished, click “View Details” and copy/paste the info under “Messages” into your text file.</p>
-<p><strong>Step 4:</strong> We are going to run the “Forest-based Classification and Regression” tool six more times. For each time, the inputs should be identical to those in Step 3 except for a single parameter which we will change each time:</p>
+<p><strong>Step 4:</strong> We are going to run the “Forest-based and Boosted Classification and Regression” tool six more times. For each time, the inputs should be identical to those in Step 3 except for a single parameter which we will change each time:</p>
 <ul>
 <li><strong>Run 1 of 6:</strong> Change Advanced Forest Options &gt; Maximum Tree Depth to 5. Name the output “depth_5_output_CC”</li>
 <li><strong>Run 2 of 6:</strong> Change Advanced Forest Options &gt; Maximum Tree Depth to 15. Name the output “depth_15_output_CC”</li>
@@ -423,11 +490,23 @@ Claire Armour</p>
 <p>When you are finished you should have 10 output rasters, 3 output confusion matrices, and 7 text files with your regression results.</p>
 <p><strong>Step 5:</strong> View all of your new rasters in your map and inspect the results. Symbolize them in a logical manner.</p>
 <p>Your output rasters for FUEL_TYPE may be numbers, even though the variable was a string! If your fuel type prediction rasters show numbers, do the following: on each of your sample feature classes, open the attribute table and summarize the unique values in the FUEL_TYPE field using the same method as Task 2 Step 2. The OID in the summary table and the value in your corresponding output raster refer to the same fuel type, e.g., 0 is C-2, 1 is C-3, etc, as seen to the left. Change the labels for the legend in raster Symbology to the fuel type instead of the number when you make the map.</p>
-<p><strong>Q4. Which model performed best for FUEL_TYPE and for CROWN_CLOS? Briefly justify your choice. Include one raster map for each. (8 points)</strong></p>
-<p><strong>Q5. How did model performance differ among the three sampling strategies for fuel type? What are the main advantages and limitations of each? (6 points)</strong></p>
-<p><strong>Q6. How did Random Forest parameter changes affect crown closure model performance? Which parameters should be optimized and why? (6 points)</strong></p>
-<p><strong>Q7. Why were the selected variables effective for predicting crown closure? What other variables might better predict fuel type? (5 points)</strong></p>
-<p><strong>Q8. What are the strengths and limitations of using remote sensing, climate, and terrain data for predicting fuel types and crown closure? (5 points)</strong></p>
+<div id="q4.-which-model-performed-best-for-fuel_type-and-for-crown_clos-briefly-justify-your-choice.-4-points" class="section level5 unnumbered hasAnchor">
+<h5>Q4. Which model performed best for FUEL_TYPE and for CROWN_CLOS? Briefly justify your choice. (4 points)<a href="machine-learning.html#q4.-which-model-performed-best-for-fuel_type-and-for-crown_clos-briefly-justify-your-choice.-4-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q5.-how-did-model-performance-differ-among-the-three-sampling-strategies-for-fuel-type-what-are-the-main-advantages-and-limitations-of-each-3-points" class="section level5 unnumbered hasAnchor">
+<h5>Q5. How did model performance differ among the three sampling strategies for fuel type? What are the main advantages and limitations of each? (3 points)<a href="machine-learning.html#q5.-how-did-model-performance-differ-among-the-three-sampling-strategies-for-fuel-type-what-are-the-main-advantages-and-limitations-of-each-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q6.-how-did-random-forest-parameter-changes-affect-crown-closure-model-performance-which-parameters-should-be-optimized-and-why-3-points" class="section level5 unnumbered hasAnchor">
+<h5>Q6. How did Random Forest parameter changes affect crown closure model performance? Which parameters should be optimized and why? (3 points)<a href="machine-learning.html#q6.-how-did-random-forest-parameter-changes-affect-crown-closure-model-performance-which-parameters-should-be-optimized-and-why-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q7.-why-were-the-selected-variables-effective-for-predicting-crown-closure-what-other-variables-might-better-predict-fuel-type-3-points" class="section level5 unnumbered hasAnchor">
+<h5>Q7. Why were the selected variables effective for predicting crown closure? What other variables might better predict fuel type? (3 points)<a href="machine-learning.html#q7.-why-were-the-selected-variables-effective-for-predicting-crown-closure-what-other-variables-might-better-predict-fuel-type-3-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="q8.-what-are-the-strengths-and-limitations-of-using-remote-sensing-climate-and-terrain-data-for-predicting-fuel-types-and-crown-closure-2-points" class="section level5 unnumbered hasAnchor">
+<h5>Q8. What are the strengths and limitations of using remote sensing, climate, and terrain data for predicting fuel types and crown closure? (2 points)<a href="machine-learning.html#q8.-what-are-the-strengths-and-limitations-of-using-remote-sensing-climate-and-terrain-data-for-predicting-fuel-types-and-crown-closure-2-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
+<div id="map-1.-upload-a-map-of-your-prediction-for-fuel_type-and-crown_clos-20-points" class="section level5 unnumbered hasAnchor">
+<h5>Map 1. Upload a map of your prediction for FUEL_TYPE and CROWN_CLOS (20 points)<a href="machine-learning.html#map-1.-upload-a-map-of-your-prediction-for-fuel_type-and-crown_clos-20-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <hr />
 </div>
 </div>

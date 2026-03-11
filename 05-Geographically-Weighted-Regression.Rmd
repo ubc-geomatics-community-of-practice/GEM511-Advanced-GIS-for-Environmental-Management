@@ -40,16 +40,11 @@ Vancouver is the most populous city in British Columbia, Canada with a populatio
 
 ## Deliverables {#lab5-deliverables .unnumbered}
 
-<input type="checkbox" unchecked> Responses to the questions posed throughout the lab activities (25 points)
-
-
+<input type="checkbox" unchecked> Responses to the questions posed throughout the lab on the course management system (25 points)
 
 <input type="checkbox" unchecked> A table comparing the Ordinary Least Squares (OLS) and Geographically Weighted Regression (GWR) models using the best subset of explanatory variables (10 points)
 
-
-<input type="checkbox" unchecked> Maps showing the standardized residuals and local $R^2$ for each of the three NDVI statistics (10 points)
-
-<input type="checkbox" unchecked> A short discussion addressing conclusions about green equity in Vancouver and recommendations for Vancouver City Council (5 points)
+<input type="checkbox" unchecked> A map showing the standardized residuals and local $R^2$ for each of the three NDVI statistics (15 points)
 
 ------------------------------------------------------------------------
 
@@ -300,8 +295,7 @@ This will produce a table that should look like the image below. The table conta
     knitr::include_graphics("images/05-arcgis-zonal-statistics-table.png")
 ```
 
-**Q1. Describe the main characteristics of the census dataset and the Landsat imagery used to derive the NDVI statistics**
-
+##### Q1. Describe the main characteristics of the census dataset and the Landsat imagery used to derive the NDVI statistics. (2 points) {-}
 
 **Step 4:** Right-click on the "vancouver_da_characteristics" layer in your Contents Pane and select "Joins and Relates", then "Add Join". The "Input Table" is "vancouver_da_characteristics" and the "Join Table" is "ndvi_zonal_statistics". Select the correct keys to join the tables. This is a one-to-one join. Map the output, below is an example of average NDVI.
 
@@ -325,8 +319,7 @@ It is important to initially analyze our census characteristics $k$ to determine
     knitr::include_graphics("images/05-arcgis-exploratory-regression-results.png")
 ```
 
-**Q2. How did you evaluate the regression models and select your final model? Add a brief text describing the statistics that guided your decision**
-
+##### Q2. How did you evaluate the regression models and select your final model? Describe the statistics that guided your decision. (3 points) {-}
 
 **Step 7:** Once you have selected a model, write down the independent variables that are used in the model. Open the "Ordinary Least Squares (OLS)" tool. The "Input Feature Class" is "vancouver_da_characteristics", "Unique ID Field" is "vancouver_da_characteristcs.alt_geo_co", name the "Output Feature Class" as "ols_mean_ndvi", set the "Dependent Variable" to "ndvi_zonal_statistics.MEAN", and then select all of the independent variables that you wrote down from the last step. Run the tool, then click "View Details", select "Messages", and copy-paste the output to a notepad to reference it later in your deliverables. 
 
@@ -364,15 +357,15 @@ Your final task for this lab is to repeat Steps 8 and 9 of Task 1, but this time
 
 **Step 7:** Answer the following and previous questions in Canvas. Include the maps, tables, and figures generated in the previous steps.
 
-**Q3. Why did you select the 10 explanatory variables used in Task 3?**
+##### Q3. Why did you select the 10 explanatory variables used in Task 3? (2 points) {-}
 
-**Q4. Compare and contrast the different NDVI statistics used in this analysis. Which NDVI statistic produced the best-performing model and what evidence supports your conclusion?**
+##### Q4. Compare and contrast the different NDVI statistics used in this analysis. Which NDVI statistic produced the best-performing model and what evidence supports your conclusion? (3 points) {-}
 
-**Q5. Using the coefficient and standard error maps, interpret the spatial relationship between one independent variable and one NDVI statistic. What spatial patterns do you observe and what factors might explain them?**
+##### Q5. Using the coefficient and standard error maps, interpret the spatial relationship between one independent variable and one NDVI statistic. What spatial patterns do you observe and what factors might explain them? (5 points) {-}
 
-**Q6.  What can you conclude about green equity among dissemnination areas in Vancouver?**
+##### Q6. What can you conclude about green equity among dissemnination areas in Vancouver? (5 points) {-}
 
-**Q7.  What are your final recommendations to city council about green equity in Vancouver?**
+##### Q7. What are your final recommendations to city council about green equity in Vancouver? (5 points) {-}
 
 ------------------------------------------------------------------------
 
