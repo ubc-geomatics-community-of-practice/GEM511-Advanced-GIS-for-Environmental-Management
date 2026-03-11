@@ -63,7 +63,7 @@ The data for this lab are a Digital Elevation Model (DEM) of the Nahmint watersh
 
 ## Task 1: Prepare the DEM and Map Stream Networks {.unnumbered}
 
-**Step 1:** The following steps should largely be review from the previous terrain modelling assignment! First, you will need to open QGIS and connect to the `nahmint` database on the UBC PostgreSQL server and export the **Nahmint_DEM** layer as a GeoTiff to work with in ArcGIS Pro. **Set the NoData values as -9999 to 0 and the CRS as EPSG:3005**. 
+**Step 1:** Open QGIS and connect to the `nahmint` database on the UBC PostgreSQL server and export the **nahmint_dem** layer as a GeoTiff to work with in ArcGIS Pro.
 
 Open ArcGIS Pro and import the **Nahmint_DEM** GeoTiff you just created. We will do a few pre-processing steps before generating a stream network.
 
@@ -306,7 +306,7 @@ Inspect the output.
 
 Repeat the Buffer step for the Management Zone widths. That is, first create a new field that captures the Management Zone widths in the table above. Then calculate a new field that represents the total of the stream + reserve + management buffer and create a new buffer that uses this value.
 
-##### Q6. How much forest area is retained within the Riparian Reserve and Management Zones? (2 points)
+##### Q6. How much forest area is retained within the Riparian Reserve and Management Zones? (2 points) {.unnumbered}
 
 **Step 3:** Next, we will map watersheds. A watershed is an area of land where all the water that falls or flows into it converges to a common outlet, such as a river, lake, or ocean. It is bounded by a drainage divide, which is a boundary that separates water flowing into different watersheds.
 
@@ -333,7 +333,7 @@ The output will be a new raster where the cell values correspond to each unique 
 -   Z factor: 1
 -   Contour type: Contour
 
-##### Q7. Use the watershed map, contour lines and flow direction layers to assess how runoff from harvesting may impact stream networks. Reference specific areas/examples from the maps you created. Do you think the mapped RMAs provide adequate protection to streams in this area? Why or why not? (5 points)
+##### Q7. Use the watershed map, contour lines and flow direction layers to assess how runoff from harvesting may impact stream networks. Reference specific areas/examples from the maps you created. Do you think the mapped RMAs provide adequate protection to streams in this area? Why or why not? (5 points) {.unnumbered}
 
 ------------------------------------------------------------------------
 

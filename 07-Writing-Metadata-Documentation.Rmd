@@ -28,7 +28,7 @@ As you work through this lab, you should reference the UBC Library Research Comm
 
 ## Deliverables {#lab7-deliverables .unnumbered}
 
-The main deliverables for this lab will be uploading your final project data products, as well as an associated README, and metadata to the Scholars Portal Dataverse and also to the course management system. These metadata will be used to create the public page that features your project acheivements on the MGEM Project Library.
+The main deliverables for this lab will be uploading your final project data products, as well as an associated README, and metadata to the Scholars Portal Dataverse and also to the course management system. These metadata will be used to create the public page that features your project achievements on the MGEM Project Library.
 
 Answers to the metadata questions on the course management system (50 points):
 

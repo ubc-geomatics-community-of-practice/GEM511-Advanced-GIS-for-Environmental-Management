@@ -101,7 +101,7 @@ The data for this lab comes from several different sources, including the Landsa
 |                                                              |                                                                                                                                 |                 |
 |                                                              | Source: ClimateNA                                                                                                               |                 |
 +--------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+-----------------+
-| Summer Heat Moisture Index (SHM)                             | $\frac{mean\text{ }warmest\text{ }month\text{ }temperature}{\frac{May\text{ }to\text{ }September\text{ }precipitation}{1000} }$ | CNA_SHMz        |
+| Summer Heat Moisture Index (SHM)                             | $\frac{mean\text{ }warmest\text{ }month\text{ }temperature}{\frac{May\text{ }to\text{ }September\text{ }precipitation}{1000} }$ | CNA_SHM        |
 |                                                              |                                                                                                                                 |                 |
 |                                                              | Source: ClimateNA                                                                                                               |                 |
 +--------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+-----------------+
@@ -157,7 +157,15 @@ Next, we are going to use Exploratory Regression to determine which of our raste
     knitr::include_graphics("images/04-exploratory-regression.png")
 ```
 
-**Step 6:** Select the equation you think will work best for both "CROWN_CLOS" and "FUEL_TYPE". Remember to look at all the different measures of model "goodness" (R^2^, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
+**Step 6:** Select the equation you think will work best for "CROWN_CLOS". Remember to look at all the different measures of model "goodness" (R^2^, AIC, VIF, multicollinearity, etc.). Our variable rasters fall into three categories: terrain, spectral, and climate. Our final equation should include at least one variable from each category. Write down the variables from your chosen equation somewhere as you will have to re-enter them later.
+
+##### Q1. How many fuel types are in the VRI dataset? (2 points) {.unnumbered}
+
+##### Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (4 points) {.unnumbered}
+
+##### Table 1. Create a summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models. (5 points) {.unnumbered}
+
+##### Q3. Which model had the highest R² and which variables were selected for the final model? (4 points) {.unnumbered}
 
 **Q1. How many fuel types are in the VRI dataset? Which fuel type has the fewest points? (3 points)**
 
@@ -220,7 +228,7 @@ You now have three sampling sets to try your machine learning with!
 
 ## Task 3: Forest-Based Classification {.unnumbered}
 
-Our last task will be using the "Forest-based Classification and Regression" tool to run our machine learning. ESRI provides a helpful overview of the tool [here](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/how-forest-works.htm). 
+Our last task will be using the "Forest-based and Boosted Classification and Regression" tool to run our machine learning. ESRI provides a helpful overview of the tool [here](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/how-forest-works.htm). 
 
 We will be running it a total of nine times (three with FUEL_TYPE, six with CROWN_CLOS) and it can be slow, so please be patient and leave yourself lots of time.
 
@@ -246,12 +254,12 @@ You should now have three Random Forests outputs for fuel type from the three sa
 - stratified_output_FT
 - FIP_output_FT
 
-**HINT: Under the "Analysis" tab, view your tool "History". Double-click the "Forest-based Classification and Regression" tool and it will pop up in your geoprocessing pane with the same inputs and settings you used for that particular run -- this way, you can just edit the inputs that are changing between runs rather than having to reenter the settings each time.**
+**HINT: Under the "Analysis" tab, view your tool "History". Double-click the "Forest-based and Boosted Classification and Regression" tool and it will pop up in your geoprocessing pane with the same inputs and settings you used for that particular run -- this way, you can just edit the inputs that are changing between runs rather than having to reenter the settings each time.**
 
 
 **Step 3:** For CROWN_CLOS, instead of changing the sampling design, we are going to experiment with different parameter settings on the tool for a total of **6 runs** (three different parameters, two settings each).
 
-Open the "Forest-based Boosted Classification and Regression" tool again and set these inputs which will act as our control:
+Open the "Forest-based and Boosted Classification and Regression" tool again and set these inputs which will act as our control:
 
 -   **Prediction Type:** Predict to Raster
 -   **Input Training Features:** random_sample
@@ -265,7 +273,7 @@ Open the "Forest-based Boosted Classification and Regression" tool again and set
 
 Leave all other parameters as the default value or blank. Run the tool. When it is finished, click "View Details" and copy/paste the info under "Messages" into your text file.
 
-**Step 4:** We are going to run the "Forest-based Classification and Regression" tool six more times. For each time, the inputs should be identical to those in Step 3 except for a single parameter which we will change each time:
+**Step 4:** We are going to run the "Forest-based and Boosted Classification and Regression" tool six more times. For each time, the inputs should be identical to those in Step 3 except for a single parameter which we will change each time:
 
 -   **Run 1 of 6:** Change Advanced Forest Options \> Maximum Tree Depth to 5. Name the output "depth_5_output_CC"
 -   **Run 2 of 6:** Change Advanced Forest Options \> Maximum Tree Depth to 15. Name the output "depth_15_output_CC"

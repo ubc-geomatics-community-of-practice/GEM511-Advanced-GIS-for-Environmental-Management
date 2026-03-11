@@ -285,7 +285,7 @@ Claire Armour</p>
 <td>Summer Heat Moisture Index (SHM)</td>
 <td><p><span class="math inline">\(\frac{mean\text{ }warmest\text{ }month\text{ }temperature}{\frac{May\text{ }to\text{ }September\text{ }precipitation}{1000} }\)</span></p>
 <p>Source: ClimateNA</p></td>
-<td>CNA_SHMz</td>
+<td>CNA_SHM |</td>
 </tr>
 <tr class="odd">
 <td>Temperature Difference (TD)</td>
@@ -343,6 +343,7 @@ Claire Armour</p>
 <p><strong>Q2. What are the results of the spatial autocorrelation (SA) analysis? What do they indicate? Why was SA tested for CROWN_CLOS but not for FUEL_TYPE? (7 points)</strong></p>
 <p><strong>Q3. Create a summary table of the Exploratory Regression diagnostics (R², AIC, VIF, significance) for the three best models. Which model had the highest R² and which variables were selected for the final model? (8 points)</strong></p>
 <hr />
+</div>
 </div>
 <div id="task-2-sampling-for-training-datasets" class="section level2 unnumbered hasAnchor">
 <h2>Task 2: Sampling for Training Datasets<a href="machine-learning.html#task-2-sampling-for-training-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -429,6 +430,7 @@ Claire Armour</p>
 <p><strong>Q8. What are the strengths and limitations of using remote sensing, climate, and terrain data for predicting fuel types and crown closure? (5 points)</strong></p>
 <hr />
 </div>
+</div>
 <div id="summary-3" class="section level2 unnumbered hasAnchor">
 <h2>Summary<a href="machine-learning.html#summary-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are many things to consider when undertaking machine learning with geospatial data. Although we only practiced with the random forest algorithm, many of these considerations are important for other methods as well. Machine learning algorithms work well for large datasets where you can randomly apportion testing, training and validation datasets. When applying these algorithms to spatial data, we often need to consider data density in the spatial and sometimes temporal domains. Interrogating spatial and temporal autocorrelation can help to identify the appropriate sampling strategy for your problem. As you learned in this lab, even the type of variable that you are predicting (continuous vs discrete) can require completely different methods for data handling, testing, and validation. Keep in mind that most of the data pre-processing was removed from the lab (see <a href="machine-learning.html#lab4-data">Data</a>) so that you could focus on the analysis, though these efforts remain some of the most time-consuming to ensure a successful analysis.</p>
@@ -484,7 +486,7 @@ gitbook.start({
     "link": "https://github.com/ubc-geomatics-community-of-practice/GEM511-Advanced-GIS-for-Environmental-Management/blob/main/04-Machine-Learning.Rmd",
     "text": null
   },
-  "download": ["ubc-gem-511-advanced-gis-for-environmental-management.pdf"],
+  "download": null,
   "search": {
     "engine": "fuse",
     "options": null
