@@ -54,10 +54,10 @@ We will focus on Vancouver Island for a few reasons. First, islands make it poss
 
 ## Deliverables {#lab2-deliverables .unnumbered}
 
-<input type="checkbox" unchecked> Responses to the questions posed throughout the lab on the course management system (25 points)  
+<input type="checkbox" unchecked> Responses to the questions posed throughout the lab on the course management system (25 points)</input>
 
 <input type="checkbox" unchecked> Map panel (PDF or image) (15 points) 
-Submit a panel of maps for **one conservation unit only**, including:
+Submit a panel of maps for **one conservation unit only**, including:</input>
 
 - Stream routes symbolized by reachability from the ocean 
 - Dams represented as barriers  
@@ -65,7 +65,7 @@ Submit a panel of maps for **one conservation unit only**, including:
 - A zoomed-in map highlighting Lake Cowichan  
 - Basic map elements (title, legend, scale bar)
 
-<input type="checkbox" unchecked> Summary table (PDF, image, or text) (10 points)  
+<input type="checkbox" unchecked> Summary table (PDF, image, or text) (10 points)</input>
 
 - Total number of accessible Streams
 - Total number of inaccessible Streams
