@@ -23,7 +23,7 @@
 <meta name="author" content="Paul D. Pickell" />
 
 
-<meta name="date" content="2026-03-11" />
+<meta name="date" content="2026-03-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -395,7 +395,7 @@ Paul Pickell</p>
 <h2>Task 2: Visualize LiDAR data in QGIS<a href="terrain-spatial-interpolation.html#task-2-visualize-lidar-data-in-qgis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The default symbology of LiDAR data in QGIS will be the classification, but we only have ground returns in our file, so everything will appear brown. Try symbolizing some of the other attributes like Intensity, ReturnNumber, and ScanAngleRank.</p>
 <p><img src="images/01-ground.png" width="75%" /></p>
-<p><strong>Step 1:</strong> Right-click the <strong>mkrf_aoi_lidar</strong> layer, open “Properties”, select “Symbology” from the left, and then select “Attribute by Ramp” from the very top drop-down menu. Then choose your attribute and apply your symbology parameters. Make some notes of your observations for these attributes that you can reference in your report.</p>
+<p><strong>Step 1:</strong> Right-click the <strong>mkrf_aoi_lidar</strong> layer, open “Properties”, select “Symbology” from the left, and then select “Attribute by Ramp” from the very top drop-down menu. Then choose your attribute and apply your symbology parameters.</p>
 <p>2D is a very boring way to visualize point cloud data, so let’s create a 3D map view in QGIS.</p>
 <p><strong>Step 2:</strong> From the top menu, select “View”, then “3D map views”, and click “New 3D Map View”. A small window will appear. Click and drag it to the top of your map canvas to dock it and make it larger.</p>
 <p><img src="images/01-qgis-dock-3d-map-view.gif" width="100%" /></p>
@@ -421,7 +421,7 @@ Paul Pickell</p>
 <h3>Scroll: Move camera position to/from the cursor location<a href="terrain-spatial-interpolation.html#scroll-move-camera-position-tofrom-the-cursor-location" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you want to move towards some feature, then simply point your cursor at it and scroll without clicking. This movement is akin to traversing a ray that connects your current camera position with a look direction angle (relative to X-Y-Z). Scrolling therefore changes the camera position and elevation. Scrolling down has the effect of “zooming in” while scrolling up has the effect of “zooming out”. Be careful, though, because scrolling will always follow the current position of the cursor, so if you scroll down on one position and then move your cursor and scroll up, your camera position will not be where it started.</p>
 <p><img src="images/01-qgis-scroll.gif" width="100%" /></p>
-<p><strong>Step 4:</strong> Practice navigating in 3D and observing the different attributes across the ground surface. Make some notes of your observations for your report. There is a button on the top of the 3D map view to save an image of any given view.</p>
+<p><strong>Step 4:</strong> Practice navigating in 3D and observing the different attributes across the ground surface. There is a button on the top of the 3D map view to save an image of any given view.</p>
 <hr />
 </div>
 </div>
@@ -477,17 +477,13 @@ Paul Pickell</p>
 <h5>Table that shows zonal statistics of the difference rasters across elevation and slope ranges of the binned DEM (10 points)<a href="terrain-spatial-interpolation.html#table-that-shows-zonal-statistics-of-the-difference-rasters-across-elevation-and-slope-ranges-of-the-binned-dem-10-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p><strong>Step 6:</strong> Create a final map with the following elements:</p>
 <ul>
-<li>Each of the interpolated surfaces and difference rasters (6 total)
-<ul>
+<li>Each of the interpolated surfaces and difference rasters (6 total)</li>
 <li>The interpolated surfaces should be symbolized using <strong>Shaded Relief</strong> symbology</li>
-</ul></li>
-<li>Summary statistics showing the mean and standard deviation across slope and elevation zones</li>
 <li>North arrow and appropriate labels for each map panel</li>
 </ul>
 </div>
 <div id="a-panel-of-maps-that-symbolizes-the-dems-produced-and-the-difference-rasters-that-were-produced-by-the-comparison-to-the-binning-approach-15-points" class="section level5 unnumbered hasAnchor">
 <h5>A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach (15 points)<a href="terrain-spatial-interpolation.html#a-panel-of-maps-that-symbolizes-the-dems-produced-and-the-difference-rasters-that-were-produced-by-the-comparison-to-the-binning-approach-15-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<p>Note that you can add standalone tables to your Map Layout by first clicking on the table in the Contents pane then Insert &gt; Table Frame. Click and drag to set the extent of the table on the map, (similar to how you add a Map Frame).</p>
 </div>
 <div id="q5.-which-spatial-interpolation-algorithm-would-you-recommend-the-research-forest-use-defend-and-justify-your-choice.-5-points" class="section level5 unnumbered hasAnchor">
 <h5>Q5. Which spatial interpolation algorithm would you recommend the research forest use? Defend and justify your choice. (5 points)<a href="terrain-spatial-interpolation.html#q5.-which-spatial-interpolation-algorithm-would-you-recommend-the-research-forest-use-defend-and-justify-your-choice.-5-points" class="anchor-section" aria-label="Anchor link to header"></a></h5>
@@ -496,7 +492,7 @@ Paul Pickell</p>
 </div>
 <div id="task-5-visualize-3d-data-in-arcgis-pro" class="section level2 unnumbered hasAnchor">
 <h2>Task 5: Visualize 3D data in ArcGIS Pro<a href="terrain-spatial-interpolation.html#task-5-visualize-3d-data-in-arcgis-pro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this last brief task are some instructions for visualizing the point cloud and interpolated DEM surfaces in ArcGIS Pro. You can produce and export some 3D scenes that may help to illustrate your observations in your report.</p>
+<p>In this last brief task are some instructions for visualizing the point cloud and interpolated DEM surfaces in ArcGIS Pro.</p>
 <p><strong>Step 1:</strong> In ArcGIS Pro, click the “Insert” tab, click and expand “New Map”, and select “New Local Scene”.</p>
 <p><strong>Step 2:</strong> Add the “mkrf_aoi_lidar.las” file to the scene. Navigating an ArcGIS Pro scene is nearly the same as it is in QGIS. Though, instead of using keys on the keyboard to toggle between the different camera axes to manipulate, ArcGIS Pro provides an on-screen navigator in the bottom left. In this way, you can manipulate an ArcGIS Pro scene using just your mouse.</p>
 <p><img src="images/01-arcgis-scene-navigation.gif" width="100%" /></p>
@@ -510,7 +506,8 @@ Paul Pickell</p>
 </div>
 <div id="summary" class="section level2 unnumbered hasAnchor">
 <h2>Summary<a href="terrain-spatial-interpolation.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We covered a lot of ground in this lab about LiDAR processing with GIS software. One thing that should be apparent is that the vast majority of your time will be spent preparing LiDAR data for analysis. Point clouds are dense. Advances in scanning technology are creating new challenges for managing, accessing, organizing, and manipulating these dense data. Remember, we always want to work with the least amount of LiDAR data that our task requires. For spatial interpolation of terrain, this means only working with the necessary ground returns in our AOI. By filtering the tiles and points to only those we needed for the interpolation task, we reduced our data overhead by over 650%!
+<p>We covered a lot of ground in this lab about LiDAR processing with GIS software. One thing that should be apparent is that the vast majority of your time will be spent p
+reparing LiDAR data for analysis. Point clouds are dense. Advances in scanning technology are creating new challenges for managing, accessing, organizing, and manipulating these dense data. Remember, we always want to work with the least amount of LiDAR data that our task requires. For spatial interpolation of terrain, this means only working with the necessary ground returns in our AOI. By filtering the tiles and points to only those we needed for the interpolation task, we reduced our data overhead by over 650%!
 You also practiced evaluating different spatial interpolation algorithms, which can have a large impact on subsequent analyses with those surfaces. When choosing an interpolation algorithm, you must always consider how dense your data are (i.e., how long will it take for me to produce this surface), what properties you want the output surface to have (i.e., statistical intervals, reproducing the true ranges, etc.), and what the surface will be used for (i.g., hydrology mapping, suitability analysis, etc.). Finally, you also practiced visualizing 3D data to augment and enhance your interpretations of these 2D interpolated surfaces.</p>
 <p>Return to the <a href="terrain-spatial-interpolation.html#lab1-deliverables"><strong>Deliverables</strong></a> section to check off everything you need to submit for credit in the course management system.</p>
 
