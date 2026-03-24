@@ -227,7 +227,7 @@ The default symbology of LiDAR data in QGIS will be the classification, but we o
     knitr::include_graphics("images/01-ground.png")
 ```
 
-**Step 1:** Right-click the **mkrf_aoi_lidar** layer, open "Properties", select "Symbology" from the left, and then select "Attribute by Ramp" from the very top drop-down menu. Then choose your attribute and apply your symbology parameters. Make some notes of your observations for these attributes that you can reference in your report.
+**Step 1:** Right-click the **mkrf_aoi_lidar** layer, open "Properties", select "Symbology" from the left, and then select "Attribute by Ramp" from the very top drop-down menu. Then choose your attribute and apply your symbology parameters.
 
 2D is a very boring way to visualize point cloud data, so let's create a 3D map view in QGIS.
 
@@ -301,7 +301,7 @@ if (knitr:::is_latex_output()) {
 }
 ```
 
-**Step 4:** Practice navigating in 3D and observing the different attributes across the ground surface. Make some notes of your observations for your report. There is a button on the top of the 3D map view to save an image of any given view.
+**Step 4:** Practice navigating in 3D and observing the different attributes across the ground surface. There is a button on the top of the 3D map view to save an image of any given view.
 
 ------------------------------------------------------------------------
 
@@ -404,7 +404,7 @@ Note that you can add standalone tables to your Map Layout by first clicking on 
 
 ## Task 5: Visualize 3D data in ArcGIS Pro {.unnumbered}
 
-In this last brief task are some instructions for visualizing the point cloud and interpolated DEM surfaces in ArcGIS Pro. You can produce and export some 3D scenes that may help to illustrate your observations in your report.
+In this last brief task are some instructions for visualizing the point cloud and interpolated DEM surfaces in ArcGIS Pro.
 
 **Step 1:** In ArcGIS Pro, click the "Insert" tab, click and expand "New Map", and select "New Local Scene".
 
@@ -436,7 +436,8 @@ The white background might make it difficult to observe the differences. You can
 
 ## Summary {.unnumbered}
 
-We covered a lot of ground in this lab about LiDAR processing with GIS software. One thing that should be apparent is that the vast majority of your time will be spent preparing LiDAR data for analysis. Point clouds are dense. Advances in scanning technology are creating new challenges for managing, accessing, organizing, and manipulating these dense data. Remember, we always want to work with the least amount of LiDAR data that our task requires. For spatial interpolation of terrain, this means only working with the necessary ground returns in our AOI. By filtering the tiles and points to only those we needed for the interpolation task, we reduced our data overhead by over 650%! 
+We covered a lot of ground in this lab about LiDAR processing with GIS software. One thing that should be apparent is that the vast majority of your time will be spent p
+reparing LiDAR data for analysis. Point clouds are dense. Advances in scanning technology are creating new challenges for managing, accessing, organizing, and manipulating these dense data. Remember, we always want to work with the least amount of LiDAR data that our task requires. For spatial interpolation of terrain, this means only working with the necessary ground returns in our AOI. By filtering the tiles and points to only those we needed for the interpolation task, we reduced our data overhead by over 650%! 
 You also practiced evaluating different spatial interpolation algorithms, which can have a large impact on subsequent analyses with those surfaces. When choosing an interpolation algorithm, you must always consider how dense your data are (i.e., how long will it take for me to produce this surface), what properties you want the output surface to have (i.e., statistical intervals, reproducing the true ranges, etc.), and what the surface will be used for (i.g., hydrology mapping, suitability analysis, etc.). Finally, you also practiced visualizing 3D data to augment and enhance your interpretations of these 2D interpolated surfaces.
 
 Return to the [**Deliverables**](#lab1-deliverables) section to check off everything you need to submit for credit in the course management system.
