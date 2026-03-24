@@ -390,13 +390,10 @@ We will use these reclassified areas as zones to calculate statistics about the 
 **Step 6:** Create a final map with the following elements: 
 
 - Each of the interpolated surfaces and difference rasters (6 total)
-     - The interpolated surfaces should be symbolized using **Shaded Relief** symbology
-- Summary statistics showing the mean and standard deviation across slope and elevation zones
+- The interpolated surfaces should be symbolized using **Shaded Relief** symbology
 - North arrow and appropriate labels for each map panel
 
 ##### A panel of maps that symbolizes the DEMs produced and the difference rasters that were produced by the comparison to the binning approach (15 points) {.unnumbered}
-
-Note that you can add standalone tables to your Map Layout by first clicking on the table in the Contents pane then Insert > Table Frame. Click and drag to set the extent of the table on the map, (similar to how you add a Map Frame).
 
 ##### Q5. Which spatial interpolation algorithm would you recommend the research forest use? Defend and justify your choice. (5 points) {.unnumbered}
 
